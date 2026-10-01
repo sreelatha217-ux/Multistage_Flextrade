@@ -1,0 +1,99 @@
+# =============================================================================
+# prosumer_opt - default configuration
+# Every value below equals the built-in default (see prosumer_opt/constants.py),
+# so running with or without this file gives identical results. Copy it, change
+# what you need, and pass it with:  python -m prosumer_opt --config my.yaml
+# Units: power MW | energy MWh | time h | money EUR (EUR/MWh for prices)
+# Unknown keys are rejected, so typos never pass silently.
+# =============================================================================
+
+time:
+  horizon_h: 24.0          # must be an integer multiple of dt_h
+  dt_h: 1.0
+
+grid:                      # point of common coupling (substation line cap)
+  import_limit_mw: 400.0
+  export_limit_mw: 400.0
+
+microturbine:
+  p_min_mw: 10.0           # minimum stable output when committed
+  p_max_mw: 25.0
+  ramp_up_mw_h: 20.0
+  ramp_down_mw_h: 20.0
+  startup_ramp_mw_h: 20.0
+  shutdown_ramp_mw_h: 20.0
+  startup_cost_eur: 87.40
+  shutdown_cost_eur: 8.74
+  min_up_h: 4.0
+  min_down_h: 2.0
+  # Piecewise-linear fuel curve from 0 MW upward: [width MW, marginal EUR/MWh].
+  # Marginal costs must be non-decreasing (convex) so the cost stays an LP.
+  cost_blocks: [[5.30, 48.41], [7.20, 48.78], [7.20, 51.84], [5.30, 55.40]]
+
+bess:
+  profile: large           # large (40 MW / 200 MWh) | medium (2 MW / 4 MWh)
+  # Any BESSParams field can be overridden on top of the profile, e.g.:
+  # throughput_cost_eur_mwh: 30.0   # cell degradation cost, skill range 20 - 50
+  # eta_ch: 0.80
+  # eta_dis: 0.95
+  # terminal_soc_mwh: 20.0          # default: return to soc_init
+  # enforce_exclusivity: true       # binaries forbid simultaneous charge/discharge
+
+# Explicit plant data. Leave commented out to use the seeded demo factory below.
+# See configs/custom_factory.yaml for a complete example.
+# factory:
+#   jobs: [...]
+
+demo_factory:              # used only when `factory` is not given
+  seed: 7
+  n_machines: 5
+  jobs_per_machine: 2
+  duration_range_h: [1.5, 4.9]
+  power_range_mw: [60.0, 110.0]
+  units_out: 100.0
+  shift_window_h: 2.0      # intraday batch shift window, 0 disables load shifting
+  demand_units_per_h: 25.0
+  demand_window_h: [8.0, 24.0]
+  base_load_off_shift_mw: 3.0
+  base_load_on_shift_mw: 4.5
+  on_shift_window_h: [8.0, 18.0]
+
+scenarios:                 # synthetic day-ahead / intraday / real-time scenario tree
+  n_id_scenarios: 5
+  n_rt_branches: 3
+  seed: 11
+  sell_ratio: 0.55         # sell price = ratio * buy price
+  da_ar_coeff: 0.70        # AR(1) persistence of day-ahead price shocks
+  da_sigma: 0.10
+  id_sigma: 0.06
+  load_sigma: 0.03
+  r_minus_base: 1.10       # shortfall penalty ratio >= 1
+  r_minus_spread: 0.25
+  r_plus_base: 0.90        # surplus discount ratio <= 1
+  r_plus_spread: 0.25
+
+intraday:                  # intraday re-optimisation demo
+  step: 10                 # re-optimise from this step; 0 skips the intraday stage
+  seed: 99
+  spike: 1.4               # ID price multiplier after `step`
+  price_noise_sigma: 0.05
+  load_dev_sigma: 0.02
+  sell_ratio: 0.55
+  rt_branches:             # [probability, mean load deviation, r_minus, r_plus]
+    - [0.5, 0.02, 1.2, 0.8]
+    - [0.5, -0.02, 1.3, 0.7]
+
+solver:
+  name: appsi_highs        # appsi_highs | appsi_gurobi | gurobi | cplex | cbc | glpk
+  mip_gap: 0.0001          # 0.01 %  (skill recommendation)
+  time_limit_s: 300.0
+  threads: null
+  verbose: false
+  extra_options: {}
+
+output:
+  directory: results
+  save: true               # write CSV / JSON tables
+  save_config: true        # also write config_used.json next to the results
+
+log_level: INFO

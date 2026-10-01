@@ -1,0 +1,22 @@
+# Overrides only: everything not listed keeps its default.
+# Medium-scale battery, half-hourly resolution, tighter scenario tree, faster solve.
+time:
+  dt_h: 0.5
+
+bess:
+  profile: medium
+  throughput_cost_eur_mwh: 40.0
+
+scenarios:
+  n_id_scenarios: 3
+  n_rt_branches: 2
+
+intraday:
+  step: 20                 # step 20 at dt = 0.5 h is hour 10
+
+solver:
+  mip_gap: 0.001
+  time_limit_s: 120.0
+
+output:
+  directory: results/medium_bess
