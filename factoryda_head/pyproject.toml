@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "factory-da-scheduler"
+version = "1.0.0"
+description = "MILP day-ahead batch scheduling for industrial factories"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=1.5",
+    "pyomo>=6.7",
+    "highspy>=1.7",
+    "matplotlib>=3.10.9",
+]
+
+[project.optional-dependencies]
+plot = ["matplotlib>=3.7"]
+test = ["pytest>=7.4"]
+
+[project.scripts]
+factory-da = "factory_da.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", "src"]
