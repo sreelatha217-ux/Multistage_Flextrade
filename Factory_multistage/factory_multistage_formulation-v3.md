@@ -1,6 +1,6 @@
 # Three-Stage Stochastic MILP for an Industrial Factory with Microturbine and BESS (Day-Ahead, Intraday, Real-Time Balancing), v3
 
-Version 3 replaces `factory_multistage_intraday_formulation-v2.md`. It is the formulation implemented by `factory_mt_da_scheduler.py`, `factory_mt_id_scheduler.py` and `factory_mt_rt_scheduler.py`. All money is in EUR.
+Version 3 replaces `factory_multistage_intraday_formulation-v2.md`. It is the formulation implemented in `src/factory_multistage/`; the `factory_mt_da_scheduler.py`, `factory_mt_id_scheduler.py`, and `factory_mt_rt_scheduler.py` files are compatibility launchers. All money is in EUR.
 
 ## 0. Corrections relative to v2
 
@@ -151,3 +151,7 @@ These are not errors in v2, and they are not fixed here.
 Only if day-ahead prices are scenario-dependent, λ^{DA}_t(ω), and P^{DA}_t(ω) is allowed to vary with ω:
 $$P^{DA,buy}_t(\omega_1) \le P^{DA,buy}_t(\omega_2)\ \text{ if } \lambda^{DA}_t(\omega_1) \le \lambda^{DA}_t(\omega_2),\qquad P^{DA,buy}_t(\omega_1) = P^{DA,buy}_t(\omega_2)\ \text{ if } \lambda^{DA}_t(\omega_1) = \lambda^{DA}_t(\omega_2)$$
 The first condition makes the bid curve a valid market offer. The second ties scenarios with equal prices together. With deterministic DA prices, as in this model, both hold by construction.
+
+## 11. Package setup
+
+From this directory, install the package and test dependencies with `uv sync --extra test`. Run `uv run factory-mt-da`, `uv run factory-mt-id`, or `uv run factory-mt-rt`; the RT command also provides `--selftest` for solver-backed consistency checks.

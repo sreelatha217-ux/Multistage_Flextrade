@@ -1,0 +1,47 @@
+{
+  "version": "1.0.0",
+  "status": "optimal",
+  "expected_cost_eur": 138801.59516401152,
+  "mip_gap": 0.007593707623881256,
+  "solve_time_s": 20.334692395000275,
+  "model_stats": {
+    "variables": 7706,
+    "binaries": 6554,
+    "constraints": 1911
+  },
+  "kpis": {
+    "n_scenarios": 3.0,
+    "n_rt": 3.0,
+    "n_joint": 9.0,
+    "n_batches": 17.0,
+    "units_produced": 193.0,
+    "da_cost_eur": 71999.77478793981,
+    "da_buy_mwh": 1333.1879155859779,
+    "da_sell_mwh": 177.25419866995531,
+    "exp_id_cost_eur": 31135.04116817852,
+    "exp_id_buy_mwh": 619.7378534153138,
+    "exp_id_sell_mwh": 106.35815295397697,
+    "exp_mt_cost_eur": 29154.736,
+    "exp_bess_deg_eur": 1188.45930896701,
+    "exp_bess_throughput_mwh": 237.69186179340198,
+    "exp_bal_cost_eur": 5323.583898926195,
+    "bal_cost_share_pct": 3.835391007312064,
+    "exp_deficit_mwh": 67.74513797527453,
+    "exp_surplus_mwh": 6.712695411108977,
+    "exp_abs_imbalance_mwh": 74.4578333863835,
+    "planned_imbalance_mwh": 64.00514011821076,
+    "mt_on_hours": 24.0,
+    "mt_starts": 1.0,
+    "cost_mean_eur": 138801.5951640115,
+    "cost_std_eur": 3624.356863879886,
+    "cost_cvar95_eur": 144619.0414242143,
+    "cost_min_eur": 133667.6403674546,
+    "cost_max_eur": 144619.0414242143
+  },
+  "verification": {
+    "passed": true,
+    "issues": [],
+    "recomputed_cost_eur": 138801.59516401152
+  },
+  "vss_rt": null
+}

@@ -246,3 +246,7 @@ Real imbalance prices depend on the system direction. Replace the independent dr
 1. **Modeling Framework:** Formulate in **Pyomo (Python)** or **GAMS** as a Mixed-Integer Linear Program (MILP).
 2. **Solvers:** Compatible with commercial solvers (**CPLEX**, **Gurobi**) or open-source solvers (**CBC**, **HiGHS**).
 3. **Optimality Gap:** Recommended relative MIP gap tolerance set to $\le 0.01\%$ for exact global scheduling.
+
+## 5. Reference implementation
+
+The package implementation is organized under `src/factory_multistage/`, with separate data, model, solver, result, and CLI modules for each market stage. From this directory, install the package with `uv sync --extra test`; run `uv run factory-mt-da`, `uv run factory-mt-id`, or `uv run factory-mt-rt`. The original `factory_mt_*_scheduler.py` files remain compatibility launchers.

@@ -1,0 +1,39 @@
+{
+  "version": "1.0.0",
+  "status": "optimal",
+  "expected_cost_eur": 138158.82838432817,
+  "mip_gap": 0.007310140755859462,
+  "solve_time_s": 11.476871834000121,
+  "model_stats": {
+    "variables": 7274,
+    "binaries": 6554,
+    "constraints": 1335
+  },
+  "kpis": {
+    "n_scenarios": 3.0,
+    "n_batches": 17.0,
+    "units_produced": 193.0,
+    "da_cost_eur": 72749.6172,
+    "da_buy_mwh": 1345.2199999999998,
+    "da_sell_mwh": 177.8,
+    "exp_id_cost_eur": 35061.420587836976,
+    "exp_id_buy_mwh": 662.5233333333333,
+    "exp_id_sell_mwh": 99.47214736842079,
+    "exp_mt_cost_eur": 29154.736,
+    "exp_bess_deg_eur": 1193.0545964912276,
+    "exp_mt_energy_mwh": 591.6666666666666,
+    "exp_bess_throughput_mwh": 238.61091929824553,
+    "mt_on_hours": 24.0,
+    "mt_starts": 1.0,
+    "cost_mean_eur": 138158.82838432817,
+    "cost_std_eur": 3235.248408863421,
+    "cost_min_eur": 133878.75256053836,
+    "cost_max_eur": 141699.20968537353
+  },
+  "verification": {
+    "passed": true,
+    "issues": [],
+    "recomputed_cost_eur": 138158.82838432817
+  },
+  "vss": null
+}

@@ -1,0 +1,40 @@
+{
+  "benchmark": {
+    "seed": 2024,
+    "max_batches": 10,
+    "with_mt": true,
+    "with_bess": true
+  },
+  "scheduler": {
+    "start_step_h": 0.5,
+    "unique_tasks": true
+  },
+  "solver": {
+    "name": "appsi_highs",
+    "mip_gap": 0.001,
+    "time_limit_s": 300.0,
+    "threads": null,
+    "verbose": false
+  },
+  "intraday": {
+    "cap_buy_mw": 100.0,
+    "cap_sell_mw": 100.0,
+    "scenarios": 10,
+    "scenario_seed": 7,
+    "price_sigma": 0.15,
+    "level_sigma": 0.05,
+    "load_sigma_mw": 0.0
+  },
+  "realtime": {
+    "scenarios": 5,
+    "seed": 11,
+    "load_sigma": 0.03,
+    "load_rho": 0.6,
+    "premium": 0.25,
+    "discount": 0.25,
+    "ratio_sigma": 0.3,
+    "imbalance_mode": "strategic",
+    "exclusive": false,
+    "max_imbalance_mw": null
+  }
+}
