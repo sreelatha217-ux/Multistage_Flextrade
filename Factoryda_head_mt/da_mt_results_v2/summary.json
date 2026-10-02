@@ -1,0 +1,48 @@
+{
+  "version": "3.0.0",
+  "status": "optimal",
+  "objective_eur": 139377.0062,
+  "mip_gap": 0.0,
+  "solve_time_s": 6.885482210999953,
+  "model_stats": {
+    "variables": 6578,
+    "binaries": 6410,
+    "constraints": 564
+  },
+  "kpis": {
+    "n_batches": 17.0,
+    "units_produced": 193.0,
+    "total_load_mwh": 2289.6,
+    "grid_buy_energy_mwh": 1938.21,
+    "grid_sell_energy_mwh": 243.60999999999999,
+    "grid_energy_mwh": 1938.21,
+    "mt_energy_mwh": 594.9999999999999,
+    "mt_share_pct": 25.98707197763801,
+    "batch_energy_mwh": 2205.6000000000004,
+    "grid_cost_eur": 110049.4702,
+    "grid_buy_cost_eur": 129935.67480000001,
+    "grid_sell_revenue_eur": 19886.204599999997,
+    "mt_fuel_cost_eur": 29240.135999999995,
+    "mt_startstop_cost_eur": 87.4,
+    "mt_starts": 1.0,
+    "mt_stops": 0.0,
+    "mt_on_hours": 24.0,
+    "mt_avg_fuel_cost_eur_mwh": 49.14308571428572,
+    "avg_cost_per_mwh": 60.87395448986723,
+    "peak_grid_mw": 381.83,
+    "peak_export_mw": 22.47,
+    "peak_load_mw": 406.83,
+    "load_factor": 0.21150446533797765,
+    "cost_per_unit": 722.1606538860104,
+    "grid_only_same_schedule_eur": 161084.5884,
+    "mt_saving_eur": 21707.582200000004,
+    "baseline_asap_cost_eur": 252080.06220000001,
+    "saving_vs_asap_pct": 44.709230478760176,
+    "final_inventory": 50.99999999999999
+  },
+  "verification": {
+    "passed": true,
+    "issues": [],
+    "recomputed_cost_eur": 139377.0062
+  }
+}

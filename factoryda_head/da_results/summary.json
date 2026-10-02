@@ -3,7 +3,7 @@
   "status": "optimal",
   "objective_eur": 159352.42859999987,
   "mip_gap": 2.741630331644467e-05,
-  "solve_time_s": 3.172100807000106,
+  "solve_time_s": 3.1070219179996457,
   "model_stats": {
     "variables": 6386,
     "binaries": 6338,

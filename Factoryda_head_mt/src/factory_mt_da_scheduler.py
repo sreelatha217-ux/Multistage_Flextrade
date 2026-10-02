@@ -1,9 +1,4 @@
-"""Backward-compatible imports and CLI entry point for the v2 scheduler."""
-
-import sys
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).resolve().parent / "src"))
+"""Installed compatibility module forwarding to the current v2 scheduler."""
 
 from factory_mt_da_scheduler_v2 import (
     Candidate,
@@ -60,7 +55,6 @@ __all__ = [
     "tou_price_vectors",
     "verify",
 ]
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

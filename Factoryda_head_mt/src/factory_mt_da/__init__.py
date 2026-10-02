@@ -1,37 +1,22 @@
-"""Backward-compatible imports and CLI entry point for the v2 scheduler."""
+"""Day-ahead MILP scheduler for industrial production with a microturbine."""
 
-import sys
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).resolve().parent / "src"))
-
-from factory_mt_da_scheduler_v2 import (
-    Candidate,
+from ._internal import __version__
+from .benchmark import make_benchmark_instance, tou_price_vector
+from .candidates import Candidate, build_candidates
+from .data import Instance, Microturbine, SchedulerConfig, SchedulingResult, SolverSettings
+from .exceptions import (
     InfeasibleScheduleError,
-    Instance,
     InstanceValidationError,
-    Microturbine,
-    SchedulerConfig,
     SchedulingError,
-    SchedulingResult,
     SolveFailedError,
-    SolverSettings,
     SolverUnavailableError,
     VerificationError,
-    __version__,
-    build_candidates,
-    build_model,
-    extract_result,
-    hhmm,
-    main,
-    make_benchmark_instance,
-    mt_fuel_cost_by_hour,
-    optimize_day_ahead,
-    plot_schedule,
-    solve_model,
-    tou_price_vectors,
-    verify,
 )
+from .model import build_model
+from .optimizer import optimize_day_ahead
+from .plotting import plot_schedule
+from .results import extract_result, hhmm, mt_fuel_cost_by_hour, verify
+from .solver import solve_model
 
 __all__ = [
     "Candidate",
@@ -51,16 +36,11 @@ __all__ = [
     "build_model",
     "extract_result",
     "hhmm",
-    "main",
     "make_benchmark_instance",
     "mt_fuel_cost_by_hour",
     "optimize_day_ahead",
     "plot_schedule",
     "solve_model",
-    "tou_price_vectors",
+    "tou_price_vector",
     "verify",
 ]
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())
