@@ -1,0 +1,50 @@
+{
+  "benchmark": {
+    "seed": 2024,
+    "n_tasks": 30,
+    "max_batches": 10,
+    "with_mt": true,
+    "with_bess": true
+  },
+  "scheduler": {
+    "start_step_h": 0.5,
+    "unique_tasks": true,
+    "strict_verification": true
+  },
+  "solver": {
+    "name": "appsi_highs",
+    "mip_gap": 0.0001,
+    "time_limit_s": 180.0,
+    "threads": null,
+    "verbose": false
+  },
+  "microturbine": {
+    "p_min_mw": 10.0,
+    "p_max_mw": 25.0,
+    "ramp_up_mw_h": 20.0,
+    "ramp_down_mw_h": 20.0,
+    "startup_ramp_mw_h": 20.0,
+    "shutdown_ramp_mw_h": 20.0,
+    "startup_cost_eur": 87.4,
+    "shutdown_cost_eur": 8.74,
+    "min_up_h": 4,
+    "min_down_h": 2,
+    "block_width_mw": [5.3, 4.7, 5.0],
+    "block_cost_eur_mwh": [48.41, 48.78, 51.84],
+    "base_cost_eur_mwh": 48.41,
+    "initial_on": false,
+    "initial_power_mw": 0.0
+  },
+  "bess": {
+    "p_max_mw": 40.0,
+    "e_max_mwh": 200.0,
+    "soc_min_frac": 0.1,
+    "soc_max_frac": 0.9,
+    "soc_init_mwh": 20.0,
+    "eta_ch": 0.8,
+    "eta_dis": 0.95,
+    "degradation_eur_mwh": 35.0,
+    "degradation_basis": "throughput",
+    "enforce_exclusive": true
+  }
+}

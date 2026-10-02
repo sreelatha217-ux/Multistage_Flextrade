@@ -5,7 +5,7 @@ description: Corrected MILP model for Industrial Factory Batch Scheduling, Micro
 
 # SKILL: Factory, Microturbine & BESS Day-Ahead Energy Scheduling (v6 - Corrected)
 
-Mixed-Integer Linear Programming (MILP) model that co-optimizes an **industrial batch manufacturing schedule**, an on-site **Microturbine (MT)** and a **Battery Energy Storage System (BESS)** in the **Day-Ahead (DA) market** with **bidirectional grid trading** and **BESS throughput degradation**. All money is in **Euros (€)**. Reference implementation: `factory_mt_da_scheduler.py` (v4.0.0, Pyomo + HiGHS).
+Mixed-Integer Linear Programming (MILP) model that co-optimizes an **industrial batch manufacturing schedule**, an on-site **Microturbine (MT)** and a **Battery Energy Storage System (BESS)** in the **Day-Ahead (DA) market** with **bidirectional grid trading** and **BESS throughput degradation**. All money is in **Euros (€)**. Reference implementation: `factory_mt_bess_da_scheduler.py` / `factory-mt-bess-da` (v4.0.0, modular Pyomo + HiGHS package).
 
 ---
 

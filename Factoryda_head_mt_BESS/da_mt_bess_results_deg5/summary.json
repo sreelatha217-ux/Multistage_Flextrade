@@ -1,0 +1,53 @@
+{
+  "version": "4.0.0",
+  "status": "optimal",
+  "objective_eur": 139349.499384,
+  "mip_gap": 2.0299822480598693e-05,
+  "solve_time_s": 9.006229570999494,
+  "model_stats": {
+    "variables": 6698,
+    "binaries": 6458,
+    "constraints": 661
+  },
+  "kpis": {
+    "n_batches": 17.0,
+    "units_produced": 193.0,
+    "total_load_mwh": 2289.6000000000004,
+    "grid_buy_energy_mwh": 1932.4800000000002,
+    "grid_sell_energy_mwh": 216.10479999999995,
+    "grid_energy_mwh": 1932.4800000000002,
+    "mt_energy_mwh": 595.0,
+    "mt_share_pct": 25.98707197763801,
+    "batch_energy_mwh": 2205.6000000000004,
+    "grid_cost_eur": 109223.53938400003,
+    "grid_buy_cost_eur": 129555.08820000003,
+    "grid_sell_revenue_eur": 20331.548816,
+    "mt_fuel_cost_eur": 29240.136000000002,
+    "mt_startstop_cost_eur": 87.4,
+    "mt_starts": 1.0,
+    "mt_stops": 0.0,
+    "mt_on_hours": 24.0,
+    "mt_avg_fuel_cost_eur_mwh": 49.14308571428572,
+    "avg_cost_per_mwh": 60.86194068134171,
+    "peak_grid_mw": 363.43,
+    "peak_export_mw": 60.63000000000001,
+    "peak_load_mw": 388.43,
+    "load_factor": 0.22155573287840852,
+    "cost_per_unit": 722.018131523316,
+    "bess_charge_mwh": 90.7299999999999,
+    "bess_discharge_mwh": 68.9548,
+    "bess_degradation_cost_eur": 798.4239999999995,
+    "bess_final_soc_mwh": 19.99999999999993,
+    "bess_equiv_cycles": 0.43096750000000006,
+    "grid_only_same_schedule_eur": 161380.60020000004,
+    "der_saving_eur": 22031.10081600005,
+    "baseline_asap_cost_eur": 252284.26680000004,
+    "saving_vs_asap_pct": 44.76488718399939,
+    "final_inventory": 51.0
+  },
+  "verification": {
+    "passed": true,
+    "issues": [],
+    "recomputed_cost_eur": 139349.49938400002
+  }
+}

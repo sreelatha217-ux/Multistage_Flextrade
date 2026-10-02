@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "factory-mt-bess-da-scheduler"
+version = "4.0.0"
+description = "Modular MILP day-ahead scheduling for factory production, microturbine, and BESS"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=1.5",
+    "pyomo>=6.7",
+    "highspy>=1.7",
+    "matplotlib>=3.7",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7.4"]
+
+[project.scripts]
+factory-mt-bess-da = "factory_mt_bess_da.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+py-modules = ["factory_mt_bess_da_scheduler"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+factory_mt_bess_da = ["configs/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
