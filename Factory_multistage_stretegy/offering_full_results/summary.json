@@ -1,0 +1,61 @@
+{
+  "version": "1.0.0",
+  "status": "optimal",
+  "risk_adjusted_profit_eur": -133372.7236772865,
+  "expected_profit_eur": -133372.72367728653,
+  "cvar_profit_eur": -146573.50484018924,
+  "mip_gap": 0.009383280417742928,
+  "solve_time_s": 20.422273390000555,
+  "model_stats": {
+    "variables": 8522,
+    "binaries": 6554,
+    "constraints": 3069
+  },
+  "strategy": {
+    "beta": 0.0,
+    "alpha": 0.95,
+    "bidding": "curve",
+    "reserve_curves": true,
+    "terminal_soc_paths": true,
+    "tie_tol": 1e-06
+  },
+  "kpis": {
+    "n_scenarios": 3.0,
+    "n_rt": 3.0,
+    "n_joint": 9.0,
+    "n_batches": 17.0,
+    "units_produced": 193.0,
+    "mt_on_hours": 24.0,
+    "mt_starts": 1.0,
+    "exp_profit_eur": -133372.72367728653,
+    "cvar_profit_eur": -146573.50484018924,
+    "var_profit_eur": -146573.50484018924,
+    "profit_std_eur": 8617.005542795381,
+    "profit_min_eur": -146573.50484018924,
+    "profit_max_eur": -121496.37196728587,
+    "exp_rev_da_eur": -81539.3549083187,
+    "exp_rev_id_eur": -29901.916392900537,
+    "exp_rev_sr_eur": 10857.744189197634,
+    "exp_rev_act_eur": 4032.4368355782594,
+    "exp_cost_bal_eur": 3860.3122136931815,
+    "exp_cost_mt_eur": 28423.676215582447,
+    "exp_cost_bess_eur": 3969.8688347145144,
+    "exp_cost_dr_eur": 567.7761368530457,
+    "reserve_hours": 22.0,
+    "avg_reserve_offer_mw": 30.460572117837277,
+    "avg_r_mt_mw": 0.6481481481481484,
+    "avg_r_bess_dis_mw": 24.040135093188226,
+    "avg_r_bess_ch_mw": 3.0292923738738198,
+    "avg_r_dr_mw": 2.742996502627074,
+    "exp_activated_mwh": 58.80449675454274,
+    "exp_deficit_mwh": 46.11767276980345,
+    "exp_surplus_mwh": 5.98420040353213
+  },
+  "verification": {
+    "passed": true,
+    "issues": [],
+    "recomputed_expected_profit_eur": -133372.72367728653,
+    "recomputed_cvar_eur": -146573.50484018924,
+    "recomputed_risk_adjusted_eur": -133372.72367728653
+  }
+}

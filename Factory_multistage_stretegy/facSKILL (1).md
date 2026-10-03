@@ -5,7 +5,7 @@ description: Three-stage stochastic MILP (Day-Ahead, Intraday, Real-Time balanci
 
 # SKILL: Industrial Large-Consumer Multi-Stage Energy & Market Optimization (v2)
 
-Framework for a **large industrial consumer** with **batch production**, a **BESS** and an on-site **Microturbine (MT)** that trades on **Day-Ahead (DA)**, **Intraday (ID)** and **Real-Time (RT) balancing** markets. It matches `factory_multistage_formulation-v3.md` and the programs `factory_mt_da_scheduler.py`, `factory_mt_id_scheduler.py`, `factory_mt_rt_scheduler.py` and `factory_mt_offering_strategy.py`.
+Framework for a **large industrial consumer** with **batch production**, a **BESS** and an on-site **Microturbine (MT)** that trades on **Day-Ahead (DA)**, **Intraday (ID)** and **Real-Time (RT) balancing** markets. The base three-stage formulation is implemented by `factory_mt_da_scheduler.py`, `factory_mt_id_scheduler.py` and `factory_mt_rt_scheduler.py`. `factory_mt_offering_strategy.py` is an additional strategic-offering extension with price-quantity curves, reserve offers and CVaR risk control; see `README.md` for its installation and CLI.
 
 ## 0. Corrections relative to v1 of this skill
 

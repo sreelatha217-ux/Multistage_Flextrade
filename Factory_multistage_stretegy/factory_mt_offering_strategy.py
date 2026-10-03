@@ -3,8 +3,9 @@
 factory_mt_offering_strategy.py
 ===============================
 
-Strategic offering & bidding extension (formulation "factory_multistage_intraday_offering_strategy-v3")
-of the industrial prosumer  =  batch factory + Microturbine (MT) + BESS.  It sits on top of
+Strategic offering and bidding extension to the three-stage formulation in
+factory_multistage_formulation-v3.md for the industrial prosumer: batch factory + Microturbine (MT) + BESS.
+It sits on top of
 factory_mt_da_scheduler.py, factory_mt_id_scheduler.py and factory_mt_rt_scheduler.py (all three are imported,
 none is modified) and adds what those programs deliberately leave out:
 
@@ -86,14 +87,16 @@ Review of the v3 formulation file and the skill - inconsistencies and how this p
 
 Outputs (OfferingResult.save): jobs.csv, offer_curves.csv, da_position.csv, scenarios.csv, joint_scenarios.csv,
 hourly_offering.csv, bid_package.json, scenario_set.json, deployment_set.json, rt_set.json, summary.json
-(+ offering.png with --plot, comparison.csv with --compare, frontier.csv with --frontier).
+(with --plot: offering overview, schedule, market positions/prices, BESS, MT, imbalance, DA curves, reserve and profit figures;
+with --compare: comparison.csv; with --frontier: frontier.csv).
+The CLI additionally writes per-ID-scenario production reschedules; these are standalone schedule analyses and do not
+change the offering-profit objective.
 
-Requires: numpy, pandas, pyomo, highspy and the three scheduler files in the same folder.
-Self-check (needs a solver):  python factory_mt_offering_strategy.py --selftest
+Requires: numpy, pandas, pyomo, highspy and the three scheduler modules in the same project.
+Self-check (needs a solver):  uv run factory-mt-offering --selftest
 """
 from __future__ import annotations
 
-import argparse
 import json
 import logging
 import math
@@ -826,7 +829,8 @@ class OfferingResult:
             f"status={self.status}  risk-adjusted profit={self.risk_adjusted_profit_eur:,.2f} EUR  gap={gap}  "
             f"time={self.solve_time_s:.1f}s  tree={int(k['n_scenarios'])} price x {int(k['n_rt'])} RT  "
             f"bidding={s.bidding}  beta={s.beta:g}  alpha={s.alpha:g}",
-            f"E[profit]={self.expected_profit_eur:,.2f}  CVaR{int(100 * s.alpha)}={self.cvar_profit_eur:,.2f}  "
+            f"E[profit]={self.expected_profit_eur:,.2f}  E[net cost]={-self.expected_profit_eur:,.2f} EUR  "
+            f"CVaR{int(100 * s.alpha)}={self.cvar_profit_eur:,.2f}  "
             f"VaR={k['var_profit_eur']:,.2f}  std={k['profit_std_eur']:,.2f}  min={k['profit_min_eur']:,.2f}  "
             f"max={k['profit_max_eur']:,.2f} EUR",
             f"E[revenue]: DA={k['exp_rev_da_eur']:,.2f}  ID={k['exp_rev_id_eur']:,.2f}  reserve capacity={k['exp_rev_sr_eur']:,.2f}  "
@@ -878,7 +882,8 @@ class OfferingResult:
         if self.frontier is not None:
             self.frontier.to_csv(out / "frontier.csv", index=False)
         meta = dict(version=__version__, status=self.status, risk_adjusted_profit_eur=self.risk_adjusted_profit_eur,
-                    expected_profit_eur=self.expected_profit_eur, cvar_profit_eur=self.cvar_profit_eur,
+                expected_profit_eur=self.expected_profit_eur, expected_net_cost_eur=-self.expected_profit_eur,
+                cvar_profit_eur=self.cvar_profit_eur,
                     mip_gap=self.mip_gap, solve_time_s=self.solve_time_s, model_stats=self.model_stats,
                     strategy=self.strategy.__dict__, kpis=self.kpis, verification=self.verification)
         (out / "summary.json").write_text(json.dumps(meta, indent=2, default=float))
@@ -976,6 +981,8 @@ def extract_offering(inst: Instance, mkt: IntradayMarket, scen: OfferingScenario
         exp_rev_da_eur=tot("rev_da"), exp_rev_id_eur=tot("rev_id"), exp_rev_sr_eur=tot("rev_sr"),
         exp_rev_act_eur=tot("rev_act"), exp_cost_bal_eur=tot("cost_bal"), exp_cost_mt_eur=tot("cost_mt"),
         exp_cost_bess_eur=tot("cost_bess"), exp_cost_dr_eur=tot("cost_dr"),
+        bess_degradation_eur_mwh=float(inst.bess.degradation_eur_mwh) if inst.bess is not None else 0.0,
+        bess_degradation_basis=inst.bess.degradation_basis if inst.bess is not None else "none",
         reserve_hours=float(r_hours), avg_reserve_offer_mw=float(pi @ plan.Rtot.mean(axis=1)),
         avg_r_mt_mw=float(pi @ plan.Rmt.mean(axis=1)), avg_r_bess_dis_mw=float(pi @ plan.Rdis.mean(axis=1)),
         avg_r_bess_ch_mw=float(pi @ plan.Rch.mean(axis=1)), avg_r_dr_mw=float(pi @ plan.Rdr.mean(axis=1)),
@@ -1027,6 +1034,38 @@ def compare_strategies(inst: Instance, scen: OfferingScenarioSet, rt: RealTimeSe
     return df
 
 
+def compare_market_stages(inst: Instance, scen: OfferingScenarioSet, rt: RealTimeSet, dep: DeploymentSet,
+                          mkt: IntradayMarket, rsv: ReserveMarket, bal: BalancingMarket,
+                          strat: StrategyConfig, cfg: SchedulerConfig,
+                          main: Optional[OfferingResult] = None) -> pd.DataFrame:
+    """Compare DA-only, DA+ID, and DA+ID+up-reserve on the same scenario tree.
+
+    RT imbalance settlement remains active in every case; it is not treated as an
+    opt-in market because deviations are settled whether or not reserve is offered.
+    """
+    no_id = IntradayMarket(0.0, 0.0).validate()
+    no_reserve = replace(rsv, enabled=False)
+    runs = [
+        ("DA only + RT imbalance settlement", no_id, no_reserve, None),
+        ("DA + ID + RT imbalance settlement", mkt, no_reserve, None),
+        ("DA + ID + RT settlement + up-reserve", mkt, rsv, main),
+    ]
+    rows = []
+    for name, market, reserve, done in runs:
+        result = done or optimize_offering(inst, scen, rt, dep, market, reserve, bal, strat, cfg)
+        rows.append(dict(
+            market_stage=name,
+            expected_net_cost_eur=-result.expected_profit_eur,
+            expected_profit_eur=result.expected_profit_eur,
+            cvar_profit_eur=result.cvar_profit_eur,
+            reserve_revenue_eur=result.kpis["exp_rev_sr_eur"] + result.kpis["exp_rev_act_eur"],
+            mip_gap=result.mip_gap,
+        ))
+    frame = pd.DataFrame(rows)
+    frame["savings_vs_da_only_eur"] = frame.expected_net_cost_eur.iloc[0] - frame.expected_net_cost_eur
+    return frame
+
+
 def risk_frontier(inst: Instance, scen: OfferingScenarioSet, rt: RealTimeSet, dep: DeploymentSet, mkt: IntradayMarket,
                   rsv: ReserveMarket, bal: BalancingMarket, strat: StrategyConfig, cfg: SchedulerConfig,
                   betas: Sequence[float]) -> pd.DataFrame:
@@ -1058,7 +1097,7 @@ def plot_offering(inst: Instance, res: OfferingResult, path, hours: Optional[Seq
             a1.text(r.start_h + r.duration_h / 2, i, r.task, ha="center", va="center", fontsize=7)
     a1.set_yticks(range(len(inst.machines)), inst.machines)
     a1.set_xlim(0, T)
-    a1.set_title("Stage-1 batch schedule")
+    a1.set_title(f"Stage-1 batch schedule | expected net cost {-res.expected_profit_eur:,.0f} EUR")
     oc = res.offer_curves
     hrs = list(hours) if hours is not None else list(np.argsort(-inst.price_buy_eur_mwh)[:1]) + \
         list(np.argsort(inst.price_buy_eur_mwh)[:1]) + [h for h in (8, 14) if h < T]
@@ -1093,6 +1132,9 @@ def plot_offering(inst: Instance, res: OfferingResult, path, hours: Optional[Seq
     fig.tight_layout()
     fig.savefig(path, dpi=130)
     plt.close(fig)
+    from factory_mt_offering_plotting import plot_offering_figures
+
+    plot_offering_figures(inst, res, Path(path).parent)
     return True
 
 
@@ -1150,116 +1192,10 @@ def selftest(solver: str = "appsi_highs") -> int:
     return 0 if ok else 1
 
 
-# --------------------------------------------------------------------------- #
-# CLI
-# --------------------------------------------------------------------------- #
-def _offer_parser() -> argparse.ArgumentParser:
-    ap = argparse.ArgumentParser(add_help=False, allow_abbrev=False)
-    g = ap.add_argument_group("offering strategy and risk")
-    g.add_argument("--beta", type=float, default=0.0, help="risk aversion in [0,1]: (1-beta)*E[profit] + beta*CVaR")
-    g.add_argument("--alpha", type=float, default=0.95, help="CVaR confidence level")
-    g.add_argument("--bidding", choices=BIDDING, default="curve", help="curve: monotone price-quantity curves; fixed: price-taker")
-    g.add_argument("--no-reserve-curves", action="store_true", help="do not force the reserve offer to be monotone in lam_SR")
-    g.add_argument("--soc-terminal-baseline", action="store_true", help="SoC_T >= SoC_0 only on the no-call path")
-    r = ap.add_argument_group("spinning reserve")
-    r.add_argument("--no-reserve", action="store_true", help="energy-only offering")
-    r.add_argument("--reserve-assets", default=",".join(ASSETS), help=f"comma list from {ASSETS}")
-    r.add_argument("--mt-rr-minutes", type=float, default=10.0, help="MT reserve = ramp-up * minutes / 60")
-    r.add_argument("--dr-fraction", type=float, default=0.10, help="curtailable share of the running batch load")
-    r.add_argument("--dr-cost", type=float, default=150.0, help="DR activation cost in EUR/MWh")
-    r.add_argument("--act-ratio", type=float, default=1.0, help="activation energy price / DA sell price")
-    r.add_argument("--max-reserve", type=float, default=None, help="cap on the total reserve offer in MW")
-    r.add_argument("--bess-reserve-hours", type=float, default=1.0, help="energy duration behind the BESS reserve")
-    s = ap.add_argument_group("scenarios (override the ID/RT defaults; --price-sigma/--level-sigma drive the DA price)")
-    s.add_argument("--scenarios", type=int, default=6, help="number of DA/SR/ID price scenarios")
-    s.add_argument("--rt-scenarios", type=int, default=3, help="real-time branches per price scenario")
-    s.add_argument("--id-spread-sigma", type=float, default=0.08, help="ID price volatility around the DA price")
-    s.add_argument("--sr-ratio", type=float, default=0.12, help="mean SR price / DA buy price")
-    s.add_argument("--sr-sigma", type=float, default=0.20, help="SR price volatility")
-    s.add_argument("--rho-mean", type=float, default=0.08, help="mean fraction of the cleared reserve that is called")
-    s.add_argument("--rho-sigma", type=float, default=0.8, help="lognormal sigma of the call fraction")
-    s.add_argument("--rho-seed", type=int, default=13)
-    s.add_argument("--offering-scenario-file", help="JSON OfferingScenarioSet (overrides the generator)")
-    s.add_argument("--deploy-file", help="JSON deployment set (overrides the generator)")
-    a = ap.add_argument_group("analysis")
-    a.add_argument("--compare", action="store_true", help="self-schedule vs curves vs curves + reserve")
-    a.add_argument("--frontier", help="comma list of beta values, e.g. 0,0.3,0.6,0.9")
-    a.add_argument("--shrink", type=int, default=None, help="use only the first N tasks (fast demo plant)")
-    a.add_argument("--selftest", action="store_true", help="run the built-in consistency checks and exit")
-    return ap
-
-
-def _parse(argv=None) -> argparse.Namespace:
-    """Offering options are parsed here, everything else (instance, MT, BESS, ID market, RT noise, solver, output) is
-    delegated to factory_mt_rt_scheduler._parse (which delegates to factory_mt_id_scheduler._parse)."""
-    argv = list(sys.argv[1:] if argv is None else argv)
-    op = _offer_parser()
-    if any(x in ("-h", "--help") for x in argv):
-        argparse.ArgumentParser(parents=[op], description="Strategic offering options (all Stage 1-3 options follow)").print_help()
-        print()
-        rtm._parse(["--help"])
-    own, rest = op.parse_known_args(argv)
-    a = rtm._parse(rest)
-    for key, val in vars(own).items():
-        setattr(a, key, val)
-    if a.out in ("da_id_results", "da_id_rt_results"):
-        a.out = "offering_results"
-    return a
-
-
 def main(argv=None) -> int:
-    a = _parse(argv)
-    logging.basicConfig(level=logging.DEBUG if a.verbose else logging.INFO,
-                        format="%(asctime)s %(levelname)-7s %(message)s", datefmt="%H:%M:%S")
-    try:
-        if a.selftest:
-            return selftest(a.solver)
-        inst = (Instance.load(a.instance) if a.instance else
-                da.make_benchmark_instance(a.seed, max_batches=a.max_batches, with_mt=not a.no_mt, with_bess=not a.no_bess))
-        da.apply_instance_overrides(inst, a)
-        if a.shrink:
-            inst = shrink_instance(inst, a.shrink, max_batches=min(a.max_batches, 3))
-        mkt = IntradayMarket(a.id_cap_buy, a.id_cap_sell).validate()
-        scen = (OfferingScenarioSet.load(a.offering_scenario_file).validate(inst) if a.offering_scenario_file else
-                OfferingScenarioSet.generate(inst, a.scenarios, a.scenario_seed, a.price_sigma, a.level_sigma,
-                                             a.id_spread_sigma, a.sr_ratio, a.sr_sigma, a.load_sigma))
-        rt = (RealTimeSet.load(a.rt_file) if a.rt_file else
-              RealTimeSet.generate(inst, scen.n, a.rt_scenarios, a.rt_seed, a.rt_load_sigma, a.rt_load_rho,
-                                   a.r_premium, a.r_discount, a.r_sigma))
-        dep = (DeploymentSet.load(a.deploy_file) if a.deploy_file else
-               DeploymentSet.generate(scen.n, rt.n_w, inst.horizon_h, a.rho_seed, a.rho_mean, a.rho_sigma))
-        assets = tuple(x.strip() for x in a.reserve_assets.split(",") if x.strip())
-        rsv = ReserveMarket(not a.no_reserve, assets, a.mt_rr_minutes, a.dr_fraction, a.dr_cost, a.act_ratio,
-                            a.max_reserve, a.bess_reserve_hours).validate()
-        bal = BalancingMarket(a.imbalance_mode, a.bal_exclusive, a.max_imbalance, a.max_imbalance).validate()
-        strat = StrategyConfig(a.beta, a.alpha, a.bidding, not a.no_reserve_curves, not a.soc_terminal_baseline).validate()
-        cfg = SchedulerConfig(start_step_h=a.start_step, unique_tasks=not a.allow_repeat_tasks,
-                              solver=SolverSettings(a.solver, a.mip_gap, a.time_limit, a.threads, a.verbose))
-        res = optimize_offering(inst, scen, rt, dep, mkt, rsv, bal, strat, cfg)
-        if a.compare:
-            res.comparison = compare_strategies(inst, scen, rt, dep, mkt, rsv, bal, strat, cfg, main=res)
-        if a.frontier:
-            res.frontier = risk_frontier(inst, scen, rt, dep, mkt, rsv, bal, strat, cfg,
-                                         [float(x) for x in a.frontier.split(",")])
-        print(res.summary())
-        print(res.jobs[["machine", "position_n", "task", "start_time", "end_time", "power_mw", "units_out"]]
-              .round(2).to_string(index=False))
-        print(res.da_position[["hour", "exp_price_da_buy_eur_mwh", "mt_on", "exp_p_da_buy_mw", "exp_p_da_sell_mw",
-                               "exp_r_total_mw", "exp_price_sr_up_eur_mw_h", "exp_soc_mwh", "exp_profit_eur"]]
-              .round(2).to_string(index=False))
-        out = res.save(a.out)
-        if a.plot:
-            plot_offering(inst, res, out / "offering.png")
-        print(f"\nResults written to {out.resolve()}")
-        return 0
-    except InstanceValidationError as err:
-        log.error("Invalid input: %s", err)
-        return 2
-    except (da.SolverUnavailableError, da.InfeasibleScheduleError, da.SolveFailedError, VerificationError) as err:
-        log.error("%s: %s", type(err).__name__, err)
-        return 3
-    except KeyboardInterrupt:
-        return 130
+    from factory_mt_offering_cli import main as cli_main
+
+    return cli_main(argv, sys.modules[__name__])
 
 
 if __name__ == "__main__":
