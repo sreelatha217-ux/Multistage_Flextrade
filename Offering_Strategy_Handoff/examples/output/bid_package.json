@@ -1,0 +1,75 @@
+{
+  "version": "1.0.0",
+  "currency": "EUR",
+  "bidding": "curve",
+  "beta": 0.0,
+  "alpha": 0.95,
+  "hours": {
+    "0": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 55.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 66.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 100.0,
+          "quantity_mw": 1.96
+        },
+        {
+          "price_eur_mwh": 120.0,
+          "quantity_mw": 1.96
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 10.0,
+          "quantity_mw": 0.1
+        },
+        {
+          "price_eur_mwh": 14.0,
+          "quantity_mw": 0.1
+        }
+      ],
+      "mt_online": 0
+    },
+    "1": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 33.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 44.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 60.0,
+          "quantity_mw": 2.0
+        },
+        {
+          "price_eur_mwh": 80.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 7.0,
+          "quantity_mw": 0.1
+        },
+        {
+          "price_eur_mwh": 8.0,
+          "quantity_mw": 0.1
+        }
+      ],
+      "mt_online": 0
+    }
+  }
+}

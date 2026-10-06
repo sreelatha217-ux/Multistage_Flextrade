@@ -1,0 +1,5 @@
+hour,price_rank,scenario,prob,price_da_sell_eur_mwh,price_da_buy_eur_mwh,price_sr_up_eur_mw_h,p_da_sell_mw,p_da_buy_mw,p_da_net_import_mw,r_total_mw,r_mt_mw,r_bess_dis_mw,r_bess_ch_mw,r_dr_mw,mt_on
+0,0,0,0.5,55.0,100.0,10.0,0.0,1.96,1.96,0.1,0.0,0.0,0.0,0.1,0
+0,1,1,0.5,66.0,120.0,14.0,0.0,1.96,1.96,0.1,0.0,0.0,0.0,0.1,0
+1,0,1,0.5,33.0,60.0,7.0,0.0,2.0,2.0,0.1,0.0,0.0,0.0,0.1,0
+1,1,0,0.5,44.0,80.0,8.0,0.0,0.0,0.0,0.1,0.0,0.0,0.0,0.1,0

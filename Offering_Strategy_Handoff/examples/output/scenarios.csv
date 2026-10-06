@@ -1,0 +1,3 @@
+scenario,prob,profit_eur,profit_worst_rt_eur,rev_da_eur,rev_id_eur,rev_sr_eur,rev_act_eur,cost_bal_eur,cost_mt_eur,cost_bess_eur,cost_dr_eur,reserve_mwh,id_net_buy_mwh
+0,0.5,-340.84000000000003,-341.90000000000003,-196.0,-141.00000000000003,1.8,0.77,4.1599999999999895,0.0,0.0,2.25,0.2,2.0
+1,0.5,-358.60499999999996,-359.54999999999995,-355.2,0.0,2.1,0.8250000000000002,4.080000000000004,0.0,0.0,2.25,0.2,0.0

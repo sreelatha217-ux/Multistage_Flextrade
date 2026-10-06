@@ -1,0 +1,20 @@
+{
+  "machines": ["m1"],
+  "tasks": ["batch1"],
+  "power_mw": [[2.0]],
+  "duration_h": [[1.0]],
+  "yield_units": [10.0],
+  "base_load_mw": [1.0, 1.0],
+  "price_buy_eur_mwh": [100.0, 80.0],
+  "price_sell_eur_mwh": [55.0, 44.0],
+  "demand_units": [5.0, 5.0],
+  "horizon_h": 2,
+  "buffer_h": 0.0,
+  "grid_limit_mw": 50.0,
+  "grid_sell_limit_mw": 50.0,
+  "max_batches_per_machine": 1,
+  "inventory_init": 0.0,
+  "inventory_max": 10.0,
+  "mt": null,
+  "bess": null
+}

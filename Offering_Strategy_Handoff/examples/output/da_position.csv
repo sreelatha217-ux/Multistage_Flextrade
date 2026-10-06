@@ -1,0 +1,3 @@
+hour,exp_price_da_buy_eur_mwh,exp_price_da_sell_eur_mwh,exp_price_sr_up_eur_mw_h,exp_p_da_buy_mw,exp_p_da_sell_mw,mt_on,exp_p_id_buy_mw,exp_p_id_sell_mw,exp_p_mt_mw,exp_bess_ch_mw,exp_bess_dis_mw,exp_r_total_mw,exp_r_mt_mw,exp_r_bess_dis_mw,exp_r_bess_ch_mw,exp_r_dr_mw,exp_activated_mwh,exp_soc_mwh,exp_imb_deficit_mw,exp_imb_surplus_mw,exp_profit_eur
+0,110.0,60.5,12.0,1.96,0.0,0,0.020000000000000018,0.0,0.0,0.0,0.0,0.1,0.0,0.0,0.0,0.1,0.010000000000000002,0.0,0.020000000000000018,0.0,-219.71500000000003
+1,70.0,38.5,7.5,1.0,0.0,0,0.9800000000000001,0.0,0.0,0.0,0.0,0.1,0.0,0.0,0.0,0.1,0.005000000000000001,0.0,0.019999999999999962,5.551115123125783e-17,-130.0075
