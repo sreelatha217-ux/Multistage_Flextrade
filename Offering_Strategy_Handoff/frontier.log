@@ -1,0 +1,14 @@
+tree: 12 x 2 = 24 paths; alpha=0.95
+only 24 joint scenarios: the 5% tail is 1.20 scenarios wide; use more scenarios for a meaningful CVaR
+only 24 joint scenarios: the 5% tail is 1.20 scenarios wide; use more scenarios for a meaningful CVaR
+stopped early: terminationcondition.maxtimelimit, gap=0.01290785573964478
+only 24 joint scenarios: the 5% tail is 1.20 scenarios wide; use more scenarios for a meaningful CVaR
+only 24 joint scenarios: the 5% tail is 1.20 scenarios wide; use more scenarios for a meaningful CVaR
+
+=== RESULT (CVaR frontier) ===
+ beta  exp_profit_eur   cvar_eur  std_eur  worst_eur  avg_reserve_mw
+ 0.00      -129482.83 -144712.36  8984.44 -145137.48           39.00
+ 0.25      -130261.78 -140040.41  7396.08 -140040.41           36.56
+ 0.50      -129928.78 -139956.71  7948.60 -139956.71           40.12
+ 0.75      -132737.79 -140083.41  6544.95 -140083.41           31.22
+ 0.90      -131831.46 -139991.58  6914.02 -139991.58           38.64

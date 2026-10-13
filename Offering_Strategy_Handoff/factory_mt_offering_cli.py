@@ -137,17 +137,11 @@ def main(argv=None, api=None) -> int:
         if market_stages is not None:
             market_stages.to_csv(out / "market_stage_comparison.csv", index=False)
         if args.plot:
-            api.plot_offering(inst, result, out / "offering.png")
-            from factory_mt_offering_plotting import plot_intraday_reschedules
-            from factory_mt_offering_plotting import plot_intraday_reschedule_analysis
+            from factory_mt_offering_plotting import plot_intraday_reschedules, plot_selected_offering_figures
 
+            plot_selected_offering_figures(inst, result, out)
             plot_intraday_reschedules(inst, result.jobs, id_jobs, id_summary, out,
                                       args.id_reschedule_hour)
-            plot_intraday_reschedule_analysis(inst, result.jobs, id_jobs, id_summary, scen, out)
-            if market_stages is not None:
-                from factory_mt_offering_plotting import plot_owner_dashboard
-
-                plot_owner_dashboard(inst, result, id_summary, market_stages, out)
         print(f"\nResults written to {out.resolve()}")
         return 0
     except api.InstanceValidationError as err:

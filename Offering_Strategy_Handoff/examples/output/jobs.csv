@@ -1,2 +1,5 @@
 machine,position_n,task,start_h,end_h,duration_h,power_mw,units_out,start_time,end_time,energy_mwh,energy_cost_eur
-m1,1,batch1,0.5,1.5,1.0,2.0,10.0,00:30,01:30,2.0,180.0
+Line-A,1,Batch-3,4.0,6.0,2.0,5.0,50.0,04:00,06:00,10.0,565.0
+Line-A,2,Batch-1,14.0,16.0,2.0,5.0,50.0,14:00,16:00,10.0,1175.0
+Line-B,1,Batch-4,2.0,4.0,2.0,5.0,50.0,02:00,04:00,10.0,590.0
+Line-B,2,Batch-2,22.0,24.0,2.0,5.0,50.0,22:00,24:00,10.0,850.0

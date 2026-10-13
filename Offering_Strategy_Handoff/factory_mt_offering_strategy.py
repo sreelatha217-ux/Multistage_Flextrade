@@ -1080,61 +1080,15 @@ def risk_frontier(inst: Instance, scen: OfferingScenarioSet, rt: RealTimeSet, de
 
 
 def plot_offering(inst: Instance, res: OfferingResult, path, hours: Optional[Sequence[int]] = None) -> bool:
-    """Gantt, DA offer curves at the highest-priced hours, reserve stack with SR price, profit distribution."""
+    """Write market-position, market-price, and production-schedule figures."""
     try:
-        import matplotlib
-        matplotlib.use("Agg")
-        import matplotlib.pyplot as plt
+        import matplotlib  # noqa: F401
     except ImportError:
         log.warning("matplotlib not installed; skipping plot")
         return False
-    T = inst.horizon_h
-    fig, axes = plt.subplots(2, 2, figsize=(14, 9))
-    a1, a2, a3, a4 = axes.ravel()
-    for i, mach in enumerate(inst.machines):
-        for r in res.jobs[res.jobs.machine == mach].itertuples():
-            a1.barh(i, r.duration_h, left=r.start_h, color=plt.cm.tab20(i * 2), edgecolor="k")
-            a1.text(r.start_h + r.duration_h / 2, i, r.task, ha="center", va="center", fontsize=7)
-    a1.set_yticks(range(len(inst.machines)), inst.machines)
-    a1.set_xlim(0, T)
-    a1.set_title(f"Stage-1 batch schedule | expected net cost {-res.expected_profit_eur:,.0f} EUR")
-    oc = res.offer_curves
-    hrs = list(hours) if hours is not None else list(np.argsort(-inst.price_buy_eur_mwh)[:1]) + \
-        list(np.argsort(inst.price_buy_eur_mwh)[:1]) + [h for h in (8, 14) if h < T]
-    for h in dict.fromkeys(int(x) for x in hrs):
-        g = oc[oc.hour == h].sort_values("price_da_sell_eur_mwh")
-        a2.step(g.price_da_sell_eur_mwh, g.p_da_sell_mw - g.p_da_buy_mw, where="post", marker="o", ms=3, label=f"hour {h}")
-    a2.axhline(0, color="k", lw=0.6)
-    a2.set_xlabel("scenario DA price (EUR/MWh)")
-    a2.set_ylabel("net DA export offer (MW)")
-    a2.set_title("DA price-quantity curves (monotone in price)")
-    a2.legend()
-    p = res.da_position
-    a3.bar(p.hour + 0.5, p.exp_r_bess_dis_mw, 0.9, label="BESS discharge", color="tab:purple")
-    a3.bar(p.hour + 0.5, p.exp_r_bess_ch_mw, 0.9, bottom=p.exp_r_bess_dis_mw, label="BESS charge cut", color="tab:cyan")
-    a3.bar(p.hour + 0.5, p.exp_r_dr_mw, 0.9, bottom=p.exp_r_bess_dis_mw + p.exp_r_bess_ch_mw, label="DR", color="tab:orange")
-    a3.bar(p.hour + 0.5, p.exp_r_mt_mw, 0.9, bottom=p.exp_r_bess_dis_mw + p.exp_r_bess_ch_mw + p.exp_r_dr_mw, label="MT", color="tab:green")
-    a3.set_ylabel("E[reserve offer] (MW)")
-    a3.set_xlabel("hour of day")
-    a3.set_xlim(0, T)
-    ax = a3.twinx()
-    ax.plot(p.hour + 0.5, p.exp_price_sr_up_eur_mw_h, "k.-", label="E[SR price]")
-    ax.set_ylabel("EUR/MW/h")
-    a3.legend(loc="upper left", ncol=2, fontsize=8)
-    a3.set_title("Up-spinning-reserve offer by asset")
-    j = res.joint
-    a4.hist(j.profit_eur, bins=min(20, max(5, len(j))), weights=j.prob, color="tab:blue", alpha=0.75)
-    a4.axvline(res.expected_profit_eur, color="g", label=f"E = {res.expected_profit_eur:,.0f}")
-    a4.axvline(res.cvar_profit_eur, color="r", label=f"CVaR = {res.cvar_profit_eur:,.0f}")
-    a4.set_xlabel("profit per joint scenario (EUR)")
-    a4.set_title("Profit distribution")
-    a4.legend()
-    fig.tight_layout()
-    fig.savefig(path, dpi=130)
-    plt.close(fig)
-    from factory_mt_offering_plotting import plot_offering_figures
+    from factory_mt_offering_plotting import plot_selected_offering_figures
 
-    plot_offering_figures(inst, res, Path(path).parent)
+    plot_selected_offering_figures(inst, res, Path(path).parent, schedule_path=path)
     return True
 
 

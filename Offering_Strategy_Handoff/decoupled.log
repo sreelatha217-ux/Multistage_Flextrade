@@ -1,0 +1,11 @@
+>>> coupled (full model, reserve on)
+>>> plan A: energy-only DA+ID optimum
+>>> decoupled A: fix plan A, re-optimise reserve/market
+>>> plan B: DA-only optimum
+>>> decoupled B: fix plan B, re-optimise reserve/market
+
+=== RESULT ===
+case                                              cost EUR   gap %  res MW  jobs  coupling value EUR
+coupled                                          129533.65   0.092    36.1    17                0.00
+decoupled A (plan from energy-only DA+ID)        129674.88   0.064    36.0    17              141.23
+decoupled B (plan from DA-only)                  129629.77   0.081    35.8    17               96.12

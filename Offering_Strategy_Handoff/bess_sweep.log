@@ -1,0 +1,27 @@
+
+>>> battery scale 0: coupled
+>>> battery scale 0: energy-only plan
+>>> battery scale 0: decoupled
+    done: coupled 138502.18  decoupled 138511.58
+
+>>> battery scale 0.25: coupled
+>>> battery scale 0.25: energy-only plan
+>>> battery scale 0.25: decoupled
+    done: coupled 136087.49  decoupled 136115.47
+
+>>> battery scale 0.5: coupled
+>>> battery scale 0.5: energy-only plan
+>>> battery scale 0.5: decoupled
+    done: coupled 133727.91  decoupled 133770.45
+
+>>> battery scale 1: coupled
+>>> battery scale 1: energy-only plan
+>>> battery scale 1: decoupled
+    done: coupled 129533.65  decoupled 129674.88
+
+=== RESULT (battery size sweep) ===
+ scale    MW/MWh   no-reserve     coupled   decoupled  coupling EUR gap cpl % gap dec %  res MW
+  0.00       0/0    138744.75   138502.18   138511.58          9.40     0.099     0.000     3.7
+  0.25     10/50    138379.54   136087.49   136115.47         27.98     0.012     0.050    12.1
+  0.50    20/100    138038.69   133727.91   133770.45         42.55     0.016     0.095    20.2
+  1.00    40/200    137708.94   129533.65   129674.88        141.23     0.092     0.064    36.1

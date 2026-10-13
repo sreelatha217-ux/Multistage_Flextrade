@@ -1,0 +1,10 @@
+no-reserve cost 137708.94  gap 0.034%
+  factor 0.5: cost 134981.33
+  factor 1: cost 129533.65
+  factor 1.5: cost 123188.79
+
+=== RESULT (reserve price sensitivity) ===
+ factor  mean EUR/MW/h    cost EUR  saving EUR  saving %   gap %  res MW  res revenue
+   0.50           6.67   134981.33     2727.61      1.98   0.040    25.9      8336.63
+   1.00          13.33   129533.65     8175.29      5.94   0.092    36.1     16602.20
+   1.50          20.00   123188.79    14520.15     10.54   0.047    40.7     24576.78

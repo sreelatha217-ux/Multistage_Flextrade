@@ -8,6 +8,148 @@
     "0": {
       "energy_offer_sell": [
         {
+          "price_eur_mwh": 38.5,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 46.2,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 70.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 84.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 8.4,
+          "quantity_mw": 3.3333
+        },
+        {
+          "price_eur_mwh": 12.6,
+          "quantity_mw": 3.3333
+        }
+      ],
+      "mt_online": 1
+    },
+    "1": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 35.75,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 42.9,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 65.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 78.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 7.8,
+          "quantity_mw": 3.3333
+        },
+        {
+          "price_eur_mwh": 11.7,
+          "quantity_mw": 3.3333
+        }
+      ],
+      "mt_online": 1
+    },
+    "2": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 33.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 39.6,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 60.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 72.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 7.2,
+          "quantity_mw": 3.3333
+        },
+        {
+          "price_eur_mwh": 10.8,
+          "quantity_mw": 3.3333
+        }
+      ],
+      "mt_online": 1
+    },
+    "3": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 31.9,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 38.28,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 58.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 69.6,
+          "quantity_mw": 0.0
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 6.96,
+          "quantity_mw": 3.3333
+        },
+        {
+          "price_eur_mwh": 10.44,
+          "quantity_mw": 3.3333
+        }
+      ],
+      "mt_online": 1
+    },
+    "4": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 30.25,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 36.3,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
           "price_eur_mwh": 55.0,
           "quantity_mw": 0.0
         },
@@ -16,60 +158,644 @@
           "quantity_mw": 0.0
         }
       ],
-      "energy_bid_buy": [
+      "reserve_offer_up": [
         {
-          "price_eur_mwh": 100.0,
-          "quantity_mw": 1.96
+          "price_eur_mwh": 6.6,
+          "quantity_mw": 3.3333
         },
         {
-          "price_eur_mwh": 120.0,
-          "quantity_mw": 1.96
+          "price_eur_mwh": 9.9,
+          "quantity_mw": 3.3333
+        }
+      ],
+      "mt_online": 1
+    },
+    "5": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 31.9,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 38.28,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 58.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 69.6,
+          "quantity_mw": 0.0
         }
       ],
       "reserve_offer_up": [
         {
-          "price_eur_mwh": 10.0,
-          "quantity_mw": 0.1
+          "price_eur_mwh": 6.96,
+          "quantity_mw": 3.3333
         },
         {
-          "price_eur_mwh": 14.0,
-          "quantity_mw": 0.1
+          "price_eur_mwh": 10.44,
+          "quantity_mw": 3.3333
         }
       ],
-      "mt_online": 0
+      "mt_online": 1
     },
-    "1": {
+    "6": {
       "energy_offer_sell": [
         {
-          "price_eur_mwh": 33.0,
+          "price_eur_mwh": 38.5,
           "quantity_mw": 0.0
         },
+        {
+          "price_eur_mwh": 46.2,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 70.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 84.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 8.4,
+          "quantity_mw": 3.3333
+        },
+        {
+          "price_eur_mwh": 12.6,
+          "quantity_mw": 3.3333
+        }
+      ],
+      "mt_online": 1
+    },
+    "7": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 49.5,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 59.4,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 90.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 108.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 10.8,
+          "quantity_mw": 3.3333
+        },
+        {
+          "price_eur_mwh": 16.2,
+          "quantity_mw": 3.3333
+        }
+      ],
+      "mt_online": 1
+    },
+    "8": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 66.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 79.2,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 120.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 144.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 14.4,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 21.6,
+          "quantity_mw": 0.0
+        }
+      ],
+      "mt_online": 1
+    },
+    "9": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 82.5,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 99.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 150.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 180.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 18.0,
+          "quantity_mw": 5.0
+        },
+        {
+          "price_eur_mwh": 27.0,
+          "quantity_mw": 5.0
+        }
+      ],
+      "mt_online": 1
+    },
+    "10": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 88.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 105.6,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 160.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 192.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 19.2,
+          "quantity_mw": 5.0
+        },
+        {
+          "price_eur_mwh": 28.8,
+          "quantity_mw": 5.0
+        }
+      ],
+      "mt_online": 1
+    },
+    "11": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 79.75,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 95.7,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 145.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 174.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 17.4,
+          "quantity_mw": 5.0
+        },
+        {
+          "price_eur_mwh": 26.1,
+          "quantity_mw": 5.0
+        }
+      ],
+      "mt_online": 1
+    },
+    "12": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 71.5,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 85.8,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 130.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 156.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 15.6,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 23.4,
+          "quantity_mw": 0.0
+        }
+      ],
+      "mt_online": 1
+    },
+    "13": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 66.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 79.2,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 120.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 144.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 14.4,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 21.6,
+          "quantity_mw": 0.0
+        }
+      ],
+      "mt_online": 1
+    },
+    "14": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 63.25,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 75.9,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 115.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 138.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 13.8,
+          "quantity_mw": 0.5
+        },
+        {
+          "price_eur_mwh": 20.7,
+          "quantity_mw": 0.5
+        }
+      ],
+      "mt_online": 1
+    },
+    "15": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 66.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 79.2,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 120.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 144.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 14.4,
+          "quantity_mw": 0.5
+        },
+        {
+          "price_eur_mwh": 21.6,
+          "quantity_mw": 0.5
+        }
+      ],
+      "mt_online": 1
+    },
+    "16": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 77.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 92.4,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 140.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 168.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 16.8,
+          "quantity_mw": 3.3
+        },
+        {
+          "price_eur_mwh": 25.2,
+          "quantity_mw": 3.3
+        }
+      ],
+      "mt_online": 1
+    },
+    "17": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 99.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 118.8,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 180.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 216.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 21.6,
+          "quantity_mw": 1.9
+        },
+        {
+          "price_eur_mwh": 32.4,
+          "quantity_mw": 1.9
+        }
+      ],
+      "mt_online": 1
+    },
+    "18": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 110.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 132.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 200.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 240.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 24.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 36.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "mt_online": 1
+    },
+    "19": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 93.5,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 112.2,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 170.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 204.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 20.4,
+          "quantity_mw": 5.0
+        },
+        {
+          "price_eur_mwh": 30.6,
+          "quantity_mw": 5.0
+        }
+      ],
+      "mt_online": 1
+    },
+    "20": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 71.5,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 85.8,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 130.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 156.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 15.6,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 23.4,
+          "quantity_mw": 0.0
+        }
+      ],
+      "mt_online": 1
+    },
+    "21": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 60.5,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 72.6,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 110.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 132.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 13.2,
+          "quantity_mw": 3.3333
+        },
+        {
+          "price_eur_mwh": 19.8,
+          "quantity_mw": 3.3333
+        }
+      ],
+      "mt_online": 1
+    },
+    "22": {
+      "energy_offer_sell": [
+        {
+          "price_eur_mwh": 49.5,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 59.4,
+          "quantity_mw": 0.0
+        }
+      ],
+      "energy_bid_buy": [
+        {
+          "price_eur_mwh": 90.0,
+          "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 108.0,
+          "quantity_mw": 0.0
+        }
+      ],
+      "reserve_offer_up": [
+        {
+          "price_eur_mwh": 10.8,
+          "quantity_mw": 7.7778
+        },
+        {
+          "price_eur_mwh": 16.2,
+          "quantity_mw": 8.2778
+        }
+      ],
+      "mt_online": 1
+    },
+    "23": {
+      "energy_offer_sell": [
         {
           "price_eur_mwh": 44.0,
           "quantity_mw": 0.0
+        },
+        {
+          "price_eur_mwh": 52.8,
+          "quantity_mw": 0.0
         }
       ],
       "energy_bid_buy": [
         {
-          "price_eur_mwh": 60.0,
-          "quantity_mw": 2.0
+          "price_eur_mwh": 80.0,
+          "quantity_mw": 0.0
         },
         {
-          "price_eur_mwh": 80.0,
+          "price_eur_mwh": 96.0,
           "quantity_mw": 0.0
         }
       ],
       "reserve_offer_up": [
         {
-          "price_eur_mwh": 7.0,
-          "quantity_mw": 0.1
+          "price_eur_mwh": 9.6,
+          "quantity_mw": 3.3333
         },
         {
-          "price_eur_mwh": 8.0,
-          "quantity_mw": 0.1
+          "price_eur_mwh": 14.4,
+          "quantity_mw": 3.8333
         }
       ],
-      "mt_online": 0
+      "mt_online": 1
     }
   }
 }

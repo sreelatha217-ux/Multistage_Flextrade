@@ -1,20 +1,59 @@
 {
-  "machines": ["m1"],
-  "tasks": ["batch1"],
-  "power_mw": [[2.0]],
-  "duration_h": [[1.0]],
-  "yield_units": [10.0],
-  "base_load_mw": [1.0, 1.0],
-  "price_buy_eur_mwh": [100.0, 80.0],
-  "price_sell_eur_mwh": [55.0, 44.0],
-  "demand_units": [5.0, 5.0],
-  "horizon_h": 2,
-  "buffer_h": 0.0,
+  "machines": ["Line-A", "Line-B"],
+  "tasks": ["Batch-1", "Batch-2", "Batch-3", "Batch-4"],
+  "power_mw": [
+    [5.0, 5.5, 5.0, 5.5],
+    [5.5, 5.0, 5.5, 5.0]
+  ],
+  "duration_h": [
+    [2.0, 2.0, 2.0, 2.0],
+    [2.0, 2.0, 2.0, 2.0]
+  ],
+  "yield_units": [50.0, 50.0, 50.0, 50.0],
+  "base_load_mw": [
+    2.0, 2.0, 2.0, 2.0, 2.0, 2.0,
+    2.0, 2.0, 2.0, 2.0, 2.0, 2.0,
+    2.0, 2.0, 2.0, 2.0, 2.0, 2.0,
+    2.0, 2.0, 2.0, 2.0, 2.0, 2.0
+  ],
+  "price_buy_eur_mwh": [
+    70.0, 65.0, 60.0, 58.0, 55.0, 58.0,
+    70.0, 90.0, 120.0, 150.0, 160.0, 145.0,
+    130.0, 120.0, 115.0, 120.0, 140.0, 180.0,
+    200.0, 170.0, 130.0, 110.0, 90.0, 80.0
+  ],
+  "price_sell_eur_mwh": [
+    38.5, 35.75, 33.0, 31.9, 30.25, 31.9,
+    38.5, 49.5, 66.0, 82.5, 88.0, 79.75,
+    71.5, 66.0, 63.25, 66.0, 77.0, 99.0,
+    110.0, 93.5, 71.5, 60.5, 49.5, 44.0
+  ],
+  "demand_units": [
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 10.0, 10.0, 10.0, 10.0,
+    10.0, 10.0, 10.0, 10.0, 10.0, 10.0,
+    10.0, 10.0, 10.0, 10.0, 10.0, 10.0
+  ],
+  "horizon_h": 24,
+  "buffer_h": 0.5,
   "grid_limit_mw": 50.0,
   "grid_sell_limit_mw": 50.0,
-  "max_batches_per_machine": 1,
+  "max_batches_per_machine": 4,
   "inventory_init": 0.0,
-  "inventory_max": 10.0,
-  "mt": null,
-  "bess": null
+  "inventory_max": 100.0,
+  "mt": {
+    "p_min_mw": 10.0,
+    "p_max_mw": 25.0
+  },
+  "bess": {
+    "p_max_mw": 5.0,
+    "e_max_mwh": 20.0,
+    "soc_min_frac": 0.1,
+    "soc_max_frac": 0.9,
+    "soc_init_mwh": 10.0,
+    "eta_ch": 0.9,
+    "eta_dis": 0.9,
+    "degradation_eur_mwh": 5.0,
+    "degradation_basis": "throughput"
+  }
 }

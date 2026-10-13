@@ -1,0 +1,297 @@
+16 tables/views found
+
+==========================================================================================
+"public"."day_ahead_prices"
+rows: 1359806
+  zone                            text                        
+  time_utc                        timestamp with time zone       range: 2020-12-31 23:00:00+00:00 .. 2026-10-13 07:45:00+00:00
+  time_dk                         timestamp with time zone       range: 2021-01-01 00:00:00+00:00 .. 2026-10-13 09:45:00+00:00
+  price_eur                       double precision            
+  price_dkk                       double precision            
+  source                          text                        
+  sample rows:
+    ('DE', '2026-09-16 23:45:00+00:00', '2026-09-17 01:45:00+00:00', '163.990005', '1225.874484', 'dayahead_real')
+    ('DK1', '2026-09-16 23:45:00+00:00', '2026-09-17 01:45:00+00:00', '163.220001', '1220.118473', 'dayahead_real')
+    ('DK1', '2026-09-14 10:45:00+00:00', '2026-09-14 12:45:00+00:00', '168.869995', '1262.353874', 'dayahead_real')
+==========================================================================================
+"timescaledb_experimental"."policies"
+rows: 0
+  relation_name                   name                        
+  relation_schema                 name                        
+  schedule_interval               interval                    
+  proc_schema                     name                        
+  proc_name                       name                        
+  config                          jsonb                       
+  hypertable_schema               name                        
+  hypertable_name                 name                        
+  sample rows:
+==========================================================================================
+"timescaledb_information"."chunk_columnstore_settings"
+rows: 0
+  hypertable                      regclass                    
+  chunk                           regclass                    
+  segmentby                       text                        
+  orderby                         text                        
+  index                           jsonb                       
+  sample rows:
+==========================================================================================
+"timescaledb_information"."chunk_compression_settings"
+rows: 0
+  hypertable                      regclass                    
+  chunk                           regclass                    
+  segmentby                       text                        
+  orderby                         text                        
+  index                           jsonb                       
+  sample rows:
+==========================================================================================
+"timescaledb_information"."chunks"
+rows: 302
+  hypertable_schema               name                        
+  hypertable_name                 name                        
+  chunk_schema                    name                        
+  chunk_name                      name                        
+  primary_dimension               name                        
+  primary_dimension_type          regtype                     
+  range_start                     timestamp with time zone       range: 2020-12-31 00:00:00+00:00 .. 2026-10-08 00:00:00+00:00
+  range_end                       timestamp with time zone       range: 2021-01-07 00:00:00+00:00 .. 2026-10-15 00:00:00+00:00
+  range_start_integer             bigint                      
+  range_end_integer               bigint                      
+  is_compressed                   boolean                     
+  chunk_tablespace                name                        
+  chunk_creation_time             timestamp with time zone       range: 2026-09-10 15:33:39.607609+00:00 .. 2026-10-13 09:14:26.007937+00:00
+  sample rows:
+    ('public', 'day_ahead_prices', '_timescaledb_internal', '_hyper_1_1_chunk', 'time_utc', 'timestamp with time zone', '2026-09-10 00:00:00+00:00', '2026-09-17 00:00:00+00:00', 'None', 'None', 'False', 'None', '2026-09-10 15:33:39.607609+00:00')
+    ('public', 'day_ahead_prices', '_timescaledb_internal', '_hyper_1_2_chunk', 'time_utc', 'timestamp with time zone', '2026-09-03 00:00:00+00:00', '2026-09-10 00:00:00+00:00', 'None', 'None', 'False', 'None', '2026-09-10 15:33:40.133754+00:00')
+    ('public', 'day_ahead_prices', '_timescaledb_internal', '_hyper_1_3_chunk', 'time_utc', 'timestamp with time zone', '2026-08-27 00:00:00+00:00', '2026-09-03 00:00:00+00:00', 'None', 'None', 'False', 'None', '2026-09-10 16:01:27.192859+00:00')
+==========================================================================================
+"timescaledb_information"."compression_settings"
+rows: 0
+  hypertable_schema               name                        
+  hypertable_name                 name                        
+  attname                         name                        
+  segmentby_column_index          smallint                    
+  orderby_column_index            smallint                    
+  orderby_asc                     boolean                     
+  orderby_nullsfirst              boolean                     
+  sample rows:
+==========================================================================================
+"timescaledb_information"."continuous_aggregates"
+rows: 0
+  hypertable_schema               name                        
+  hypertable_name                 name                        
+  view_schema                     name                        
+  view_name                       name                        
+  view_owner                      name                        
+  materialized_only               boolean                     
+  compression_enabled             boolean                     
+  materialization_hypertable_schemaname                        
+  materialization_hypertable_name name                        
+  view_definition                 text                        
+  sample rows:
+==========================================================================================
+"timescaledb_information"."dimensions"
+rows: 1
+  hypertable_schema               name                        
+  hypertable_name                 name                        
+  dimension_number                bigint                      
+  column_name                     name                        
+  column_type                     regtype                     
+  dimension_type                  text                        
+  time_interval                   interval                    
+  integer_interval                bigint                      
+  integer_now_func                name                        
+  num_partitions                  smallint                    
+  sample rows:
+    ('public', 'day_ahead_prices', '1', 'time_utc', 'timestamp with time zone', 'Time', '7 days, 0:00:00', 'None', 'None', 'None')
+==========================================================================================
+"timescaledb_information"."hypertable_columnstore_settings"
+rows: 1
+  hypertable                      regclass                    
+  segmentby                       text                        
+  orderby                         text                        
+  compress_interval_length        text                        
+  index                           jsonb                       
+  sample rows:
+    ('day_ahead_prices', 'None', 'None', 'None', 'None')
+==========================================================================================
+"timescaledb_information"."hypertable_compression_settings"
+rows: 1
+  hypertable                      regclass                    
+  segmentby                       text                        
+  orderby                         text                        
+  compress_interval_length        text                        
+  index                           jsonb                       
+  sample rows:
+    ('day_ahead_prices', 'None', 'None', 'None', 'None')
+==========================================================================================
+"timescaledb_information"."hypertables"
+rows: 1
+  hypertable_schema               name                        
+  hypertable_name                 name                        
+  owner                           name                        
+  num_dimensions                  smallint                    
+  num_chunks                      bigint                      
+  compression_enabled             boolean                     
+  tablespaces                     ARRAY                       
+  primary_dimension               name                        
+  primary_dimension_type          regtype                     
+  sample rows:
+    ('public', 'day_ahead_prices', 'avnadmin', '1', '302', 'False', 'None', 'time_utc', 'timestamp with time zone')
+==========================================================================================
+"timescaledb_information"."job_errors"
+rows: 72
+  job_id                          integer                     
+  proc_schema                     text                        
+  proc_name                       text                        
+  pid                             integer                     
+  start_time                      timestamp with time zone       range: 2026-09-10 07:18:40.335641+00:00 .. 2026-10-13 12:00:00.013201+00:00
+  finish_time                     timestamp with time zone       range: 2026-09-10 07:18:40.352771+00:00 .. 2026-10-13 12:00:00.085204+00:00
+  sqlerrcode                      text                        
+  err_message                     text                        
+  sample rows:
+    ('3', '_timescaledb_functions', 'policy_job_stat_history_retention', '57156', '2026-10-13 12:00:00.013201+00:00', '2026-10-13 12:00:00.085204+00:00', '0A000', 'functionality not supported under the cu')
+    ('3', '_timescaledb_functions', 'policy_job_stat_history_retention', '982', '2026-10-13 08:49:44.967749+00:00', '2026-10-13 08:49:44.999937+00:00', '0A000', 'functionality not supported under the cu')
+    ('3', '_timescaledb_functions', 'policy_job_stat_history_retention', '620107', '2026-09-26 12:00:00.022385+00:00', '2026-09-26 12:00:00.053627+00:00', '0A000', 'functionality not supported under the cu')
+==========================================================================================
+"timescaledb_information"."job_history"
+rows: 72
+  id                              bigint                      
+  job_id                          integer                     
+  succeeded                       boolean                     
+  proc_schema                     text                        
+  proc_name                       text                        
+  pid                             integer                     
+  start_time                      timestamp with time zone       range: 2026-09-10 07:18:40.335641+00:00 .. 2026-10-13 12:00:00.013201+00:00
+  finish_time                     timestamp with time zone       range: 2026-09-10 07:18:40.352771+00:00 .. 2026-10-13 12:00:00.085204+00:00
+  config                          jsonb                       
+  sqlerrcode                      text                        
+  err_message                     text                        
+  sample rows:
+    ('136', '3', 'False', '_timescaledb_functions', 'policy_job_stat_history_retention', '57156', '2026-10-13 12:00:00.013201+00:00', '2026-10-13 12:00:00.085204+00:00', "{'drop_after': '1 month', 'max_failures_", '0A000', 'functionality not supported under the cu')
+    ('135', '3', 'False', '_timescaledb_functions', 'policy_job_stat_history_retention', '982', '2026-10-13 08:49:44.967749+00:00', '2026-10-13 08:49:44.999937+00:00', "{'drop_after': '1 month', 'max_failures_", '0A000', 'functionality not supported under the cu')
+    ('102', '3', 'False', '_timescaledb_functions', 'policy_job_stat_history_retention', '620107', '2026-09-26 12:00:00.022385+00:00', '2026-09-26 12:00:00.053627+00:00', "{'drop_after': '1 month', 'max_failures_", '0A000', 'functionality not supported under the cu')
+==========================================================================================
+"timescaledb_information"."job_stats"
+rows: 2
+  hypertable_schema               name                        
+  hypertable_name                 name                        
+  job_id                          integer                     
+  last_run_started_at             timestamp with time zone       range: 2026-10-13 12:00:00.013116+00:00 .. 2026-10-13 12:00:00.013116+00:00
+  last_successful_finish          timestamp with time zone       range: 0001-01-01 00:00:00+00:00 .. 0001-01-01 00:00:00+00:00
+  last_run_status                 text                        
+  job_status                      text                        
+  last_run_duration               interval                    
+  next_start                      timestamp with time zone       range: 2026-10-13 18:00:00+00:00 .. 2026-10-13 18:00:00+00:00
+  total_runs                      bigint                      
+  total_successes                 bigint                      
+  total_failures                  bigint                      
+  sample rows:
+    ('None', 'None', '3', '2026-10-13 12:00:00.013116+00:00', '0001-01-01 00:00:00+00:00', 'Failed', 'Scheduled', '0:00:00.071841', '2026-10-13 18:00:00+00:00', '72', '0', '72')
+    ('None', 'None', '1', 'None', 'None', 'None', 'Scheduled', 'None', 'None', 'None', 'None', 'None')
+==========================================================================================
+"timescaledb_information"."jobs"
+rows: 2
+  job_id                          integer                     
+  application_name                name                        
+  schedule_interval               interval                    
+  max_runtime                     interval                    
+  max_retries                     integer                     
+  retry_period                    interval                    
+  proc_schema                     name                        
+  proc_name                       name                        
+  owner                           regrole                     
+  scheduled                       boolean                     
+  fixed_schedule                  boolean                     
+  config                          jsonb                       
+  next_start                      timestamp with time zone       range: 2026-10-13 18:00:00+00:00 .. 2026-10-13 18:00:00+00:00
+  initial_start                   timestamp with time zone       range: 2000-01-01 00:00:00+00:00 .. 2000-01-01 00:00:00+00:00
+  hypertable_schema               name                        
+  hypertable_name                 name                        
+  check_schema                    name                        
+  check_name                      name                        
+  sample rows:
+    ('1', 'Telemetry Reporter [1]', '1 day, 0:00:00', '0:01:40', '-1', '1:00:00', '_timescaledb_functions', 'policy_telemetry', 'postgres', 'True', 'False', 'None', 'None', 'None', 'None', 'None', 'None', 'None')
+    ('3', 'Job History Log Retention Policy [3]', '6:00:00', '1:00:00', '-1', '1:00:00', '_timescaledb_functions', 'policy_job_stat_history_retention', 'avnadmin', 'True', 'True', "{'drop_after': '1 month', 'max_failures_", '2026-10-13 18:00:00+00:00', '2000-01-01 00:00:00+00:00', 'None', 'None', '_timescaledb_functions', 'policy_job_stat_history_retention_check')
+==========================================================================================
+"timescaledb_information"."stat_chunk_activity"
+rows: 0
+  chunk                           regclass                    
+  compressed_chunk                regclass                    
+  chunk_id                        integer                     
+  hypertable_id                   integer                     
+  hypertable                      name                        
+  compressed_batch_count          bigint                      
+  compressed_block_count          bigint                      
+  compressed_batch_rows_min       bigint                      
+  compressed_batch_rows_max       bigint                      
+  compressed_batch_rows_avg       bigint                      
+  compressed_batch_rows_stddev    double precision            
+  compressed_batch_bytes_min      bigint                      
+  compressed_batch_bytes_max      bigint                      
+  compressed_batch_bytes_avg      bigint                      
+  compressed_batch_bytes_stddev   double precision            
+  compressed_block_bytes_min      bigint                      
+  compressed_block_bytes_max      bigint                      
+  compressed_block_bytes_avg      bigint                      
+  compressed_block_bytes_stddev   double precision            
+  total_batches_deleted           bigint                      
+  total_batches_decompressed      bigint                      
+  total_tuples_decompressed       bigint                      
+  total_batches_scanned           bigint                      
+  total_batches_checked_by_bloom  bigint                      
+  total_batches_pruned_by_bloom   bigint                      
+  total_batches_without_bloom     bigint                      
+  total_batches_bloom_false_positivesbigint                      
+  total_batches_filtered_compressedbigint                      
+  total_batches_filtered_decompressedbigint                      
+  last_op_batches_deleted         bigint                      
+  last_op_batches_decompressed    bigint                      
+  last_op_tuples_decompressed     bigint                      
+  last_op_batches_scanned         bigint                      
+  last_op_batches_checked_by_bloombigint                      
+  last_op_batches_pruned_by_bloom bigint                      
+  last_op_batches_without_bloom   bigint                      
+  last_op_batches_bloom_false_positivesbigint                      
+  last_op_batches_filtered_compressedbigint                      
+  last_op_batches_filtered_decompressedbigint                      
+  n_selects                       bigint                      
+  n_inserts                       bigint                      
+  n_updates                       bigint                      
+  n_deletes                       bigint                      
+  first_update                    timestamp with time zone       range: None .. None
+  last_update                     timestamp with time zone       range: None .. None
+  sample rows:
+
+==========================================================================================
+DK1 day-ahead coverage
+zone / source / rows / first / last:
+   ('DE', 'dayahead_real', 36232, datetime.datetime(2025, 9, 30, 22, 0, tzinfo=datetime.timezone.utc), datetime.datetime(2026, 10, 13, 7, 45, tzinfo=datetime.timezone.utc))
+   ('DE', 'interpolated_from_elspotprices', 166438, datetime.datetime(2020, 12, 31, 23, 0, tzinfo=datetime.timezone.utc), datetime.datetime(2025, 9, 30, 21, 0, tzinfo=datetime.timezone.utc))
+   ('DK1', 'dayahead_real', 36232, datetime.datetime(2025, 9, 30, 22, 0, tzinfo=datetime.timezone.utc), datetime.datetime(2026, 10, 13, 7, 45, tzinfo=datetime.timezone.utc))
+   ('DK1', 'interpolated_from_elspotprices', 166438, datetime.datetime(2020, 12, 31, 23, 0, tzinfo=datetime.timezone.utc), datetime.datetime(2025, 9, 30, 21, 0, tzinfo=datetime.timezone.utc))
+   ('DK2', 'dayahead_real', 36232, datetime.datetime(2025, 9, 30, 22, 0, tzinfo=datetime.timezone.utc), datetime.datetime(2026, 10, 13, 7, 45, tzinfo=datetime.timezone.utc))
+   ('DK2', 'interpolated_from_elspotprices', 166438, datetime.datetime(2020, 12, 31, 23, 0, tzinfo=datetime.timezone.utc), datetime.datetime(2025, 9, 30, 21, 0, tzinfo=datetime.timezone.utc))
+   ('NO2', 'dayahead_real', 36232, datetime.datetime(2025, 9, 30, 22, 0, tzinfo=datetime.timezone.utc), datetime.datetime(2026, 10, 13, 7, 45, tzinfo=datetime.timezone.utc))
+   ('NO2', 'interpolated_from_elspotprices', 166438, datetime.datetime(2020, 12, 31, 23, 0, tzinfo=datetime.timezone.utc), datetime.datetime(2025, 9, 30, 21, 0, tzinfo=datetime.timezone.utc))
+   ('SE3', 'dayahead_real', 36232, datetime.datetime(2025, 9, 30, 22, 0, tzinfo=datetime.timezone.utc), datetime.datetime(2026, 10, 13, 7, 45, tzinfo=datetime.timezone.utc))
+   ('SE3', 'interpolated_from_elspotprices', 166438, datetime.datetime(2020, 12, 31, 23, 0, tzinfo=datetime.timezone.utc), datetime.datetime(2025, 9, 30, 21, 0, tzinfo=datetime.timezone.utc))
+   ('SE4', 'dayahead_real', 36232, datetime.datetime(2025, 9, 30, 22, 0, tzinfo=datetime.timezone.utc), datetime.datetime(2026, 10, 13, 7, 45, tzinfo=datetime.timezone.utc))
+   ('SE4', 'interpolated_from_elspotprices', 166438, datetime.datetime(2020, 12, 31, 23, 0, tzinfo=datetime.timezone.utc), datetime.datetime(2025, 9, 30, 21, 0, tzinfo=datetime.timezone.utc))
+   ('SYSTEM', 'interpolated_from_elspotprices', 143786, datetime.datetime(2020, 12, 31, 23, 0, tzinfo=datetime.timezone.utc), datetime.datetime(2025, 2, 6, 22, 0, tzinfo=datetime.timezone.utc))
+
+month / days / full_days / mean EUR/MWh / neg_days / peak:
+   ('2025-10', 31, 29, Decimal('78.5'), 2, Decimal('508'))
+   ('2025-11', 30, 30, Decimal('92.9'), 0, Decimal('401'))
+   ('2025-12', 31, 31, Decimal('82.4'), 0, Decimal('320'))
+   ('2026-01', 31, 31, Decimal('105.6'), 0, Decimal('359'))
+   ('2026-02', 28, 28, Decimal('96.1'), 0, Decimal('247'))
+   ('2026-03', 31, 30, Decimal('97.2'), 4, Decimal('429'))
+   ('2026-04', 30, 30, Decimal('83.3'), 9, Decimal('313'))
+   ('2026-05', 31, 31, Decimal('99.9'), 10, Decimal('468'))
+   ('2026-06', 30, 30, Decimal('109.9'), 4, Decimal('787'))
+   ('2026-07', 31, 31, Decimal('102.1'), 11, Decimal('365'))
+   ('2026-08', 31, 31, Decimal('125.3'), 5, Decimal('487'))
+   ('2026-09', 30, 30, Decimal('140.9'), 3, Decimal('783'))
+   ('2026-10', 13, 12, Decimal('153.7'), 1, Decimal('406'))
+
+done

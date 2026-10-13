@@ -2,11 +2,19 @@
 
 This project contains the day-ahead, intraday, and real-time schedulers plus an optional strategic offering extension. The base three-stage formulation is documented in [factory_multistage_formulation-v3.md](factory_multistage_formulation-v3.md). The offering model adds scenario-dependent DA bid/offer curves, up-spinning-reserve offers, deployment, and CVaR risk control.
 
-The current full-run owner report is [OWNER_REPORT.md](OWNER_REPORT.md), with plots and data in [offering_owner_report_results/](offering_owner_report_results/).
+The current full-run owner report is [OWNER_REPORT.md](OWNER_REPORT.md), with plots and data in [offering_owner_report_results/](offering_owner_report_results/). See [OFFERING_OWNER_REPORT_FIGURE_GUIDE.md](OFFERING_OWNER_REPORT_FIGURE_GUIDE.md) for explanations of every figure in that output folder. The combined market-offering and standalone ID-rescheduling analysis is available as [combined_offering_reschedule_analysis.pdf](offering_owner_report_results/combined_offering_reschedule_analysis.pdf).
 
 The existing scheduler modules remain colocated so their shared model objects and helper functions are reused directly. The offering CLI is separated into `factory_mt_offering_cli.py`; `factory_mt_offering_strategy.py` remains the public API and backward-compatible script entry point.
 
-See [OWNER_REPORT.md](OWNER_REPORT.md) for the full seed-2024 owner results, financial interpretation, plots, and limitations.
+See [OWNER_REPORT.md](OWNER_REPORT.md) for the full seed-2024 owner results, financial interpretation, plots, and limitations, and [OFFERING_OWNER_REPORT_FIGURE_GUIDE.md](OFFERING_OWNER_REPORT_FIGURE_GUIDE.md) for a figure-by-figure explanation.
+
+Regenerate the combined PDF from the saved owner-run outputs with:
+
+```sh
+.venv/bin/python generate_combined_owner_report.py
+```
+
+The PDF presents the ID production-rescheduling study separately from the offering optimization; it does not add the two savings estimates together.
 
 ## Install
 

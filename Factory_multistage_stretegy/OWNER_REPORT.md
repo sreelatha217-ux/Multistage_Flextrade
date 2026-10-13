@@ -2,6 +2,8 @@
 
 **Run:** 3 ID price scenarios × 3 RT scenarios; seed 2024; 24-hour horizon; 1% MIP-gap target; BESS degradation €5/MWh on throughput. **Status:** optimal termination with 0.986% reported gap; independent verification passed.
 
+The combined market-offering and standalone ID-rescheduling analysis, including the saved figures, is available in [combined_offering_reschedule_analysis.pdf](offering_owner_report_results/combined_offering_reschedule_analysis.pdf). The two analyses remain separate; their savings estimates are not additive.
+
 ## Executive summary
 
 The Stage 1 plan schedules **17 batches and 193 units**. The market-stage comparison estimates expected net operating cost of **€138,744** for DA-only plus RT imbalance settlement, **€137,712** after adding ID trading, and **€129,534** after adding the modelled up-reserve offer. On this scenario set, DA+ID+up-reserve is **€9,211 lower than DA-only**.

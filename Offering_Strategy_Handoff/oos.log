@@ -1,0 +1,10 @@
+out-of-sample tree: 100 x 2 paths
+  paper 3x3 tree: in-sample 129533.65  out-of-sample 130888.55
+  6 x 2 tree: in-sample 127866.42  out-of-sample 130338.43
+  12 x 2 tree: in-sample 128737.41  out-of-sample 130170.02
+
+=== RESULT (out-of-sample test) ===
+training tree       paths   in-sample  out-of-sample  optimism EUR   gap %   time s
+paper 3x3 tree          9   129533.65      130888.55       1354.90   0.279       27
+6 x 2 tree             12   127866.42      130338.43       2472.02   0.260       53
+12 x 2 tree            24   128737.41      130170.02       1432.61   0.074      440
