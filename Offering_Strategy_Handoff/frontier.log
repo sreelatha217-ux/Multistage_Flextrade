@@ -1,14 +1,22 @@
-tree: 12 x 2 = 24 paths; alpha=0.95
+nohup: ignoring input
 only 24 joint scenarios: the 5% tail is 1.20 scenarios wide; use more scenarios for a meaningful CVaR
 only 24 joint scenarios: the 5% tail is 1.20 scenarios wide; use more scenarios for a meaningful CVaR
-stopped early: terminationcondition.maxtimelimit, gap=0.01290785573964478
 only 24 joint scenarios: the 5% tail is 1.20 scenarios wide; use more scenarios for a meaningful CVaR
 only 24 joint scenarios: the 5% tail is 1.20 scenarios wide; use more scenarios for a meaningful CVaR
+history_end  beta  exp_profit_eur  cvar_eur  std_eur  worst_eur  avg_reserve_mw
+ 2026-10-11   0.0       -132910.1 -273171.1  83211.1  -283192.5            25.9
+ 2026-10-11   0.2       -133663.3 -267980.5  81895.7  -275481.5            27.0
+ 2026-10-11   0.5       -138595.1 -265227.5  78698.4  -270775.8            25.9
+ 2026-10-11   0.8       -139941.6 -265055.4  78101.6  -270758.1            25.4
+ 2026-10-11   0.9       -142862.8 -262507.2  75188.6  -270351.8            27.0
+[2026-10-11] frontier done in 1798s
 
-=== RESULT (CVaR frontier) ===
- beta  exp_profit_eur   cvar_eur  std_eur  worst_eur  avg_reserve_mw
- 0.00      -129482.83 -144712.36  8984.44 -145137.48           39.00
- 0.25      -130261.78 -140040.41  7396.08 -140040.41           36.56
- 0.50      -129928.78 -139956.71  7948.60 -139956.71           40.12
- 0.75      -132737.79 -140083.41  6544.95 -140083.41           31.22
- 0.90      -131831.46 -139991.58  6914.02 -139991.58           38.64
+=== RESULT ===
+history_end  beta  exp_profit_eur   cvar_eur  std_eur  worst_eur  avg_reserve_mw
+ 2026-10-11  0.00      -132910.11 -273171.12 83211.09 -283192.51           25.94
+ 2026-10-11  0.25      -133663.25 -267980.54 81895.66 -275481.54           27.04
+ 2026-10-11  0.50      -138595.14 -265227.52 78698.43 -270775.83           25.90
+ 2026-10-11  0.75      -139941.61 -265055.36 78101.57 -270758.10           25.40
+ 2026-10-11  0.90      -142862.82 -262507.20 75188.58 -270351.82           27.04
+
+Note: differences smaller than about gap x cost are not resolved.

@@ -1,0 +1,15 @@
+nohup: ignoring input
+[2026-10-11] none (DA+ID only)        cost     140396  saving        0  gap 0.50%
+[2026-10-11] MT + DR only             cost     139452  saving      945  gap 0.50%
+[2026-10-11] BESS only (dis + ch)     cost     134174  saving     6222  gap 0.50%
+[2026-10-11] all four                 cost     133154  saving     7242  gap 0.50%
+[2026-10-11] assets done in 285s
+
+=== RESULT ===
+history_end         reserve_from  net_cost  saving_vs_none  avg_reserve_mw  gap
+ 2026-10-11    none (DA+ID only) 140396.30            0.00            0.00  0.0
+ 2026-10-11         MT + DR only 139451.53          944.76            4.46  0.0
+ 2026-10-11 BESS only (dis + ch) 134174.40         6221.90           26.26  0.0
+ 2026-10-11             all four 133154.16         7242.14           30.92  0.0
+
+Note: differences smaller than about gap x cost are not resolved.

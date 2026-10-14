@@ -8,7 +8,8 @@ Rolling test on REAL DK1 days (same idea as `real_data_study.py backtest`):
      imbalance) is re-optimised on the actual day in three ways:
         fixed : jobs stay as in Stage 1                      (= what real_data_study.py backtest does)
         free  : jobs may be re-planned completely
-        shift : jobs may move at most --shift-hours, only the tasks already in the Stage-1 plan
+        shift : jobs may move at most --shift-hours, only the tasks already in the Stage-1 plan (machine may change)
+        strict: SAME machine, SAME task, start time moves at most --shift-hours (most defensible operationally)
   3. saving = cost(fixed) - cost(variant), both evaluated with the same booked DA quantities, so any mismatch
      between the booked DA energy and the new load is paid for (intraday / imbalance / BESS / MT).
 
@@ -62,6 +63,13 @@ def allowed_by_shift(cands, tix, jobs, shift_h):
             if any(c.p == p and abs(c.start_h - s) <= shift_h + EPS for p, s in base)}
 
 
+def allowed_strict(cands, tix, mix, jobs, shift_h):
+    """Same machine, same task, start within +-shift_h of its Stage-1 start."""
+    base = [(mix[j.machine], tix[j.task], float(j.start_h)) for j in jobs.itertuples()]
+    return {i for i, c in enumerate(cands)
+            if any(c.m == m and c.p == p and abs(c.start_h - s) <= shift_h + EPS for m, p, s in base)}
+
+
 def changed_jobs(base_jobs, new_jobs):
     a = {(j.machine, j.task, round(float(j.start_h), 4)) for j in base_jobs.itertuples()}
     b = {(j.machine, j.task, round(float(j.start_h), 4)) for j in new_jobs.itertuples()}
@@ -73,11 +81,16 @@ def main():
     rc.add_common_args(ap)
     ap.add_argument("--mfrr", default=ml.MfrrCtx.mfrr_csv, help="csv from fetch_mfrr_capacity.py (optional)")
     ap.add_argument("--oos-gap", type=float, default=0.002, help="MIP gap of the three evaluation solves")
-    ap.add_argument("--shift-hours", type=float, default=3.0, help="max start shift in the 'shift' variant")
+    ap.add_argument("--shift-hours", type=float, default=3.0, help="max start shift in the strict / shift variants")
+    ap.add_argument("--variants", default="strict",
+                    help="comma list of strict, shift, free (fixed always runs as the baseline); default: strict")
     ap.set_defaults(gap=0.01, time_limit=600, step=28)
     opt, extra = ap.parse_known_args()
     if not opt.start:
         ap.error("--start is required (first test day); --end = last test day")
+    variants = [v.strip() for v in opt.variants.split(",") if v.strip()]
+    if not variants or any(v not in ("strict", "shift", "free") for v in variants):
+        ap.error("--variants must be a comma list of: strict, shift, free")
 
     use_mfrr = os.path.exists(opt.mfrr)
     ml.MfrrCtx.mfrr_csv = opt.mfrr
@@ -133,6 +146,7 @@ def main():
             qb[:, t] = step_curve(sc.da_buy[:, t], Pbuy[:, t], osc.da_buy[:, t], "buy")
         keep = baseline_candidates(ctx.cands, ctx.tix, ctx.mix, res.jobs)
         near = allowed_by_shift(ctx.cands, ctx.tix, res.jobs, opt.shift_hours)
+        strict = allowed_strict(ctx.cands, ctx.tix, ctx.mix, res.jobs, opt.shift_hours)
 
         def make_fix(allowed):
             def fix(m2):
@@ -154,33 +168,37 @@ def main():
         row = dict(day=str(day.date()), actual_mean_price=float(ctx.df.loc[day].mean()),
                    real_mfrr_used=real_sr, train_gap=gap_train)
         results = {}
-        for label, allowed in (("fixed", keep), ("shift", near), ("free", None)):
+        slots = {"strict": strict, "shift": near, "free": None}
+        for label, allowed in [("fixed", keep)] + [(v, slots[v]) for v in variants]:
             _, r2 = solve(oinst, osc, ort, odep, fix=make_fix(allowed), gap=opt.oos_gap)
             results[label] = r2
             row[f"{label}_cost"] = -r2.expected_profit_eur
             row[f"{label}_gap"] = r2.mip_gap or 0.0
             row[f"{label}_jobs_changed"] = changed_jobs(res.jobs, r2.jobs)
-        for label in ("shift", "free"):
+        for label in variants:
             row[f"saving_{label}_eur"] = row["fixed_cost"] - row[f"{label}_cost"]
             row[f"saving_{label}_pct"] = 100 * row[f"saving_{label}_eur"] / row["fixed_cost"]
-        row["noise_eur"] = (row["fixed_gap"] + row["free_gap"]) * row["fixed_cost"]
+        row["noise_eur"] = (row["fixed_gap"] + max(row[f"{v}_gap"] for v in variants)) * row["fixed_cost"]
         row["seconds"] = time.time() - t0
         rows.append(row)
         rc.save_rows(rows, out_dir, "backtest.csv")
-        print(f"[{len(rows)}] {row['day']}  fixed {row['fixed_cost']:.0f}  "
-              f"shift<={opt.shift_hours:g}h saves {row['saving_shift_eur']:.0f} ({row['saving_shift_pct']:.2f}%, "
-              f"{row['shift_jobs_changed']} jobs moved)  free saves {row['saving_free_eur']:.0f} "
-              f"({row['saving_free_pct']:.2f}%, {row['free_jobs_changed']} jobs moved)  "
-              f"noise ~{row['noise_eur']:.0f}  {row['seconds']:.0f}s", flush=True)
+        print(f"[{len(rows)}] {row['day']}  fixed {row['fixed_cost']:.0f}", flush=True)
+        names = {"strict": f"strict (same machine+task, +-{opt.shift_hours:g}h)",
+                 "shift": f"shift  (same tasks, any machine, +-{opt.shift_hours:g}h)", "free": "free   (everything)"}
+        for label in variants:
+            name = names[label]
+            print(f"      {name:48s} saves {row[f'saving_{label}_eur']:8.0f} ({row[f'saving_{label}_pct']:5.2f}%)  "
+                  f"{row[f'{label}_jobs_changed']:2d} jobs moved", flush=True)
+        print(f"      noise ~{row['noise_eur']:.0f} EUR   {row['seconds']:.0f}s", flush=True)
 
     if rows:
         bt = pd.DataFrame(rows)
         print("\n=== PRODUCTION RECOURSE AFTER DA CLEARING (DA quantities booked, real DK1 days) ===")
         print(f"days: {len(bt)}")
-        for label in ("shift", "free"):
+        for label in variants:
             s = bt[f"saving_{label}_eur"]
             p = bt[f"saving_{label}_pct"]
-            print(f"{label:5s}: mean {s.mean():.0f} EUR ({p.mean():.2f}%)  median {p.median():.2f}%  "
+            print(f"{label:6s}: mean {s.mean():.0f} EUR ({p.mean():.2f}%)  median {p.median():.2f}%  "
                   f"days below noise: {(s < bt.noise_eur).sum()}  negative days: {(s < 0).sum()}")
         print(f"mean noise level ~{bt.noise_eur.mean():.0f} EUR;  results in {out_dir}/backtest.csv")
 

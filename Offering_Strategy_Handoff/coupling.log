@@ -1,0 +1,15 @@
+nohup: ignoring input
+
+##### history to 2026-10-11  (3 day types x 3 RT)
+>>> scale 1: integrated
+>>> scale 1: plan A (energy-only DA+ID, no reserve)
+>>> scale 1: decoupled A
+>>> plan B (DA-only)
+>>> decoupled B
+    done 233s: integrated 133154  decoupled A 133930  coupling A 776 (noise ~478)
+
+=== RESULT ===
+history_end  bess_mw  bess_mwh  no_reserve_cost  integrated_cost  decoupled_A_cost  coupling_A  coupling_B  reserve_benefit  noise_eur  avg_reserve_mw
+ 2026-10-11     40.0     200.0         140396.3         133154.2          133930.4       776.2       657.1           7242.1      477.5            30.9
+
+written to /workspaces/Multistage_Flextrade/Offering_Strategy_Handoff/real_data_results/coupling_decouple/coupling.csv

@@ -1,0 +1,17 @@
+nohup: ignoring input
+real-data tree: 3 day types x 3 RT branches, history = 90 days to 2026-10-11, probs = [0.344 0.522 0.133]
+status=optimal  risk-adjusted profit=-133,154.16 EUR  gap=0.4988%  time=61.6s  tree=3 price x 3 RT  bidding=curve  beta=0  alpha=0.95
+E[profit]=-133,154.16  E[net cost]=133,154.16 EUR  CVaR95=-265,674.24  VaR=-262,535.45  std=72,018.71  min=-266,066.59  max=-44,878.87 EUR
+E[revenue]: DA=-68,477.08  ID=-49,167.26  reserve capacity=12,841.77  activation=4,758.37
+E[cost]: imbalance=2,740.31  MT=27,444.54  BESS=1,766.82  DR=1,158.30 EUR
+reserve: avg offer=30.9 MW over 24 h (MT 0.2 / BESS-dis 20.9 / BESS-ch 5.7 / DR 4.2 MW)  expected activation=58.4 MWh
+Stage 1: MT on 24 h, 1 start(s)  batches=17  units=193
+verification=PASS
+
+Market participation ladder (REAL DK1 prices):
+                        market_stage  expected_net_cost_eur  savings_vs_da_only_eur
+   DA only + RT imbalance settlement              142700.24                    0.00
+   DA + ID + RT imbalance settlement              140396.30                 2303.94
+DA + ID + RT settlement + up-reserve              133154.16                 9546.08
+
+written to /workspaces/Multistage_Flextrade/Offering_Strategy_Handoff/real_data_results/ladder_tight/ladder

@@ -1,0 +1,12 @@
+nohup: ignoring input
+
+[2026-10-11] rescheduling by day type (hour 0):
+ id_scenario  probability  fixed_plan_cost_eur  operating_cost_eur  production_reschedule_savings_eur  jobs_changed  units_produced  mip_gap
+           0        0.344            48182.538           42120.660                           6061.878            15           192.0    0.005
+           1        0.522           169397.494          164874.134                           4523.360            14           193.0    0.005
+           2        0.133           269894.477          259564.519                          10329.958            11           193.0    0.005
+[2026-10-11] probability-weighted saving 5828 EUR (4.13%)
+
+=== RESULT ===
+history_end  weighted_saving_eur  weighted_fixed_cost_eur  saving_pct
+ 2026-10-11              5827.51                141045.27        4.13
