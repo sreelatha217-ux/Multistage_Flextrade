@@ -59,7 +59,8 @@ class Ctx:
         self.no_res = replace(self.rsv, enabled=False)
         self.bal = api.BalancingMarket(a.imbalance_mode, a.bal_exclusive, a.max_imbalance, a.max_imbalance).validate()
         self.strat = api.StrategyConfig(a.beta, a.alpha, a.bidding, not a.no_reserve_curves,
-                                        not a.soc_terminal_baseline).validate()
+                                        not a.soc_terminal_baseline,
+                                        reserve_stage1=getattr(a, "reserve_stage1", False)).validate()
         self.cfg = self.make_cfg(opt.gap)
         self.df = rdt.load_prices(opt.csv)
         self.cands = api.da.build_candidates(self.base_inst, self.cfg.start_step_h)

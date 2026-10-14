@@ -163,6 +163,8 @@ class StrategyConfig:
     reserve_curves: bool = True       # monotone reserve offer (issue 4)
     terminal_soc_paths: bool = True   # SoC_T >= SoC_0 in every (s,w) branch, not only on the no-call path
     tie_tol: float = 1e-6             # EUR/MWh: prices closer than this count as identical
+    reserve_stage1: bool = False      # True: total reserve capacity R_total[t] is ONE Stage-1 number (same in every
+                                      # price scenario), as the mFRR capacity auction closes (09:30 D-1) before DA prices are known
 
     def validate(self) -> "StrategyConfig":
         if not (0 <= self.beta <= 1) or not (0 < self.alpha < 1):
@@ -463,7 +465,7 @@ def build_offering_model(inst: Instance, mkt: IntradayMarket, scen: OfferingScen
             m.c_rcap = pyo.Constraint(m.S, m.H, rule=lambda mm, k, t: mm.Rtot[k, t] <= rsv.max_offer_mw)
         m.c_rcurve = pyo.ConstraintList()
         for t in range(T):
-            if strat.bidding == "fixed":
+            if strat.bidding == "fixed" or strat.reserve_stage1:
                 for k in range(1, S):
                     m.c_rcurve.add(m.Rtot[k, t] == m.Rtot[0, t])
             elif strat.reserve_curves:

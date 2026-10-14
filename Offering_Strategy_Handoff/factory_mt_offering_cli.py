@@ -17,6 +17,8 @@ def _offer_parser(api: ModuleType) -> argparse.ArgumentParser:
     g.add_argument("--bidding", choices=api.BIDDING, default="curve", help="curve: monotone price-quantity curves; fixed: price-taker")
     g.add_argument("--no-reserve-curves", action="store_true", help="do not force the reserve offer to be monotone in lam_SR")
     g.add_argument("--soc-terminal-baseline", action="store_true", help="SoC_T >= SoC_0 only on the no-call path")
+    g.add_argument("--reserve-stage1", action="store_true",
+                   help="reserve capacity is one Stage-1 quantity per hour (same in all price scenarios), like the mFRR capacity auction that closes before day-ahead")
     p = ap.add_argument_group("intraday production rescheduling")
     p.add_argument("--id-reschedule-hour", type=float, default=0.0,
                    help="delivery-hour cutoff; Stage-1 jobs already started are frozen (default 0 for next-day scheduling)")
@@ -101,7 +103,7 @@ def main(argv=None, api=None) -> int:
         bal = api.BalancingMarket(args.imbalance_mode, args.bal_exclusive,
                                   args.max_imbalance, args.max_imbalance).validate()
         strat = api.StrategyConfig(args.beta, args.alpha, args.bidding, not args.no_reserve_curves,
-                                   not args.soc_terminal_baseline).validate()
+                                   not args.soc_terminal_baseline, reserve_stage1=args.reserve_stage1).validate()
         cfg = api.SchedulerConfig(start_step_h=args.start_step, unique_tasks=not args.allow_repeat_tasks,
                                   solver=api.SolverSettings(args.solver, args.mip_gap, args.time_limit,
                                                            args.threads, args.verbose))

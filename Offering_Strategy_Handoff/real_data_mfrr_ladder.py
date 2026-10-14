@@ -98,7 +98,8 @@ if __name__ == "__main__":
         day = str(end.date())
         inst, scen, rt, dep = ctx.tree(end)
         print(f"real-data tree + REAL mFRR prices: {scen.n} day types x {rt.n_w} RT, history to {day}, "
-              f"probs = {np.round(scen.prob, 3)}", flush=True)
+              f"probs = {np.round(scen.prob, 3)}, reserve capacity = "
+              f"{'ONE Stage-1 quantity (same in all scenarios)' if ctx.strat.reserve_stage1 else 'price-quantity curve'}", flush=True)
         for k in range(scen.n):
             print(f"  day type {k}: mean DA {scen.da_buy[k].mean():6.1f} EUR/MWh | real mFRR mean {scen.sr_up[k].mean():6.2f} "
                   f"(max {scen.sr_up[k].max():6.2f}) vs old 0.12 x DA = {0.12 * scen.da_buy[k].mean():6.2f} EUR/MW/h", flush=True)
@@ -107,7 +108,7 @@ if __name__ == "__main__":
         print(res.summary())
         print("\nMarket participation ladder (REAL DA + REAL mFRR capacity prices):")
         print(stages[["market_stage", "expected_net_cost_eur", "savings_vs_da_only_eur"]].round(2).to_string(index=False))
-        out = res.save(os.path.join(opt.out, "ladder_mfrr", day))
+        out = res.save(os.path.join(opt.out, "ladder_mfrr_stage1" if ctx.strat.reserve_stage1 else "ladder_mfrr", day))
         stages.to_csv(out / "market_stage_comparison.csv", index=False)
         scen.save(out / "scenario_set.json")
         print(f"\nwritten to {out.resolve()}", flush=True)
