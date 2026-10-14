@@ -26,8 +26,16 @@ ap.add_argument("mode", choices=["decouple", "bess"])
 rc.add_common_args(ap)
 ap.add_argument("--scales", type=float, nargs="+", default=[0.0, 0.25, 0.5, 1.0])
 ap.set_defaults(gap=0.002, time_limit=900)
+ap.add_argument("--real-mfrr", action="store_true",
+                help="use REAL mFRR up-capacity prices (mfrr_capacity_dk1.csv) instead of --sr-ratio x DA")
 opt, extra = ap.parse_known_args()
-ctx = rc.Ctx(opt, extra)
+if opt.real_mfrr:
+    import real_data_mfrr_ladder as ml
+    ctx = ml.MfrrCtx(opt, extra)
+else:
+    ctx = rc.Ctx(opt, extra)
+print("reserve prices:", "REAL mFRR" if opt.real_mfrr else f"synthetic {opt.sr_ratio} x DA", "|",
+      "reserve capacity:", "Stage-1 quantity" if ctx.strat.reserve_stage1 else "price-quantity curve", flush=True)
 api = ctx.api
 out_dir = os.path.join(opt.out, f"coupling_{opt.mode}")
 

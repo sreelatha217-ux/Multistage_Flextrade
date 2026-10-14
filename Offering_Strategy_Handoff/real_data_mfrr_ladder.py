@@ -71,7 +71,8 @@ class MfrrCtx(rc.Ctx):
             self._mfrr = load_mfrr_hourly(self.mfrr_csv)
         P, pi, sr = cluster_mfrr(self.df, self._mfrr, end_date, o.window, n, o.seed)
         arrs = rc.rdt.tree_arrays(P, pi, floor=o.price_floor, sell_ratio=o.sell_ratio, sr_ratio=o.sr_ratio, seed=seed)
-        arrs["sr_up"] = sr                                          # real mFRR up-capacity price per day type
+        scale = 1.0 if sr_ratio is None else sr_ratio / o.sr_ratio     # --ratios 0.06 0.12 0.18 -> x0.5 x1 x1.5 of real mFRR
+        arrs["sr_up"] = sr * scale                                  # real mFRR up-capacity price per day type
         scen = api.OfferingScenarioSet(arrs["prob"], arrs["da_buy"], arrs["da_sell"], arrs["sr_up"],
                                        arrs["id_buy"], arrs["id_sell"], arrs["load_dev_mw"])
         from dataclasses import replace
