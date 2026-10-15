@@ -648,6 +648,14 @@ def solve_model(model: pyo.ConcreteModel, st: SolverSettings) -> Dict[str, objec
             from pyomo.contrib.appsi.solvers import Highs      # native APPSI object (not the legacy wrapper)
             opt = Highs()
             ok = opt.available() in (True, 1) or bool(getattr(opt.available(), "name", "") == "FullLicense")
+        elif st.name == "appsi_gurobi":
+            from pyomo.contrib.appsi.solvers import Gurobi      # native APPSI object, needs gurobipy + a FULL licence
+            opt = Gurobi()
+            avail = opt.available()
+            if getattr(avail, "name", "") == "LimitedLicense":
+                raise SolverUnavailableError("gurobipy found but only the size-limited licence (2000 variables / "
+                                             "2000 constraints): install a full (academic / WLS) licence")
+            ok = avail in (True, 1, 2) or bool(getattr(avail, "name", "") == "FullLicense")
         else:
             opt = pyo.SolverFactory(st.name)
             ok = opt.available(exception_flag=False)
@@ -670,6 +678,8 @@ def solve_model(model: pyo.ConcreteModel, st: SolverSettings) -> Dict[str, objec
             opt.config.mip_gap = st.mip_gap
             if st.name == "appsi_highs" and st.threads:
                 opt.highs_options["threads"] = int(st.threads)
+            if st.name == "appsi_gurobi" and st.threads:
+                opt.gurobi_options["Threads"] = int(st.threads)
             res = opt.solve(model)
             term = str(res.termination_condition).lower()
             has_sol = res.best_feasible_objective is not None
