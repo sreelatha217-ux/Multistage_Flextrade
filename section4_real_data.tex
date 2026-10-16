@@ -1,0 +1,860 @@
+
+\documentclass[journal]{IEEEtran}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{paralist}
+\usepackage{makecell}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{amssymb}
+\usepackage{IEEEtrantools}
+
+\setlist[description]{
+    leftmargin=0pt,
+    labelindent=0pt,
+    labelwidth=0pt,
+    labelsep=0.5em,
+    itemindent=0pt,
+    align=left,
+    itemsep=2pt,
+    parsep=0pt,
+    font=\normalfont
+}
+\begin{document}
+
+\title{Cyber-Physical Power-Production Co-Scheduling and Automated Demand Response for Flexible Industrial Prosumers}
+
+\author{Sreelatha Aihloor Subramanyam, \IEEEMembership{Senior Member, IEEE}, Amjad Anvari-Moghaddam, \IEEEMembership{Senior Member, IEEE}
+\thanks{This work was supported in part by research grants ...}
+\thanks{The authors are with the Department of Electrical Engineering and Industrial Automation ...}
+}
+
+\maketitle
+
+\begin{abstract}
+Modern industrial automation is undergoing a paradigm shift toward Industrial Cyber-Physical Systems (ICPS), where flexible smart factories leverage Industrial IoT (IIoT) communication streams to actively participate in smart grid power-production co-scheduling. However, co-optimizing discrete non-interruptible machine workflows alongside heterogeneous energy assets (gas microturbines and battery energy storage systems) under multi-stage grid price uncertainty presents severe cyber-physical control and structural challenges. This paper proposes an information-driven, three-stage stochastic decision-support framework for automated demand-response co-scheduling in smart industrial prosumers. By capturing risk aversion via Conditional Value-at-Risk (CVaR), the model generates step-wise Day-Ahead price-quantity offering curves and an hourly up-reserve capacity commitment fixed in Stage 1, while preserving manufacturing deadlines, machine assignments, and inter-batch cooling buffers. The framework is evaluated on a plant with 5 parallel smelting furnaces, 30 tasks, a gas microturbine and a battery, using one year of real DK1 Day-Ahead prices and real mFRR capacity prices. Scenario trees (three day types $\times$ three real-time branches) are built from the previous 90 days and solved to a MIP gap of at most 0.5\% in 13--99 s. Over eight trees, full participation (Day-Ahead, Intraday and up-reserve) lowers expected net operating cost by 2.9--11.9\% against Day-Ahead only (mean 7.1\%), and the reserve share falls as the mFRR capacity price falls. The saving is seasonal in this year of data: three further trees ending in winter save 5.6--7.3\%, and by season the average saving is 6.7\% (winter), 10.0\% (spring), 6.6\% (summer) and 3.4\% (autumn), following the mFRR price, while the Day-Ahead midday-to-evening spread is 17~\texteuro/MWh in winter and 79--110~\texteuro/MWh in the other seasons. With the Stage-1 plan fixed and evaluated on seven actual days, the realized saving is 3.7\% on average (\texteuro 5,403), about 43\% below the in-tree expectation. The battery supplies about 90\% of the reserve benefit, and the value of production coupling is small (at most 1.4\%). In a separate test, moving jobs by up to $\pm3$ h after Day-Ahead clearing saves 3.6\% per day on average (not additive to the ladder).
+\end{abstract}
+
+\begin{IEEEkeywords}
+Industrial cyber-physical systems, smart manufacturing, factory automation, power-production co-scheduling, real-time control and optimization, industrial IoT, battery energy storage systems, demand response, smart grid interoperability.
+\end{IEEEkeywords}
+
+\section*{Nomenclature}
+\addcontentsline{toc}{section}{Nomenclature}
+
+\subsection{Sets and Indices}
+\begin{description}
+\item[$t \in T$] Time periods across 24-hour horizon
+($T=24$, hourly resolution).
+\item[$m \in M$] Parallel industrial machines/furnaces
+($m \in \{m1, \dots, m5\}$).
+\item[$p \in P$] Manufacturing tasks/job operations
+($p \in \{p1, \dots, p30\}$).
+\item[$n \in N$] Batch sequence position slots per machine
+($n \in \{1, \dots, 10\}$).
+\item[$s \in S$] Price scenarios (day types; Day-Ahead, Intraday and reserve prices are realized together, $|S|=3$).
+\item[$w \in W$] Real-time imbalance and activation scenarios
+($|W|=3$).
+\end{description}
+
+\subsection{Parameters}
+\begin{description}
+\item[$td_{m,p}$] Continuous processing duration for task $p$ on machine $m$ ($1.30$--$4.90$ h).
+\item[$d_{m,p}$] Machine electrical power demand for task $p$ ($60.0$--$110.0$ MW).
+\item[$t_{\text{buffer}}$] Mandatory inter-batch setup, cleaning, and cooling buffer time ($1.0$ h).
+\item[$Y_p$] Finished goods product yield per completed task $p$ ($5$--$15$ units).
+\item[$N_{\text{max}}, N_0$] Maximum warehouse capacity ($500$ units) and initial inventory ($50$ units).
+\item[$n_{\text{prod,dem},t}$] Hourly product delivery commitment ($8$ units/h, $192$ units/day total).
+\item[$P_{\text{MT,min}}, P_{\text{MT,max}}$] Microturbine minimum ($10.0$ MW) and maximum ($25.0$ MW) power limits.
+\item[$C_0^{\text{MT}}, C_m^{\text{MT}}$] MT baseline fuel rate (\texteuro $48.41$/MWh) and block costs (\texteuro $48.41$--$51.84$/MWh).
+\item[$P_{\text{max}}^{\text{BESS}}, E_{\text{max}}^{\text{BESS}}$] BESS maximum charge and discharge power ($40.0$ MW) and energy capacity ($200.0$ MWh).
+\item[$C_{\text{TP}}$] BESS cell throughput degradation cost (\texteuro $5.00$/MWh).
+\item[$\lambda_{\text{buy},t}^{\text{DA}}, \lambda_{\text{sell},t}^{\text{DA}}$] Day-Ahead electricity market buy and sell rates (\texteuro /MWh).
+\item[$r^+, r^-$] Real-time balancing market imbalance penalty ratios ($r^+ \le 1, r^- \ge 1$).
+\end{description}
+
+\subsection{Decision Variables}
+\begin{description}
+\item[$ts_{m,n}$] Continuous start time of batch slot $n$ on machine $m$ (h).
+\item[$X_{m,n,p}$] Binary; 1 if task $p$ is assigned to batch slot $n$ on machine $m$.
+\item[$u_{\text{MT},t}, x_{\text{MT},t}, y_{\text{MT},t}$] MT online commitment, start-up, and shut-down status.
+\item[$P_{\text{buy},t}^{\text{DA}}, P_{\text{sell},t}^{\text{DA}}$] Day-Ahead energy purchase and sale quantities (MW).
+\item[$P_{\text{buy},t,s}^{\text{ID}}, P_{\text{sell},t,s}^{\text{ID}}$] Intraday energy trading import and export volumes (MW).
+\item[$P_{\text{ch},t,s}^{\text{BESS}}, P_{\text{dis},t,s}^{\text{BESS}}$] BESS charging and discharging power dispatch (MW).
+\item[$SoC_{t,s}$] Battery energy State-of-Charge (MWh).
+\item[$R_{t,s}^{\text{up}}, R_{t}^{\text{up}}$] Multi-asset co-optimized up-spinning reserve capacity offer (MW); in the Stage-1 configuration $R_{t,s}^{\text{up}}=R_{t}^{\text{up}}$ for all $s$.
+\item[$\Delta_{t,s,w}^+, \Delta_{t,s,w}^-$] Positive (surplus) and negative (deficit) energy imbalance volumes (MW).
+\item[$\rho_{t,s,w}$] Activated spinning reserve energy deployment (MW).
+\end{description}
+
+\section{Introduction}
+\IEEEPARstart{M}{odern} industrial automation is undergoing a paradigm shift toward Industrial Cyber-Physical Systems (ICPS), where manufacturing operations are tightly integrated with Industrial IoT (IIoT) communication networks and smart grid edge intelligence. High-energy manufacturing facilities---such as smelting, chemical, and automated batch processing plants---are no longer static power consumers; they act as flexible industrial prosumers capable of dynamically responding to networked electricity price streams and ancillary grid requests.
+
+However, co-optimizing discrete, non-interruptible machine workflows alongside heterogeneous energy assets (e.g., gas microturbines and battery storage) under multi-stage grid price uncertainty presents severe computational and structural challenges. Existing literature exhibits a clear methodological divide: industrial scheduling research optimizes production workflows against static tariffs without market recourse, while smart grid power research models virtual power plants with continuous generator flows, ignoring manufacturing process physics.
+
+
+\begin{table*}[t]
+\caption{Taxonomy and Literature Gap Analysis}
+\label{tab:literature_matrix}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\textwidth}{
+>{\raggedright\arraybackslash}X
+*{5}{>{\centering\arraybackslash}p{1.65cm}}
+}
+\toprule
+\textbf{Feature / Model Dimension}
+& \textbf{Tan et al. (2019)}
+& \textbf{Hadera et al. (2015)}
+& \textbf{Khaloie et al. (2021)}
+& \textbf{Nokandi et al. (2024)}
+& \textbf{Proposed Model} \\
+\midrule
+Discrete Parallel Machine Batch Scheduling
+& \checkmark & \checkmark & $\times$ & $\times$ & \textbf{\checkmark} \\
+
+Inter-Batch Cooling Buffers \& Warehouse Bounds
+& \checkmark & $\times$ & $\times$ & $\times$ & \textbf{\checkmark} \\
+
+3-Stage Stochastic Cyber-Physical Decision Tree
+& $\times$ & $\times$ & \checkmark & \checkmark & \textbf{\checkmark} \\
+
+Step-Wise Monotone Price-Quantity Curves
+& $\times$ & $\times$ & \checkmark & \checkmark & \textbf{\checkmark} \\
+
+Co-optimized BESS Degradation + MT Generation
+& $\times$ & $\times$ & \checkmark & $\times$ & \textbf{\checkmark} \\
+
+Multi-Asset Up-Spinning Reserve Co-Optimization
+& $\times$ & $\times$ & \checkmark & \checkmark & \textbf{\checkmark} \\
+
+Quantified ``Value of Power-Production Coupling''
+& $\times$ & $\times$ & $\times$ & $\times$ & \textbf{\checkmark} \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+
+
+To bridge this gap, this paper introduces an information-driven, three-stage stochastic decision-support framework for power-production co-scheduling in smart industrial prosumers. The main contributions of this paper are threefold:
+\begin{enumerate}
+    \item \textbf{Cyber-Physical Domain-Bridging Co-Optimization:} Embedding discrete, non-interruptible parallel machine batch schedules directly into Stage 1 of a multi-stage stochastic decision tree alongside MT commitment, degrading BESS and an hourly up-reserve capacity commitment.
+    \item \textbf{Multi-Asset Up-Reserve Stacking:} Formulating up-spinning reserve capacity across BESS discharge headroom, BESS charge curtailment, MT online ramp headroom, and interruptible factory load shedding, committed as one quantity per hour before prices are known.
+    \item \textbf{Evidence on Real DK1 Data:} Quantifying the value of multi-market participation on one year of real Day-Ahead and mFRR capacity prices, both in the scenario tree (2.9--11.9\% against Day-Ahead only) and on the actual days that follow (3.7\% on average), and showing how much of it depends on the reserve price and on the battery.
+\end{enumerate}
+\section{Literature Review and Novelty Positioning}
+
+\subsection{Context and Industrial Energy Flexibility}
+Modern industrial automation is undergoing a paradigm shift toward Industrial Cyber-Physical Systems (ICPS) and Industry 4.0/5.0 paradigms, where high-energy manufacturing enterprises act as active industrial prosumers. Energy-intensive industries—such as smelting, foundry, chemical batch processing, and metal refining—face severe exposure to volatile electricity prices and grid balancing penalties. Transitioning these facilities from passive energy consumers into price-responsive participants in deregulated power markets unlocks significant operational flexibility, providing virtual energy storage to the smart grid while reducing net operating expenses. However, capturing this flexibility requires bridging two traditionally disjoint modeling domains: industrial batch production process scheduling and multi-stage stochastic electricity market bidding.
+
+\subsection{Industrial Process and Batch Scheduling Literature}
+Industrial load scheduling has been extensively studied within operations research and industrial engineering. Early formulations by Hadera et al. \cite{hadera2015} and Tan et al. \cite{tan2019} established mixed-integer linear programming (MILP) frameworks for parallel-machine, non-interruptible batch processes subject to time-of-use (TOU) electricity tariffs and carbon emission permits. Perkovi{\'c} et al. \cite{perkovic2017} extended factory prosumer modeling to include combined heat and power (CHP), thermal storage, and finished-goods warehouse inventory, demonstrating that product inventory acts as a physical buffer against high electricity price hours. Recently, Cong et al. \cite{cong2025} provided empirical evidence from Danish manufacturing foundries showing that shifting batch start times against spot electricity prices yields up to 9.8\% cost reductions on individual batches. 
+
+Within the industrial informatics domain, advanced graph representations and machine learning frameworks have emerged to handle complex scheduling topology. Song et al. \cite{song2022} formulated the flexible job-shop scheduling problem (FJSP) using heterogeneous graph neural networks (HGNN) and deep reinforcement learning (DRL) to optimize priority dispatching rules. Similarly, Wang et al. \cite{wang2025} and Felder et al. \cite{felder2023} applied DRL for energy-conscious machine scheduling under dynamic price streams. However, a major structural limitation pervades this industrial scheduling literature: manufacturing tasks are optimized against static Day-Ahead (DA) tariffs or deterministic price forecasts in isolation. They completely ignore multi-stage market recourse—such as Intraday (ID) re-trading, real-time (RT) balancing penalties, and spinning reserve capacity offers—leaving industrial prosumers vulnerable to severe real-time imbalance penalties during price spikes or wind/solar forecast errors.
+
+\subsection{Multi-Stage Stochastic Power Systems Bidding and Market Lineage}
+Conversely, power systems literature has developed sophisticated multi-stage stochastic programming architectures for market participation. The mathematical foundation for multi-market trading under price uncertainty is rooted in established lineage papers. Khaloie et al. \cite{khaloie2021tste} introduced a comprehensive three-stage stochastic framework for a hybrid power plant across Day-Ahead, Intraday, and real-time balancing markets, establishing the mathematical formulations for dual-ratio imbalance settlements ($\Delta^+, \Delta^-$ with penalty ratios $r^+, r^-$) and monotone, non-anticipative Day-Ahead price-quantity offer curves. This lineage was expanded by Khaloie et al. \cite{khaloie2020apen} to co-optimize battery energy storage system (BESS) spinning reserves across both charging and discharging modes, and by Khaloie et al. \cite{khaloie2021jcp} to model multi-asset hybrid systems combining wind, solar, compressed air energy storage (CAES), and thermal generation.
+
+Recent advancements by Nokandi et al. \cite{nokandi2024} established three-stage bi-level models for joint energy and reserve scheduling of virtual power plants (VPPs) utilizing out-of-sample scenario reduction adequacy checks, while Ghanaee et al. \cite{ghanaee2024} demonstrated that incorporating $C_{\text{TP}}$ (\texteuro/MWh) cell throughput degradation prevents unphysical battery cycling and avoids overestimating operational profits. In the cyber-physical domain, Zhang et al. \cite{zhang2026tacos} developed the TACOS framework for power-computing co-scheduling in data center microgrids using topology-aware multi-agent DRL. Similarly, Abedinia et al. \cite{abedinia2019} formulated hybrid robust-stochastic bidding curves for large industrial consumers with microturbines and storage. 
+
+However, existing power market participation models treat industrial demand as either a passive, continuous power flow or a simple price-responsive demand curve without operational physics. They fail to account for the discrete, non-interruptible constraints inherent to physical manufacturing—such as machine-task assignment matrices ($X_{m,n,p}$), non-overlapping setup and thermal cooling sequence buffers ($t_{\text{buffer}}$), continuous task durations ($td_{m,p}$), finished product yields ($Y_p$), and strict warehouse inventory storage bounds ($N_{\text{max}}$).
+
+\begin{table*}[t]
+\caption{Taxonomy and Literature Gap Matrix}
+\label{tab:literature_taxonomy}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lcccccccc@{}}
+\toprule
+\textbf{Reference Paper}
+& \textbf{Asset / System}
+& \textbf{Discrete Batch}
+& \textbf{Cooling / Setup}
+& \textbf{3-Stage Tree}
+& \textbf{Monotone DA}
+& \textbf{Co-optimized}
+& \textbf{Up-Reserve}
+& \textbf{Quantified Value} \\
+& \textbf{Scope}
+& \textbf{Scheduling}
+& \textbf{Buffers}
+& \textbf{(DA/ID/RT)}
+& \textbf{Offer Curves}
+& \textbf{BESS Deg.}
+& \textbf{Co-Opt.}
+& \textbf{of Coupling} \\
+\midrule
+Tan et al. (2019) \cite{tan2019}
+& Parallel Factory & \checkmark & \checkmark & $\times$ & $\times$ & $\times$ & $\times$ & $\times$ \\
+
+Hadera et al. (2015) \cite{hadera2015}
+& Chemical Process & \checkmark & $\times$ & $\times$ & $\times$ & $\times$ & $\times$ & $\times$ \\
+
+Perkovi{\'c} et al. (2017) \cite{perkovic2017}
+& Factory Prosumer & $\times$ (continuous) & $\times$ & $\times$ & $\times$ & $\times$ & $\times$ & $\times$ \\
+
+Song et al. (2022) \cite{song2022}
+& Job-Shop Plant & \checkmark & $\times$ & $\times$ & $\times$ & $\times$ & $\times$ & $\times$ \\
+
+Abedinia et al. (2019) \cite{abedinia2019}
+& Large Consumer & $\times$ & $\times$ & $\times$ & \checkmark & $\times$ & $\times$ & $\times$ \\
+
+Khaloie et al. (2020) \cite{khaloie2020apen}
+& Wind-Thermal-BESS & $\times$ & $\times$ & \checkmark (no ID) & \checkmark & $\times$ & \checkmark & $\times$ \\
+
+Khaloie et al. (2021) \cite{khaloie2021tste}
+& Hybrid VPP / CSP & $\times$ & $\times$ & \checkmark & \checkmark & $\times$ & \checkmark & $\times$ \\
+
+Nokandi et al. (2024) \cite{nokandi2024}
+& Wind-VPP + DR & $\times$ & $\times$ & \checkmark & \checkmark & $\times$ & \checkmark & $\times$ \\
+
+Ghanaee et al. (2024) \cite{ghanaee2024}
+& Wind-BESS HPP & $\times$ & $\times$ & $\times$ & $\times$ & \checkmark & \checkmark & $\times$ \\
+
+Zhang et al. (2026) \cite{zhang2026tacos}
+& Data Center Microgrid & $\times$ (computing) & $\times$ & $\times$ & $\times$ & \checkmark & $\times$ & $\times$ \\
+
+\midrule
+\textbf{Proposed Model}
+& \textbf{Industrial ICPP}
+& \textbf{\checkmark}
+& \textbf{\checkmark}
+& \textbf{\checkmark}
+& \textbf{\checkmark}
+& \textbf{\checkmark}
+& \textbf{\checkmark}
+& \textbf{\checkmark\ (coupling $\le$ 1.4\%)} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}
+
+\subsection{Bridging Novelty and Scientific Contributions}
+As synthesized in Table~\ref{tab:literature_taxonomy}, our work occupies a distinct \textbf{bridging contribution} between industrial process engineering and power systems market optimization. Rather than inventing an isolated mathematical solver, this paper bridges this critical gap by embedding a discrete, non-interruptible parallel machine manufacturing process schedule as a Stage-1 "here-and-now" decision variable directly inside a 3-stage stochastic market offering tree alongside a gas Microturbine and a degrading BESS.
+
+The primary scientific contributions of this manuscript are structured as follows:
+\begin{enumerate}
+    \item \textbf{Cyber-Physical Production-Market Integration:} We formulate a unified 3-stage stochastic mixed-integer linear programming (MILP) model that embeds non-interruptible parallel furnace batch operations (job start times $ts_{m,n}$, assignment binaries $X_{m,n,p}$, inter-batch cooling/setup buffers $t_{\text{buffer}}=1.0$ h, task power draws $d_{m,p}$, yields $Y_p$, and warehouse bounds $N_{\text{max}}$) directly into Stage 1 alongside Microturbine unit commitment ($u_{\text{MT},t}$), monotone Day-Ahead offer curves, an hourly reserve commitment and degrading battery storage, with Intraday and real-time recourse and an independent post-solve verification of the energy balance and objective.
+    \item \textbf{Multi-Asset Up-Reserve with a Stage-1 Commitment:} We construct a multi-asset up-spinning reserve model ($R_{t}^{\text{up}}$) that stacks reserve headroom across BESS discharge headroom, BESS charge curtailment, Demand Response (DR) load shedding and Microturbine ramp headroom. The reserve capacity is one quantity per hour, the same in every price scenario, because the mFRR capacity auction closes before Day-Ahead prices are known. On the reference tree this commitment averages 10.3~MW over the day (BESS discharge 7.3, BESS charge curtailment 1.9, DR 0.9, MT 0.3~MW).
+    \item \textbf{Value of Market Participation on Real Data:} On eight scenario trees built from real DK1 Day-Ahead and mFRR capacity prices, adding Intraday trading saves \texteuro 1.7--2.5k (1.4--2.4\%) and adding up-reserve a further \texteuro 1.8--12.1k, in total 2.9--11.9\% against Day-Ahead only (mean 7.1\%, \texteuro 8,553). When the Stage-1 plans are evaluated on seven actual days the saving is 3.7\% (\texteuro 5,403) on average, one day being negative. The reserve benefit shrinks as the real mFRR capacity price falls, and the total saving is less than half of what the earlier synthetic assumption (reserve price $0.12\times$ Day-Ahead) predicted for the same tree (2.9\% against 6.7\%).
+    \item \textbf{Attribution and Coupling:} Reserve offered only from the BESS recovers about 90\% of the reserve benefit; the microturbine and demand response alone are not resolved from zero. The production-coupling value (plan fixed before the market decisions) is at most 1.4\% on the dates tested and is within solver tolerance on two of five; the battery size sweep shows no systematic increase of coupling with battery size. Rescheduling jobs within $\pm3$ h after Day-Ahead clearing saves \texteuro 2,881 per day (3.6\%) on average in a separate test.
+\end{enumerate}
+\section{Industrial Cyber-Physical Architecture \& Decision Structure}
+
+\subsection{Three-Layer Cyber-Physical Architecture}
+The Industrial Cyber-Physical Prosumer (ICPP) architecture is organized into three interconnected operational layers:
+\begin{enumerate}
+    \item \textbf{Physical Layer:} 5 parallel smelting furnaces ($m1 \dots m5$), 30 non-interruptible manufacturing tasks ($p1 \dots p30$), auxiliary base load (2.5--4.5 MW), a 500-unit finished-goods warehouse, a 25 MW gas microturbine, and a 40 MW / 200 MWh BESS.
+    \item \textbf{Network/IIoT Layer:} Edge smart meters, SCADA controllers, and IIoT communication gateways fetching live Nord Pool DK1 market streams and grid ancillary requests.
+    \item \textbf{Cyber/Informatics Layer:} The 3-stage stochastic decision-support engine generating automated control signals and optimal offering/bidding curves.
+\end{enumerate}
+
+\subsection{Sequential Decision Timeline}
+The decision architecture spans three sequential stages:
+\begin{equation}
+\begin{gathered}
+\text{Stage 1: Here-and-Now}\\
+\rightarrow\ \text{Stage 2: Wait-and-See (1)}\\
+\rightarrow\ \text{Stage 3: Wait-and-See (2)}
+\end{gathered}
+\label{eq:decision_stages}
+\end{equation}
+Stage 1 fixes the production schedule, the microturbine commitment, the Day-Ahead offer and bid curves and the hourly up-reserve capacity; Stage 2 reveals the price scenario and the Intraday, battery and microturbine decisions follow; Stage 3 reveals real-time imbalance and reserve activation.
+
+\section{Mathematical Formulation}
+
+\subsection{Objective Function}
+The objective function minimizes total expected net operating cost combined with risk-averse Conditional Value-at-Risk (CVaR):
+\begin{equation}
+\min \mathcal{F}_{\text{total}}
+= (1-\beta)\mathbb{E}[\text{Cost}]
++ \beta\,\mathrm{CVaR}_{\alpha}.
+\label{eq:total_objective}
+\end{equation}
+where expected cost $\mathbb{E}[\text{Cost}]$ is defined as:
+\begin{align}
+\mathbb{E}[\text{Cost}]
+={}& \text{Cost}^{\text{DA}}
++ \sum_{s\in S}\pi_s \Big(
+\text{Cost}_{s}^{\text{ID}}
++ \text{Cost}_{s}^{\text{MT}} \nonumber\\
+&\quad + \text{Cost}_{s}^{\text{BESS}}
+- \text{Rev}_{s}^{\text{Res,Cap}}
+\Big) \nonumber\\
+&+ \sum_{s\in S}\pi_s\sum_{w\in W}\pi_w
+\Big(
+\text{Cost}_{s,w}^{\text{Imbalance}} \nonumber\\
+&\quad - \text{Rev}_{s,w}^{\text{Res,Act}}
+\Big).
+\end{align}
+The BESS cell throughput degradation cost is explicitly penalized:
+\begin{equation}
+\text{Cost}_{s}^{\text{BESS}} = C_{\text{TP}} \cdot \sum_{t=1}^{T} \left( P_{\text{ch},t,s}^{\text{BESS}} + P_{\text{dis},t,s}^{\text{BESS}} \right)
+\end{equation}
+
+\subsection{Substation Power Balance and Imbalance Settlement}
+Power balance at every hour $t$ is enforced as:
+\begin{align}
+P_{\text{buy},t,s}^{\text{DA}} - P_{\text{sell},t,s}^{\text{DA}} + P_{\text{buy},t,s}^{\text{ID}} - P_{\text{sell},t,s}^{\text{ID}} + P_{\text{MT},t,s} \nonumber \\
++ P_{\text{dis},t,s,w}^{\text{BESS}} - P_{\text{ch},t,s,w}^{\text{BESS}} + \Delta_{t,s,w}^+ - \Delta_{t,s,w}^- = l_{\text{base},t} + P_{\text{factory},t}
+\end{align}
+Dual-ratio imbalance settlement penalties are defined as:
+\begin{equation}
+\text{Cost}_{s,w}^{\text{Imbalance}} = \sum_{t=1}^{T} \left( r_{t,s,w}^- \lambda_{\text{buy},t,s}^{\text{DA}} \Delta_{t,s,w}^- - r_{t,s,w}^+ \lambda_{\text{sell},t,s}^{\text{DA}} \Delta_{t,s,w}^+ \right)
+\end{equation}
+
+\subsection{Industrial Batch Production Constraints}
+\begin{equation}
+\sum_{p \in P} X_{m,n,p} = 1 \quad \forall m \in M, \forall n \in N
+\end{equation}
+\begin{equation}
+\begin{aligned}
+ts_{m,n} \geq {}& ts_{m,n-1}
++ \sum_{p\in P} td_{m,p} X_{m,n-1,p}\\
+&+ t_{\text{buffer}},
+\quad \forall m,\; \forall n>1.
+\end{aligned}
+\label{eq:time_sequence}
+\end{equation}
+\begin{equation}
+o_{m,n,t,p} \le X_{m,n,p}, \quad \sum_{t=1}^{T} o_{m,n,t,p} = td_{m,p} \cdot X_{m,n,p}
+\end{equation}
+\begin{equation}
+P_{\text{factory},t} = \sum_{m \in M} \sum_{n \in N} \sum_{p \in P} \left( d_{m,p} \cdot o_{m,n,t,p} \right) \quad \forall t \in T
+\end{equation}
+\begin{equation}
+n_{\text{prod},t} = \sum_{m,n,p} \left( Y_p \cdot \frac{o_{m,n,t,p}}{td_{m,p}} \right)
+\end{equation}
+\begin{equation}
+N_t = N_{t-1} + n_{\text{prod},t} - n_{\text{prod,dem},t}, \quad 0 \le N_t \le N_{\text{max}}
+\end{equation}
+
+\subsection{Microturbine Operational Constraints}
+\begin{equation}
+x_{\text{MT},t} - y_{\text{MT},t} = u_{\text{MT},t} - u_{\text{MT},t-1}
+\end{equation}
+\begin{equation}
+\sum_{\tau = t - \text{MUT} + 1}^t x_{\text{MT},\tau} \le u_{\text{MT},t}
+\end{equation}
+\begin{equation}
+P_{\text{MT},t,s} = P_{\text{MT,min}} u_{\text{MT},t} + \sum_{m=1}^{N_m} P_{\text{MT},m,t,s}
+\end{equation}
+\begin{equation}
+\begin{aligned}
+0 \leq P_{\text{MT},m,t,s}
+&\leq w_m u_{\text{MT},t},\\
+&\quad m=1,2,3,\\
+&\quad (w_1,w_2,w_3)=(5.30,4.70,5.00).
+\end{aligned}
+\label{eq:mt_power_bounds}
+\end{equation}
+
+\subsection{BESS Constraints}
+\begin{equation}
+SoC_{t,s} = SoC_{t-1,s} + \eta_{\text{ch}} P_{\text{ch},t,s}^{\text{BESS}} \Delta t - \frac{1}{\eta_{\text{dis}}} P_{\text{dis},t,s}^{\text{BESS}} \Delta t
+\end{equation}
+\begin{equation}
+SoC_{\text{min}} \le SoC_{t,s} \le SoC_{\text{max}}, \quad SoC_T \ge SoC_0
+\end{equation}
+\begin{equation}
+\begin{aligned}
+0 &\leq P_{\text{ch},t,s}^{\text{BESS}}
+\leq P_{\max}^{\text{BESS}}v_{\text{ch},t,s},\\
+0 &\leq P_{\text{dis},t,s}^{\text{BESS}}
+\leq P_{\max}^{\text{BESS}}v_{\text{dis},t,s}.
+\end{aligned}
+\label{eq}
+\end{equation}
+\begin{equation}
+v_{\text{ch},t,s} + v_{\text{dis},t,s} \le 1
+\end{equation}
+
+\subsection{Monotone Price-Quantity Curves and Up-Reserve Stacking}
+\begin{equation}
+P_{\text{sell},t,s}^{\text{DA}} \ge P_{\text{sell},t,\tilde{s}}^{\text{DA}} \quad \forall s, \tilde{s}: \lambda_{\text{buy},t,s}^{\text{DA}} \ge \lambda_{\text{buy},t,\tilde{s}}^{\text{DA}}
+\end{equation}
+\begin{align}
+R_{t,s}^{\text{up}} \le \left( P_{\text{max}}^{\text{BESS}} - P_{\text{dis},t,s}^{\text{BESS}} + P_{\text{ch},t,s}^{\text{BESS}} \right) \nonumber \\
++ \left( P_{\text{MT,max}} u_{\text{MT},t} - P_{\text{MT},t,s} \right) + R_{\text{factory},t,s}^{\text{DR}}
+\end{align}
+In the Stage-1 configuration used for the main results the reserve capacity is one here-and-now quantity per hour, so the offer must be deliverable in every price scenario:
+\begin{equation}
+R_{t,s}^{\text{up}} = R_{t}^{\text{up}} \quad \forall s \in S,
+\label{eq:reserve_stage1}
+\end{equation}
+and the capacity revenue is $\text{Rev}_{s}^{\text{Res,Cap}}=\sum_{t}\lambda_{t,s}^{\text{res}}R_{t}^{\text{up}}$ with the scenario-specific reserve price $\lambda_{t,s}^{\text{res}}$. Without \eqref{eq:reserve_stage1} the offer is a monotone price-quantity curve over $s$, which is an upper bound on what a Stage-1 commitment can earn.
+
+\section{Solution Methodology \& Computational Implementation}
+
+\subsection{Software Framework \& Problem Scale}
+The three-stage stochastic decision-support engine is constructed in Python 3.12 using the Pyomo mathematical modeling package. The seven Gurobi trees of the ladder, the realized-performance test and the tree-size comparison were solved with Gurobi (full licence, APPSI interface); the reference tree, the single-date studies (reserve by asset, battery size, reserve price, CVaR frontier, decoupling) and the rescheduling test were solved with the open-source HiGHS solver. Both target a relative MIP gap of at most 0.5\% (at most 1\% for the CVaR frontier) with a time limit of 600--900 s. All runs used a GitHub Codespaces virtual machine.
+
+The optimization problem on a $3\times3$ tree comprises 8,522 total variables, 6,554 binary decision variables, and 3,069 linear constraints. The eight ladder trees terminate with a reported relative MIP gap of at most 0.5\%, in 13--99~s (Gurobi: 13--77~s; HiGHS on the reference tree: 99~s). An independent post-solve verification routine recomputes the energy balance and the objective; all ladder solves passed. One of the 21 evaluation solves of the tree-size comparison (the $12\times3$ tree on 29 April) was flagged because deficit and surplus were bought and sold in the same hour; it is kept and flagged in the data.
+\subsection{Open-Science Reproducibility \& GitHub Code Repository}
+To ensure strict open-science reproducibility and facilitate peer review, the complete source code, price data, result tables and run logs are publicly hosted on GitHub:
+\begin{center}
+\footnotesize
+\url{https://github.com/sreelatha217-ux/Multistage_Flextrade/tree/main/Offering_Strategy_Handoff}
+\end{center}
+All runs use seed \texttt{2024}. The day-ahead table is built by \texttt{extract\_dk1\_hourly.py} and the mFRR table by \texttt{fetch\_mfrr\_capacity.py}; the ladder of Table~\ref{tab:market_ladder} is reproduced with
+\begin{verbatim}
+uv run python real_data_mfrr_ladder.py --reserve-stage1
+  --start 2026-04-01 --end 2026-10-12 --step 28
+  --window 90 --scenarios 3 --rt 3 --gap 0.005
+\end{verbatim}
+The remaining tables come from \texttt{real\_data\_oos.py} (realized performance), \texttt{real\_data\_sensitivity.py} (reserve by asset, reserve price, CVaR frontier), \texttt{real\_data\_coupling.py} (battery sweep and decoupling) and \texttt{real\_data\_resched\_backtest.py} (rescheduling after Day-Ahead clearing).
+
+\subsection{Benchmark Case Study Data \& Asset Parameters}
+The benchmark facility models a 24-hour daily planning horizon ($T=24$) with the following technical and market parameterization:
+\begin{itemize}
+    \item \textbf{Parallel Furnace Plant:} 5 smelting furnaces ($m1 \dots m5$), 30 non-interruptible manufacturing tasks ($p1 \dots p30$), up to 10 batch slots per machine ($N=10$). Task processing durations $td_{m,p}$ range from $1.30$ to $4.90$ hours, machine power draws $d_{m,p}$ range from $60.0$ to $110.0$ MW, and product yields $Y_p$ range from $5$ to $15$ units. Inter-batch cooling and setup buffer $t_{\text{buffer}} = 1.0$ hour. Baseline auxiliary load $l_{\text{base},t}$ varies between $2.50$ and $4.50$ MW. Warehouse storage bounds are $N_{\text{max}} = 500$ units, initial stock $N_0 = 50$ units, and hourly delivery commitment $n_{\text{prod,dem},t} = 8$ units/hour ($192$ units/day required).
+    \item \textbf{Gas Microturbine (MT):} Minimum power $P_{\text{MT,min}} = 10.0$ MW, maximum capacity $P_{\text{MT,max}} = 25.0$ MW. Ramp rate limits $RU_{\text{MT}} = RD_{\text{MT}} = 20.0$ MW/hour. Start-Up Cost $SUC = \text{\texteuro}87.40$, Shut-Down Cost $SDC = \text{\texteuro}8.74$. Minimum Up Time $MUT = 4$ hours, Minimum Down Time $MDT = 2$ hours. Piecewise linear fuel costs: $10.0$ MW baseline at \texteuro $48.41$/MWh, block $1$ ($w_1 = 5.30$ MW at \texteuro $48.41$/MWh), block $2$ ($w_2 = 4.70$ MW at \texteuro $48.78$/MWh), block $3$ ($w_3 = 5.00$ MW at \texteuro $51.84$/MWh), giving an exact capacity ceiling of $10 + 15 = 25$ MW.
+    \item \textbf{Battery Energy Storage System (BESS):} Maximum charge and discharge power $P_{\text{max}}^{\text{BESS}} = 40.0$ MW. Nominal capacity $E_{\text{max}}^{\text{BESS}} = 200.0$ MWh, State-of-Charge bounds $SoC_{\text{min}} = 10\%$ ($20.0$ MWh), $SoC_{\text{max}} = 90\%$ ($180.0$ MWh), starting $SoC_0 = 20.0$ MWh. Charging efficiency $\eta_{\text{ch}} = 80.0\%$, discharging efficiency $\eta_{\text{dis}} = 95.0\%$ ($\eta_{\text{BESS}} = 76.0\%$). Throughput degradation cost coefficient $C_{\text{TP}} = \text{\texteuro}5.00$/MWh applied to total expected charge and discharge throughput.
+    \item \textbf{Substation Grid Connection:} Import/export substation capacity caps $Q_{\text{md}}^{\text{buy}} = Q_{\text{md}}^{\text{sell}} = 400.0$ MW.
+    \item \textbf{Uncertainty Scenario Tree:} A $(3 \times 3)$ stochastic tree comprising 3 price scenarios (day types $s \in \{0, 1, 2\}$, probabilities equal to the cluster shares) branching into 3 Real-Time imbalance/activation paths ($w \in \{0, 1, 2\}$, probability $1/3$ each), yielding 9 joint scenario paths $(s,w)$. The construction of the day types from real data is described in Section~\ref{sec:casestudy}.
+\end{itemize}
+
+
+\section{Numerical Results \& Discussion}
+
+\subsection{Real-Data Case Study Design}
+\label{sec:casestudy}
+\textit{Real inputs.} The Day-Ahead prices are the hourly DK1 prices from 1 October 2025 to 12 October 2026 (Nord Pool via Energi Data Service; the 15-min market time unit is averaged to hours). They give 375 complete days, after removing the two daylight-saving days, with a mean of \texteuro 103.2/MWh. Negative prices occur in 231 hours on 44 days (minimum \texteuro $-$31.3/MWh); the model requires non-negative prices, so they are floored at zero, which understates the value of consuming in those hours. The reserve prices are the hourly DK1 mFRR up-capacity prices from the same source (mean \texteuro 13.1/MW/h, median \texteuro 2.7/MW/h, strongly right-skewed).
+
+\textit{Scenario tree.} For a tree ending on day $d$, the 90 preceding days are clustered by $k$-means into three day types. The Day-Ahead price of a scenario is the cluster mean, its probability the cluster share, and its reserve price the mean mFRR price of the same days. Three real-time branches follow each day type. The Day-Ahead sell price is $0.55$ times the buy price, as in the benchmark tariff. The Intraday price (Day-Ahead times a log-normal factor, 8\% volatility), the real-time imbalance ratios and the reserve activation remain modelled, so only the Day-Ahead and the mFRR capacity prices are real. The reserve capacity is one quantity per hour committed in Stage 1 (Eq.~\eqref{eq:reserve_stage1}).
+
+\textit{Trees and test days.} The ladder uses eight trees whose history ends on 31 March, 28 April, 26 May, 23 June, 21 July, 18 August, 15 September and 11 October 2026. The latter is the \emph{reference tree} for all single-date studies (reserve by asset, battery size, reserve price, risk, decoupling): its day types have mean Day-Ahead prices of 86, 143 and 200~\texteuro/MWh with probabilities 0.34, 0.52 and 0.13, and its probability-weighted mFRR price is \texteuro 6.79/MW/h, or 5.2\% of the Day-Ahead price instead of the 12\% assumed in the first version of this study. The realized-performance and rescheduling tests use the day after each of the first seven history ends as test day.
+
+\subsection{Market Participation Ladder (Value of Multi-Market Trading)}
+Three operational strategies are evaluated on each tree: Level 1 (Day-Ahead only, real-time imbalance settled at imbalance prices), Level 2 (Day-Ahead plus Intraday trading) and Level 3 (Day-Ahead, Intraday and up-reserve). Table~\ref{tab:market_ladder} gives the expected net operating cost of each level.
+
+\begin{table}[t]
+\caption{Market participation cost ladder on real DK1 prices (expected net cost on the tree, \texteuro; saving in \texteuro{} and \% against Level 1). Reserve is a Stage-1 quantity at real mFRR prices. Gurobi, gap $\le0.5\%$; $^\dagger$HiGHS, reference tree.}
+\label{tab:market_ladder}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2.2pt}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}lrrrrrrr@{}}
+\toprule
+\textbf{History end} & \textbf{L1} & \textbf{L2} & \textbf{L3} & \textbf{ID saving} & \textbf{Res. saving} & \textbf{Total (\%)} & \textbf{Offer (MW)} \\
+\midrule
+2026-03-31 & 171,937 & 169,469 & 158,601 & 2,468 & 10,868 & 13,336 (7.8) & 36.9 \\
+2026-04-28 & 141,214 & 138,847 & 126,779 & 2,367 & 12,068 & 14,436 (10.2) & 37.3 \\
+2026-05-26 & 109,887 & 108,121 & 96,816 & 1,766 & 11,306 & 13,072 (11.9) & 34.9 \\
+2026-06-23 & 95,049 & 93,317 & 86,923 & 1,732 & 6,394 & 8,126 (8.5) & 22.4 \\
+2026-07-21 & 95,508 & 93,364 & 89,278 & 2,144 & 4,087 & 6,230 (6.5) & 23.6 \\
+2026-08-18 & 95,197 & 92,923 & 90,707 & 2,274 & 2,216 & 4,491 (4.7) & 12.7 \\
+2026-09-15 & 119,316 & 117,361 & 114,706 & 1,956 & 2,654 & 4,610 (3.9) & 11.4 \\
+2026-10-11$^\dagger$ & 142,700 & 140,396 & 138,573 & 2,304 & 1,823 & 4,127 (2.9) & 10.3 \\
+\midrule
+\textbf{Mean} & & & & 2,126 & 6,427 & \textbf{8,553} (7.1) & 23.7 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Intraday trading saves \texteuro 1.7--2.5k on every tree (1.4--2.4\% of the Day-Ahead-only cost), with no trend. The reserve increment is largest in spring (\texteuro 12.1k on 28 April) and falls to \texteuro 1.8k on 11 October; the total saving peaks at 11.9\% (26 May) and is 2.9\% on 11 October. The 90-day mean mFRR price of the trees falls from about \texteuro 18--20/MW/h (March--May trees) to \texteuro 6.8/MW/h (October), so the reserve value follows the reserve price rather than the Day-Ahead price level. The totals are expected values on the tree; the next subsections show how much of them is realized.
+
+\subsection{Seasonal Variation}
+\label{sec:seasonal}
+The market-participation value can be read against the season on eleven trees: the eight trees of Table~\ref{tab:market_ladder} (history ends 31 March to 11 October) and three winter trees (history ends 31 December, 28 January and 25 February) that were solved with the same recipe, tree size and gap (Table~\ref{tab:winter_ladder}); the winter trees are not part of the eight-tree means quoted elsewhere. Fig.~\ref{fig:seasonal_heatmaps} shows the real inputs of all four seasons as month-by-hour heat maps (panels a and b), the Stage-1 reserve offer the optimizer chooses for each tree (panel c) and the saving split into its Intraday and reserve parts (panel d). Table~\ref{tab:seasonal} gives the seasonal statistics of the raw prices (winter is December--February, spring March--May, summer June--August and autumn September--November; the 375 days are 90, 91, 92 and 102 days respectively because October is covered twice).
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.96\textwidth]{Figures/seasonal_heatmaps.pdf}
+\caption{Seasonal variation on real DK1 data. (a) Mean Day-Ahead price and (b) mean mFRR up-capacity price by calendar month and hour of day (black lines separate the seasons; $^*$ marks the partial month 1--12 October 2026; the mFRR colour scale is logarithmic). (c) Stage-1 reserve offer by hour, averaged over the price scenarios, for each of the eleven trees, one per four weeks; the season in brackets is that of the history end, and each tree looks back over the preceding 90 days. (d) Expected saving against Day-Ahead only, split into Intraday and up-reserve parts (labels: total saving in \% of Level 1), with the probability-weighted mean mFRR price of each tree (right axis). Season colours: winter blue, spring green, summer orange, autumn brown.}
+\label{fig:seasonal_heatmaps}
+\end{figure*}
+
+\begin{table}[t]
+\caption{Seasonal statistics of the real DK1 prices (raw, negative prices kept). Midday = 11--14 h and evening = 17--20 h mean Day-Ahead price; Neg.\ h = hours with a negative Day-Ahead price; mFRR = up-capacity price (\texteuro/MW/h).}
+\label{tab:seasonal}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2.4pt}
+\begin{tabular}{@{}lrrrrrrrr@{}}
+\toprule
+ & & \multicolumn{4}{c}{\textbf{Day-Ahead (\texteuro/MWh)}} & & \multicolumn{2}{c}{\textbf{mFRR}} \\
+\cmidrule(lr){3-6}\cmidrule(lr){8-9}
+\textbf{Season} & \textbf{Days} & \textbf{Mean} & \textbf{Midday} & \textbf{Evening} & \textbf{Std.} & \textbf{Neg.\ h} & \textbf{Mean} & \textbf{Median} \\
+\midrule
+Winter & 90  & 94.7  & 95.4 & 112.2 & 32.8 & 0   & 13.3 & 3.5 \\
+Spring & 91  & 93.9  & 35.2 & 133.1 & 53.8 & 105 & 19.0 & 3.0 \\
+Summer & 92  & 112.5 & 39.1 & 148.7 & 68.5 & 79  & 8.8  & 2.0 \\
+Autumn & 102 & 110.5 & 76.3 & 155.2 & 69.7 & 47  & 11.4 & 2.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\caption{Market participation ladder of the three winter trees (same layout as Table~\ref{tab:market_ladder}; expected net cost on the tree, \texteuro). HiGHS, gap $\le0.5\%$; command: \texttt{real\_data\_mfrr\_ladder.py --reserve-stage1 --start 2026-01-01 --end 2026-02-26 --step 28 --window 90 --scenarios 3 --rt 3 --gap 0.005}.}
+\label{tab:winter_ladder}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2.2pt}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}lrrrrrrr@{}}
+\toprule
+\textbf{History end} & \textbf{L1} & \textbf{L2} & \textbf{L3} & \textbf{ID saving} & \textbf{Res. saving} & \textbf{Total (\%)} & \textbf{Offer (MW)} \\
+\midrule
+2025-12-31 & 143,661 & 141,600 & 133,241 & 2,061 & 8,359 & 10,420 (7.3) & 32.1 \\
+2026-01-28 & 158,086 & 156,470 & 146,593 & 1,616 & 9,877 & 11,493 (7.3) & 32.8 \\
+2026-02-25 & 165,175 & 163,700 & 155,981 & 1,475 & 7,719 & 9,194 (5.6) & 32.1 \\
+\midrule
+\textbf{Mean} & & & & 1,717 & 8,652 & \textbf{10,369} (6.7) & 32.3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textit{Day-Ahead price.} The daily shape changes much more with the season than the level does. In winter the profile is flat, with a morning peak (7--9 h, 103.7~\texteuro/MWh) and an evening peak but no midday trough (midday 95.4, evening 112.2, a spread of 16.9), whereas in spring and summer a deep midday trough opens (35.2 and 39.1) against a high evening peak (133.1 and 148.7), giving spreads of 97.9 and 109.5~\texteuro/MWh; the autumn spread is 78.9. The lowest monthly-hour mean is \texteuro 22.2/MWh (April, 13 h) and the highest \texteuro 248.1/MWh (September, 19 h). All 231 negative hours fall in spring (105), summer (79) and autumn (47), none in winter, and they sit in the midday trough. The standard deviation of the hourly price rises from 32.8 in winter to 68.5--69.7~\texteuro/MWh in summer and autumn.
+
+\textit{mFRR capacity price.} The mFRR price is concentrated in the evening: hours 17--21 are 21\% of the day but carry 45\% of the summed price (35\%, 41\%, 51\% and 57\% in winter, spring, summer and autumn). Between March and October the midday mean (10--15 h) is only \texteuro 0.8--3.1/MW/h, whereas in November--January it is \texteuro 14--16/MW/h, so the winter reserve price is the one that is not confined to the evening. The mean is dominated by a few spikes: the seasonal means (13.3, 19.0, 8.8, 11.4) are four to six times the medians (2.0--3.5), and the 95th percentile is \texteuro 100/MW/h in spring against 27 in summer.
+
+\textit{Optimizer response.} The reserve offer follows the price pattern of panel (b), and its hourly shape changes with the season. The winter trees offer 32.1--32.8~MW on average in 19--21 hours, with the largest quantities at midday (41--44~MW over 10--15~h against 22--25~MW in the night and evening hours), which matches the winter midday mFRR price (12.4~\texteuro/MW/h over 10--15~h). The spring trees offer 34.9--37.3~MW in 22--24 hours, also at midday (26--38~MW); the summer trees 12.7--23.6~MW in 16--19 hours, and the September and October trees 11.4 and 10.3~MW in 12 and 14 hours, with almost no offer at midday (0.0 and 0.6~MW) and the remainder in the night and evening hours. By season of the history end the mean reserve saving is \texteuro 8.7k in winter, \texteuro 11.4k in spring, \texteuro 4.2k in summer and \texteuro 2.2k in autumn, and the total saving is 6.7\%, 10.0\%, 6.6\% and 3.4\% (mean of the trees). Across the eleven trees the reserve saving has a correlation of 0.97 with the mean mFRR price of the tree and the average offer 0.91 (descriptive, $n=11$). Winter does not lie on one price line with the other seasons: the trees of 31 December and 23 June have almost the same mean mFRR price (13.0 and 13.3~\texteuro/MW/h) but reserve savings of \texteuro 8.4k and \texteuro 6.4k. One pair does not establish a cause, but it is consistent with a winter reserve price that is spread over the whole day instead of the evening alone. The Intraday saving is \texteuro 1.5--2.5k in every season with no trend, even though the Day-Ahead spread is six times larger in spring and summer than in winter (97.9 and 109.5 against 16.9~\texteuro/MWh); this is expected because the Intraday price is a modelled factor on the Day-Ahead price (Section~\ref{sec:casestudy}) and carries no seasonal information of its own.
+
+\textit{What the data cannot separate.} Season and time are confounded: the available year has one spring, one summer and one autumn, and the mFRR price fell during the year, so the lower summer and autumn savings could equally be a trend and not a seasonal effect. Each tree uses the previous 90 days, so the tree of 31 March describes the winter and the tree of 15 September mostly the summer. The first winter tree (31 December) uses only the 90 days from 2 October, and the three winter trees were solved with HiGHS whereas seven of the eight trees of Table~\ref{tab:market_ladder} used Gurobi, so differences below about \texteuro 0.7k between them are not resolved. Only one winter is in the data, so the winter result is a single observation. Winter heat demand is not modelled (the plant has no heat load and the microturbine heat is not used), so the winter results reflect the price pattern only. The statistical statements above are about the 2025/26 DK1 year and should not be read as a general seasonal law.
+
+\subsection{Full System Cost \& Revenue Breakdown}
+Table~\ref{tab:cost_breakdown} details the cost drivers of the Level-3 schedule on the reference tree (\texteuro 138,573.01).
+
+\begin{table}[h]
+\caption{Detailed expected operating cost \& revenue breakdown, reference tree (2026-10-11).}
+\label{tab:cost_breakdown}
+\centering
+\begin{tabular}{lr}
+\toprule
+\textbf{Financial Component / Cost Driver} & \textbf{Amount (\texteuro)} \\
+\midrule
+Day-Ahead Net Electricity Purchases & 70,985.05 \\
+Intraday Market Net Settlements & 42,280.42 \\
+Microturbine Fuel \& Commitment Cost (24 h online) & 26,967.99 \\
+BESS Throughput Degradation Cost (\texteuro 5/MWh rate) & 1,632.07 \\
+Demand Response (DR) Activation Cost & 285.20 \\
+Real-Time Imbalance Settlement Cost & 2,619.49 \\
+Spinning Reserve Capacity Revenue (Credit) & $-$4,160.06 \\
+Spinning Reserve Energy Activation Revenue (Credit) & $-$2,037.15 \\
+\midrule
+\textbf{Total Expected Net Operating Cost} & \textbf{138,573.01} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Gross reserve capacity and activation revenues total \texteuro 6,197.21, but the net saving of Level 3 over Level 2 is \texteuro 1,823.29, because the optimizer shifts Day-Ahead energy, microturbine output and battery dispatch to create reserve headroom. The degradation cost corresponds to 326.4~MWh of expected battery throughput.
+
+\subsection{Stage-1 Decisions and Reserve Offering}
+On the reference tree the Stage-1 plan schedules 17 jobs across the 5 furnaces (193 product units) and keeps the microturbine online for all 24 hours with a single start-up. The reserve commitment averages 10.3~MW over the day and is offered in 14 of the 24 hours. It is stacked across BESS discharge headroom (7.3~MW on average), BESS charge curtailment (1.9~MW), demand-response shedding (0.9~MW) and microturbine ramp headroom (0.3~MW); the expected activation is 20.7~MWh. Because one quantity must serve all three day types, the plan cannot raise the offer on the rare expensive day type (mean mFRR price \texteuro 22.4/MW/h against 2.4 and 5.7), which is why the Stage-1 reserve earns less than a price-quantity curve (Table~\ref{tab:reserve_price}).
+
+\subsection{Realized Performance on Actual Days}
+The in-tree expectation of a plan is not the cost the plant would have met, so the Stage-1 decisions of each tree (production plan, microturbine commitment, Day-Ahead curves and reserve quantity) are fixed and evaluated on the actual prices of the following day, with Stage 2 and Stage 3 re-optimized (gap 0.5\%). The same is done for the Day-Ahead-only plan and for the energy-only plan (Day-Ahead plus Intraday, no reserve), so that savings are paired. Table~\ref{tab:realized} gives the result.
+
+\begin{table}[t]
+\caption{Expected (tree) versus realized savings on seven actual days, Stage-1 plan fixed (\texteuro, \% of the corresponding realized cost).}
+\label{tab:realized}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+ & \multicolumn{2}{c}{\textbf{vs.\ Day-Ahead only}} & \multicolumn{2}{c}{\textbf{vs.\ no reserve (DA+ID)}} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+\textbf{Test day} & \textbf{Tree} & \textbf{Realized (\%)} & \textbf{Tree} & \textbf{Realized (\%)} \\
+\midrule
+2026-04-01 & 13,336 & 9,552 (4.1) & 10,868 & 7,869 (3.4) \\
+2026-04-29 & 14,250 & 935 (2.1) & 12,043 & 199 (0.4) \\
+2026-05-27 & 14,648 & 2,152 (7.0) & 11,946 & 512 (1.8) \\
+2026-06-24 & 8,321 & 15,362 (9.6) & 6,765 & 4,428 (3.0) \\
+2026-07-22 & 6,029 & $-$370 (-0.6) & 4,071 & 1,077 (1.8) \\
+2026-08-19 & 4,257 & 7,053 (2.5) & 2,143 & 14,299 (4.9) \\
+2026-09-16 & 5,240 & 3,136 (1.2) & 3,052 & 2,525 (1.0) \\
+\midrule
+\textbf{Mean} & 9,440 & 5,403 (3.7) & 7,270 & 4,415 (2.3) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The realized saving against Day-Ahead only averages \texteuro 5,403 (3.7\%; median 2.5\%), against \texteuro 9,440 expected on the trees, and one day (22 July) is slightly negative. The reserve alone is worth \texteuro 4,415 (2.3\%) against \texteuro 7,270 expected, positive on all seven days. Realized savings are below the expectation on five days and above it on two (24 June and 19 August), both high-price days (mean \texteuro 212 and 166/MWh). With seven test days the averages carry wide uncertainty, and daily solver noise is up to about \texteuro 1k.
+
+Larger trees did not help. The mean realized cost of the plans from the $3\times3$, $6\times3$ and $12\times3$ trees is \texteuro 146,666, 148,028 and 147,748; the larger trees are worse by \texteuro 1,362 and \texteuro 1,082 on average and better on only one and two of the seven days, differences of the order of the evaluation tolerance (about \texteuro 0.7k). Comparing the in-tree cost with the cost of a single actual day is not a measure of tree quality, because day-to-day price level dominates it, so only paired differences are reported.
+
+\subsection{Source of the Value: Reserve Assets and Production Coupling}
+\label{sec:attribution}
+\textit{Reserve by asset.} Table~\ref{tab:reserve_assets} re-solves the reference tree with reserve allowed from different assets (HiGHS, gap 0.5\%, so differences below about \texteuro 0.7k are not resolved). The BESS alone captures \texteuro 1,639 of the \texteuro 1,823 reserve benefit (about 90\%); microturbine and demand response alone recover \texteuro 261, which is below the resolution, as is the difference of \texteuro 184 between the BESS-only and the four-asset case.
+
+\begin{table}[t]
+\caption{Expected net cost by reserve source (EUR, reference tree, Stage-1 reserve, real mFRR prices).}
+\label{tab:reserve_assets}
+\centering
+\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Reserve allowed from} & \textbf{Net cost} & \textbf{Saving vs.\ none} & \textbf{Avg. offer (MW)} \\
+\midrule
+none (DA+ID only) & 140,396.30 & -- & 0.0 \\
+MT + DR only & 140,135.00 & 261.30 & 0.7 \\
+BESS only (dis + ch) & 138,757.03 & 1,639.27 & 8.5 \\
+all four & 138,573.01 & 1,823.29 & 10.3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textit{Production coupling.} The integrated model is compared with a decoupled benchmark in which the production plan is first fixed from the energy-only Day-Ahead + Intraday optimum (plan A) or from the Day-Ahead-only optimum (plan B), and the offer curves, Intraday, BESS, microturbine and reserve decisions are then re-optimized with that plan held fixed. The coupling value is the decoupled minus the integrated cost; since the decoupled problem is a restriction, values below the solver noise are not distinguishable from zero. Table~\ref{tab:coupling_sweep} repeats the comparison for several battery sizes on the reference tree: the reserve benefit grows with battery size, from \texteuro 18 without a battery to \texteuro 1,823 at 40~MW/200~MWh, but the coupling value is within the noise at every size ($-$111 to +208 against a noise of 294--401) and shows no trend. Plan B gives +112 at 40/200~MWh.
+
+\begin{table}[t]
+\caption{Reserve benefit and production-coupling value versus battery size (EUR, reference tree, Stage-1 reserve, plan A).}
+\label{tab:coupling_sweep}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}lrrrrrrr@{}}
+\toprule
+\textbf{BESS (MW/MWh)} & \textbf{No reserve} & \textbf{Integrated} & \textbf{Decoupled} & \textbf{Coupling} & \textbf{Res. benefit} & \textbf{Noise} & \textbf{Offer (MW)} \\
+\midrule
+0/0 & 149,055 & 149,037 & 149,037 & 0.0 & 18 & 294 & 0.2 \\
+10/50 & 146,658 & 145,850 & 146,057 & 207.6 & 808 & 330 & 3.0 \\
+20/100 & 144,315 & 143,169 & 143,201 & 32.5 & 1,147 & 401 & 5.6 \\
+40/200 & 140,396 & 138,573 & 138,462 & $-$110.5 & 1,823 & 313 & 10.3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The reference tree alone could suggest that coupling is always negligible, so the decoupling test was repeated on earlier trees (Table~\ref{tab:coupling_dates}). These runs use real mFRR prices but the reserve as a price-quantity curve; the Stage-1 version was run on the reference tree only. The coupling value is \texteuro 682, 1,333 and 718 on three of the four earlier trees (0.4--1.4\% of cost), above the noise on each, and $-$94 (noise 281) on the fourth. Fixing the production plan before the market decisions therefore costs up to about 1.4\% on some dates and nothing resolvable on others, and no negative value exceeds the noise.
+
+\begin{table}[t]
+\caption{Production-coupling value on several real trees (EUR; \% of integrated cost; plan A unless stated). ``Curve'' = reserve as price-quantity curve, ``Stage-1'' = single quantity.}
+\label{tab:coupling_dates}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}llrrrrr@{}}
+\toprule
+\textbf{History end} & \textbf{Reserve} & \textbf{Integrated} & \textbf{Decoupled A} & \textbf{Coupling A (\%)} & \textbf{Noise} & \textbf{Coupling B} \\
+\midrule
+2026-03-31 & Curve & 156,876 & 157,557 & 682 (0.4) & 90 & 942 \\
+2026-04-28 & Curve & 125,691 & 125,597 & $-$94 (-0.1) & 281 & 256 \\
+2026-05-26 & Curve & 95,765 & 97,097 & 1,332 (1.4) & 331 & 1,160 \\
+2026-06-23 & Curve & 86,683 & 87,400 & 718 (0.8) & 172 & 1,527 \\
+2026-10-11 & Stage-1 & 138,573 & 138,462 & $-$111 (-0.1) & 313 & 112 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Robustness: Reserve Price and Risk}
+\label{sec:robustness}
+\textit{Reserve-price source and sensitivity.} The first version of this study set the reserve capacity price to $0.12$ times the Day-Ahead buy price. Real mFRR capacity prices on the reference tree average only 5.2\% of the Day-Ahead price (\texteuro 6.79/MW/h against \texteuro 15.7/MW/h), and they are concentrated on a few days. Table~\ref{tab:reserve_price} shows the consequence on the reference tree (Day-Ahead only: \texteuro 142,700.24): replacing the assumed price by the real one cuts the saving from 6.69\% to 3.60\% with a price-quantity reserve curve, and committing the reserve as a single Stage-1 quantity cuts it to 2.89\%. Scaling the real series by 0.5 and 1.5 gives 2.03\% and 4.15\%, so the saving is not proportional to the price (a factor of 2.0 between the extremes) because the plant also offers more reserve (5.1 to 12.1~MW). The price-quantity curve (second row) is an upper bound for what a price-quantity bid could earn and the Stage-1 quantity a conservative bound.
+
+\begin{table}[t]
+\caption{Reserve-price source and sensitivity, reference tree. Savings are against Day-Ahead only (\texteuro 142,700.24).}
+\label{tab:reserve_price}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Reserve price / commitment} & \textbf{Net cost (\texteuro)} & \textbf{Saving (\texteuro, \%)} & \textbf{Offer (MW)} \\
+\midrule
+Synthetic $0.12\times$DA, price-quantity curve & 133,154.16 & 9,546.08 (6.69) & 30.9 \\
+Real mFRR, price-quantity curve & 137,568.68 & 5,131.55 (3.60) & 9.9 \\
+Real mFRR, Stage-1 quantity ($\times1.0$) & 138,573.01 & 4,127.23 (2.89) & 10.3 \\
+Real mFRR, Stage-1 quantity ($\times0.5$) & 139,800.01 & 2,900.23 (2.03) & 5.1 \\
+Real mFRR, Stage-1 quantity ($\times1.5$) & 136,774.52 & 5,925.72 (4.15) & 12.1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textit{Risk aversion.} Table~\ref{tab:frontier} gives the CVaR$_{95}$ frontier on a $12\times2$ tree built from the same history (24 paths, gap at most 1\%). With 24 paths the 5\% tail is 1.2 paths wide, so CVaR equals the worst path. Moving from $\beta=0$ to $\beta=0.9$ raises the expected cost by \texteuro 6,877 (4.9\%), improves CVaR$_{95}$ by \texteuro 13,298 (4.8\%) and lowers the standard deviation by 11\%. CVaR improves with every step of $\beta$, but the step from $\beta=0.5$ to $0.75$ is only \texteuro 368, within solver tolerance, so the frontier is indicative; the average reserve offer is not monotone in $\beta$ (5.8--15.4~MW, lowest at $\beta=0.25$).
+
+\begin{table}[t]
+\caption{CVaR frontier on a $12\times2$ tree, reference history ($\alpha=0.95$, profit in \texteuro).}
+\label{tab:frontier}
+\centering
+\small
+\begin{tabular}{@{}rrrrr@{}}
+\toprule
+$\beta$ & \textbf{Exp. profit} & \textbf{CVaR$_{95}$} & \textbf{Std.} & \textbf{Avg. reserve (MW)} \\
+\midrule
+0 & $-138{,}996.35$ & $-276{,}681.57$ & 84,699.11 & 6.5 \\
+0.25 & $-139{,}681.30$ & $-272{,}188.78$ & 83,357.63 & 5.8 \\
+0.5 & $-143{,}280.32$ & $-265{,}437.38$ & 77,922.49 & 12.3 \\
+0.75 & $-145{,}629.56$ & $-265{,}069.36$ & 75,943.04 & 12.6 \\
+0.9 & $-145{,}872.92$ & $-263{,}383.52$ & 75,375.00 & 15.4 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Production Rescheduling after Day-Ahead Clearing}
+Once the Day-Ahead prices of the test day are published, the curves are applied as step functions and the Day-Ahead quantities are booked. Stage 2 and Stage 3 are then re-optimized on the actual day with the jobs either kept as in Stage 1 (baseline) or allowed to move by at most $\pm3$ h on the same machine (``strict'' rescheduling), so any mismatch between the booked energy and the new load is paid in the Intraday and imbalance settlement. Table~\ref{tab:rescheduling_results} shows the result for the seven test days.
+
+\begin{table}[t]
+\caption{Production rescheduling after Day-Ahead clearing (strict: same machine and task, start shifted by at most $\pm3$ h; \texteuro, saving in \% of the baseline cost). Noise = (sum of the two MIP gaps) $\times$ baseline cost.}
+\label{tab:rescheduling_results}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+\textbf{Test day} & \textbf{Baseline} & \textbf{Rescheduled} & \textbf{Saving (\%)} & \textbf{Jobs moved} & \textbf{Noise} \\
+\midrule
+2026-04-01 & 225,690 & 219,967 & 5,723 (2.5) & 7 & 1,510 \\
+2026-04-29 & 45,880 & 40,998 & 4,881 (10.6) & 13 & 281 \\
+2026-05-27 & 28,785 & 27,042 & 1,743 (6.1) & 12 & 37 \\
+2026-06-24 & 144,835 & 143,014 & 1,821 (1.3) & 9 & 1,257 \\
+2026-07-22 & 57,899 & 56,195 & 1,704 (2.9) & 13 & 288 \\
+2026-08-19 & 280,025 & 277,925 & 2,099 (0.7) & 7 & 1,615 \\
+2026-09-16 & 252,868 & 250,673 & 2,194 (0.9) & 2 & 1,722 \\
+\midrule
+\textbf{Mean} & 147,997 & 145,116 & \textbf{2,881} (3.6) & 9.0 & 959 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The saving averages \texteuro 2,881 per day (3.6\%; median 2.5\%) and is above the estimated noise on all seven days, by less than \texteuro 0.6k on three of them. The percentages are inflated on low-cost days (29~April, 27~May) and the euro value is the more reliable measure. This test uses synthetic Intraday prices, and its saving is measured against a fixed job plan; it is not fed back into the offering objective and must not be added to the ladder saving.
+
+\subsection{Illustrative Synthetic Day (First Version of the Study)}
+Figures~\ref{fig:owner_dashboard}--\ref{fig:reschedule_metrics} are from the synthetic benchmark day used in the first version of this study (synthetic Day-Ahead prices, reserve capacity price $0.12\times$ Day-Ahead, reserve as a price-quantity curve, $3\times3$ tree). They illustrate the form of the decisions (production Gantt chart, offer curves, dispatch, recourse) and not the real-data results above. On that day the three levels cost \texteuro 138,744, \texteuro 137,712 and \texteuro 129,534 (6.64\% below Day-Ahead only), the battery supplied about 97\% of the reserve benefit and the coupling value was at most \texteuro 141. The real-data results show that the reserve assumption overstated the reserve benefit on the reference tree by a factor of about 2.3 (6.69\% against 2.89\%).
+
+\begin{figure*}[t]
+
+\includegraphics[width=0.48\textwidth]{Figures/factory_owner_dashboard.png}
+\caption{Factory Owner Executive Dashboard:
+
+%[OFFERING_OWNER_REPORT_FIGURE_GUIDE.pdf]:
+(Top-Left) Expected net operating cost across market participation levels (Level 1 DA-only: \texteuro 138,744; Level 2 DA+ID: \texteuro 137,712; Level 3 DA+ID+Up-Reserve: \texteuro 129,534) %[OWNER_REPORT.pdf]; 
+(Top-Right) Expected cost driver waterfall bridge showing how reserve credits offset energy settlements and microturbine fuel costs;
+%[OWNER_REPORT.pdf]; 
+(Bottom-Left) Per-scenario savings from standalone Intraday production rescheduling against the Stage-1 baseline; %[combined_offering_reschedule_analysis.pdf];
+(Bottom-Right) Maintained product yield (192--193 units) and job completions (17 jobs) across all production reschedules }
+% [OFFERING_OWNER_REPORT_FIGURE_GUIDE.pdf].
+\label{fig:owner_dashboard}
+\end{figure*}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.95\textwidth]{Figures/stage1_here_and_now.png}
+\caption{Stage-1 Here-and-Now Decisions shared before uncertainty is revealed: %[OFFERING_OWNER_REPORT_FIGURE_GUIDE.pdf]: 
+(Top) Master Production Schedule Gantt chart across 5 smelting furnaces ($m1 \dots m5$) scheduling 17 jobs and 193 product units; (Middle) Microturbine continuous 24-hour online commitment ($u_{\text{MT},t}=1$); %[OWNER_REPORT.pdf]; 
+(Bottom) Step-wise Day-Ahead price-quantity offer curves committed across selected hours.}%[OFFERING_OWNER_REPORT_FIGURE_GUIDE.pdf].
+\label{fig:stage1_decisions}
+\end{figure*}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=0.48\textwidth]{Figures/da_offer_curves.png}
+\caption{Day-Ahead net export offer curves for selected hours (hours 2, 3, 8, 9, 12, 14, 16) plotting net DA export position (MW) against scenario DA sell price (\texteuro /MWh). %[OFFERING_OWNER_REPORT_FIGURE_GUIDE.pdf]. 
+Negative values denote net import positions.}
+\label{fig:da_offer_curves}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=0.48\textwidth]{Figures/reserve_offers.png}
+\caption{Expected upward-spinning reserve capacity offers stacked by asset source: BESS discharge (purple), BESS charge curtailment (cyan), Demand Response load shedding (orange), and Microturbine ramp headroom (green), overlaid with the expected reserve market clearing price curve (\texteuro /MW/h).} %[OFFERING_OWNER_REPORT_FIGURE_GUIDE.pdf]
+
+\label{fig:reserve_offers}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.48\textwidth]{Figures/bess_dispatch_rt (1).png}
+\caption{Expected BESS charging power (green bars, above zero) and discharge power (red bars, below zero), alongside joint-scenario State-of-Charge (SoC) trajectories (thin lines) and expected SoC (purple curve, right axis).
+%[OFFERING_OWNER_REPORT_FIGURE_GUIDE.pdf]. 
+Plotted bounds mark $SoC_{\text{min}}=20$ MWh and $SoC_{\text{max}}=180$ MWh.}
+\label{fig:bess_dispatch}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=0.48\textwidth]{Figures/microturbine_dispatch_rt.png}
+\caption{Expected real-time microturbine power generation (green solid curve) and scenario dispatch envelope (green shaded region) under continuous 24-hour Day-Ahead online unit commitment ($u_{\text{MT},t}=1$, purple dashed line) .}%[OFFERING_OWNER_REPORT_FIGURE_GUIDE.pdf]
+\label{fig:microturbine_dispatch}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=0.48\textwidth]{Figures/stage2_wait_and_see.png}
+\caption{Stage-2 wait-and-see recourse decisions across the 3 revealed Intraday price scenarios ($s=0, 1, 2$): %[OFFERING_OWNER_REPORT_FIGURE_GUIDE.pdf]: 
+(Panel 1) Net Intraday import/export; (Panel 2) Microturbine dispatch; (Panel 3) BESS net discharge/charge; (Panel 4) Total upward reserve capacity offer.}
+\label{fig:stage2_recourse}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=0.4\textwidth]{Figures/stage3_wait_and_see.png}
+\caption{Stage-3 real-time recourse across 9 joint scenario paths $(s,w)$: %[OFFERING_OWNER_REPORT_FIGURE_GUIDE.pdf]:
+(Panel 1) Real-time energy imbalance (deficit/surplus); (Panel 2) Activated reserve energy deployment; (Panel 3) Post-activation BESS State of Charge.}
+\label{fig:stage3_recourse}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=0.48\textwidth]{Figures/profit_distribution.png}
+\caption{Probability-weighted scenario profit distribution across the 9 joint price/real-time scenario paths, showing expected profit marker ($-\text{\texteuro}129,534$, green) and 95\% CVaR tail-risk marker ($-\text{\texteuro}142,356$, red).}%[OFFERING_OWNER_REPORT_FIGURE_GUIDE.pdf]
+\label{fig:profit_distribution}
+\end{figure}
+
+\begin{figure*}[t]
+
+\includegraphics[width=0.48\textwidth]{Figures/stage2_production_reschedules (1).png}
+\caption{Standalone intraday production rescheduling Gantt charts: (top) Stage-1 baseline job schedule (\texteuro 129,534); (second) Scenario $s=0$ rescheduled plan (\texteuro 121,532; 13 jobs changed; \texteuro 6,070 saved); (third) Scenario $s=1$ rescheduled plan (\texteuro 145,579; 13 jobs changed; \texteuro 932 saved); (bottom) Scenario $s=2$ rescheduled plan (\texteuro 137,665; no jobs changed; baseline retained).}
+\label{fig:production_reschedules}
+\end{figure*}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=0.48\textwidth]{Figures/intraday_reschedule_metrics.png}
+\caption{Matched Intraday production rescheduling cost comparison (Top) contrasting fixed Stage-1 job plan operating costs against rescheduled job plan operating costs per scenario, and (Bottom) resulting net cost savings (\texteuro 6,070 for $s=0$, \texteuro 932 for $s=1$, \texteuro 0 for $s=2$).} %[OFFERING_OWNER_REPORT_FIGURE_GUIDE.pdf, combined_offering_reschedule_analysis.pdf]
+\label{fig:reschedule_metrics}
+\end{figure}
+% ---------------------------- LIMITATIONS ---------------------
+\section{Limitations and Future Research}
+To ensure transparent reporting, the following research boundaries are noted:
+\begin{enumerate}
+    \item \textbf{Only the Day-Ahead and mFRR capacity prices are real.} The Intraday price (Day-Ahead times a log-normal factor), the real-time imbalance ratios and the reserve activation energy are modelled. Day-Ahead prices are taken from DK1 for one plant and one year; the 90-day mean mFRR capacity price fell by about a factor of three between the April and October trees, so the reserve value of 2.9--11.9\% cannot be assumed to persist.
+    \item \textbf{Negative prices.} Negative Day-Ahead prices (231 hours on 44 days) are floored at zero because the model requires non-negative prices; this understates the value of flexible consumption and calls for a model extension.
+    \item \textbf{Reserve market representation.} Reserve is a single hourly quantity at the scenario-specific price, with no bid-acceptance uncertainty, gate-closure timing or activation-price modelling. A price-quantity bid would lie between the Stage-1 and the curve results of Table~\ref{tab:reserve_price}.
+    \item \textbf{In-tree results are optimistic.} The realized saving on seven actual days is about 43\% below the in-tree expectation, larger trees ($6\times3$, $12\times3$) did not improve it, and seven days carry wide uncertainty. A longer rolling test is needed.
+    \item \textbf{Solver tolerance.} Results use a MIP gap of 0.5\% (1\% for the CVaR frontier), so cost differences below roughly \texteuro 0.3--0.7k are not resolved; this affects the reserve-by-asset, battery-size and coupling comparisons. One of 21 evaluation solves failed the independent verification and is flagged.
+    \item \textbf{Coupling evidence is incomplete.} The Stage-1 decoupling test was run on the reference tree only; the other dates use the price-quantity reserve curve.
+    \item \textbf{Risk.} The CVaR frontier is indicative (24 paths, tail of 1.2 paths), on one history.
+    \item \textbf{Production recourse and market rules.} Production is a Stage-1 decision; the rescheduling test after Day-Ahead clearing uses synthetic Intraday prices and is not added to the ladder saving. Hourly resolution is a simplification of the 15-min market.
+    \item \textbf{Season is not separated from trend.} One year of data contains one winter, spring, summer and autumn, the mFRR price fell during it, so the seasonal pattern of the savings (Section~\ref{sec:seasonal}) cannot be distinguished from a time trend. The winter result rests on three trees of one winter, solved with HiGHS, and winter heat demand is not modelled. A multi-year rolling test with a heat-demand model is needed.
+    \item \textbf{Deterministic durations and linear battery aging} remain as before; non-linear aging models and stochastic machine breakdowns are future work.
+\end{enumerate}
+
+\section{Conclusion}
+A three-stage stochastic MILP for a batch-production prosumer with a microturbine and a BESS was evaluated on one year of real DK1 Day-Ahead prices and real mFRR capacity prices, with the reserve committed as a Stage-1 quantity. On eight scenario trees, Intraday trading and up-reserve reduce the expected net operating cost by 2.9--11.9\% (mean 7.1\%) against Day-Ahead only, but on seven actual days the realized saving is 3.7\% (\texteuro 5,403) on average, and the reserve part follows the mFRR capacity price, which fell during the year. About 90\% of the reserve benefit is supplied by the battery. Fixing the production plan before the market decisions costs at most 1.4\% on the dates tested and is not resolved from zero on others, so joint production optimization adds a small, date-dependent value; rescheduling jobs by $\pm3$ h after Day-Ahead clearing is worth \texteuro 2,881 per day on average. The saving varies with the season (6.7\%, 10.0\%, 6.6\% and 3.4\% for winter, spring, summer and autumn trees), following the mFRR price and the evening concentration of reserve value, but one year cannot separate season from trend. The main open points are real Intraday and activation prices, negative-price handling and a longer rolling evaluation.
+
+\begin{thebibliography}{00}
+
+
+\bibitem{hadera2015} H. Hadera, I. Harjunkoski, G. Sand, and H. Engell, ``Electricity cost minimization under time-sensitive electricity prices and load commitment costs,'' \emph{Comput. Chem. Eng.}, vol. 72, pp. 183--198, 2015.
+\bibitem{tan2019} M. Tan, S. Zhang, and X. Wu, ``Integrated optimization model for industrial self-generation and load scheduling with tradable carbon emission permits,'' \emph{J. Clean. Prod.}, vol. 210, pp. 1289--1300, 2019.
+\bibitem{perkovic2017} L. Perkovi{\'c}, H. Mikul{\v{c}}i{\'c}, and N. Dui{\'c}, ``Multi-objective optimization of a simplified factory model acting as a prosumer on the electricity market,'' \emph{J. Clean. Prod.}, vol. 167, pp. 1438--1449, 2017.
+\bibitem{cong2025} L. Cong, B. N. J{\o}rgensen, and Z. G. Ma, ``Globally optimal scheduling for industrial energy cost reduction under dynamic electricity pricing,'' in \emph{Energy Informatics (EIA Nordic 2025)}, LNCS 16095, Springer, pp. 237--254, 2025.
+\bibitem{song2022} W. Song, X. Chen, Q. Li, and L. Gao, ``Flexible job-shop scheduling via graph neural network and deep reinforcement learning,'' \emph{IEEE Trans. Ind. Inf.}, vol. 18, no. 3, pp. 1600--1610, 2022.
+\bibitem{wang2025} C. Wang et al., ``Deep reinforcement learning-based energy-conscious scheduling under time-of-use electricity price,'' \emph{IEEE Trans. Autom. Sci. Eng.}, vol. 22, pp. 11490--11504, 2025.
+\bibitem{felder2023} M. Felder et al., ``Energy-flexible job-shop scheduling using deep reinforcement learning,'' \emph{Comput. Ind. Eng.}, vol. 178, p. 109120, 2023.
+\bibitem{khaloie2021tste} H. Khaloie, A. Mollahassani-Pour, and A. Anvari-Moghaddam, ``Risk-averse optimal offering strategy of a hybrid power plant in day-ahead and intraday markets,'' \emph{IEEE Trans. Sustainable Energy}, vol. 12, no. 1, pp. 420--430, 2021.
+\bibitem{khaloie2020apen} H. Khaloie, A. Abdollahi, M. Shafie-Khah, P. Siano, S. Nojavan, A. Anvari-Moghaddam, and J. P. S. Catal{\~a}o, ``Co-optimized bidding strategy of an integrated wind-thermal-photovoltaic system in deregulated electricity market under uncertainties,'' \emph{J. Clean. Prod.}, vol. 242, p. 118434, 2020.
+\bibitem{khaloie2021jcp} H. Khaloie, A. Anvari-Moghaddam, N. Hatziargyriou, and J. Contreras, ``Risk-constrained self-scheduling of a hybrid power plant considering interval-based intraday demand response exchange market prices,'' \emph{J. Clean. Prod.}, vol. 282, p. 125344, 2021.
+\bibitem{nokandi2024} E. Nokandi, M. Vahedipour-Dahraie, S. R. Goldani, and P. Siano, ``A decision-making model for joint energy and reserve scheduling of wind power producer considering demand response exchange,'' \emph{Int. J. Electr. Power Energy Syst.}, vol. 162, p. 110234, 2024.
+\bibitem{ghanaee2024} E. Ghanaee, J. I. P{\'e}rez-D{\'\i}az, D. Fern{\'a}ndez-Mu{\~n}oz, J. N{\'a}jera, and M. Chazarra, ``Optimal scheduling of a hybrid wind-battery power plant in the day-ahead and reserve markets considering battery degradation cost,'' in \emph{Proc. IEEE SEST}, 2024.
+\bibitem{zhang2026tacos} Y. Zhang and Y. Ye, ``TACOS: A topology-aware cooperative multiagent framework for power-computing coscheduling in data center microgrids,'' \emph{IEEE Trans. Ind. Inf.}, vol. 22, no. 1, pp. 110--122, 2026.
+\bibitem{abedinia2019} O. Abedinia, M. Zareinejad, M. H. Doranehgard, G. Fathi, and N. Ghadimi, ``Optimal offering and bidding strategies of renewable energy based large consumer using a novel hybrid robust-stochastic approach,'' \emph{J. Clean. Prod.}, vol. 215, pp. 878--889, 2019.
+
+
+\end{thebibliography}
+
+\end{document}
