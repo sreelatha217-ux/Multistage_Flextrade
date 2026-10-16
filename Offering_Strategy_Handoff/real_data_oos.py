@@ -6,6 +6,8 @@ For every test day (history = the `window` days before it) and every tree size:
      and re-optimise Stage 2/3 on the actual day (1 real DA path, 3 intraday / reserve shocks) -> out-of-sample cost
 Reserve prices: real mFRR if mfrr_capacity_dk1.csv exists (training: cluster means, test day: that day's real
 prices), else synthetic --sr-ratio x DA.  Add --reserve-stage1 for the reserve-fixed model.
+--compare-energy-only / --compare-da-only also train and evaluate the NO-reserve (DA + ID) plan and the DA-only plan on the
+same days, so the REALIZED saving of the full model on real prices is reported (not only the expected saving on the tree).
 --fix-reserve additionally fixes the reserve quantity of the training solution on the test day (needs
 --reserve-stage1; if the fixed reserve cannot be delivered the day is recorded as NaN).
 
@@ -48,16 +50,18 @@ class Evaluator:
         self.T = ctx.base_inst.horizon_h
         self.unverified = False            # True if the LAST solve failed the independent verification
 
-    def solve(self, inst, sc, r, d, fix=None, gap=None):
+    def solve(self, inst, sc, r, d, fix=None, gap=None, mkt=None, rsv=None):
         ctx, api = self.ctx, self.ctx.api
+        mkt = ctx.mkt if mkt is None else mkt
+        rsv = ctx.rsv if rsv is None else rsv
         cfg = ctx.make_cfg(gap) if gap else ctx.cfg
-        model = api.build_offering_model(inst, ctx.mkt, sc, r, d, ctx.rsv, ctx.bal, ctx.strat, cfg, ctx.cands)
+        model = api.build_offering_model(inst, mkt, sc, r, d, rsv, ctx.bal, ctx.strat, cfg, ctx.cands)
         if fix:
             fix(model)
         info = api.da.solve_model(model, cfg.solver)
         self.unverified = False
         try:
-            res = api.extract_offering(inst, ctx.mkt, sc, r, d, ctx.rsv, ctx.bal, ctx.strat, cfg, model, ctx.cands, info)
+            res = api.extract_offering(inst, mkt, sc, r, d, rsv, ctx.bal, ctx.strat, cfg, model, ctx.cands, info)
         except Exception as e:
             if type(e).__name__ != "VerificationError":
                 raise
@@ -69,7 +73,7 @@ class Evaluator:
             both = np.minimum(dp, dm)
             print(f"   VERIFICATION FAILED: {str(e)[:150]}\n   largest simultaneous deficit/surplus = {both.max():.2e} MW "
                   f"in {int((both > 1e-6).sum())} of {both.size} hour-branches; continuing with the solution, row flagged", flush=True)
-            res = api.extract_offering(inst, ctx.mkt, sc, r, d, ctx.rsv, ctx.bal, ctx.strat, replace(cfg, strict_verification=False),
+            res = api.extract_offering(inst, mkt, sc, r, d, rsv, ctx.bal, ctx.strat, replace(cfg, strict_verification=False),
                                        model, ctx.cands, info)
             self.unverified = True
         return model, res
@@ -92,7 +96,7 @@ class Evaluator:
         odep = api.DeploymentSet.generate(osc.n, ort.n_w, oinst.horizon_h, seed + 2, a.rho_mean, a.rho_sigma)
         return oinst, osc, ort, odep
 
-    def oos(self, model, res, sc, inst, day, seed):
+    def oos(self, model, res, sc, inst, day, seed, mkt=None, rsv=None):
         """(cost, mip_gap) of the Stage-1 plan of `model`/`res` on the actual `day`."""
         ctx, api, T = self.ctx, self.ctx.api, self.T
         oinst, osc, ort, odep = self.actual_day(inst, day, seed)
@@ -104,7 +108,8 @@ class Evaluator:
             qs[:, t] = rb.step_curve(sc.da_sell[:, t], Psell[:, t], osc.da_sell[:, t], "sell")
             qb[:, t] = rb.step_curve(sc.da_buy[:, t], Pbuy[:, t], osc.da_buy[:, t], "buy")
         keep = rb.baseline_candidates(ctx.cands, ctx.tix, ctx.mix, res.jobs)
-        R0 = api._arr2(model, "Rtot", S, T)[0] if (self.fix_reserve and ctx.strat.reserve_stage1) else None
+        R0 = (api._arr2(model, "Rtot", S, T)[0]
+              if (self.fix_reserve and ctx.strat.reserve_stage1 and rsv is None) else None)
 
         def fix(m2):
             for i in range(len(ctx.cands)):
@@ -119,7 +124,7 @@ class Evaluator:
                         m2.Rtot[k, t].fix(float(R0[t]))
 
         try:
-            _, r2 = self.solve(oinst, osc, ort, odep, fix=fix, gap=self.oos_gap)
+            _, r2 = self.solve(oinst, osc, ort, odep, fix=fix, gap=self.oos_gap, mkt=mkt, rsv=rsv)
         except Exception as e:                       # fixed reserve may be undeliverable on the actual day
             if R0 is None:
                 raise
@@ -147,6 +152,19 @@ def summarize(rows):
     return "\n".join(txt)
 
 
+def summarize_savings(rows, names):
+    df = pd.DataFrame(rows)
+    txt = ["", "=== REALIZED SAVING of the full model on the actual days (real prices, Stage 1 fixed) ==="]
+    for name in names:
+        for tree, g in df.groupby("tree", sort=False):
+            s, p, nz = g[f"saving_{name}_eur"], g[f"saving_{name}_pct"], g[f"noise_{name}_eur"]
+            txt.append(f"vs {name:11s} {tree:>5s}: mean {s.mean():7.0f} EUR ({p.mean():5.2f}%)  median {p.median():5.2f}%  "
+                       f"min {s.min():7.0f}  max {s.max():7.0f}  negative days {int((s < 0).sum())}  "
+                       f"below noise {int((s < nz).sum())}  | expected saving on the tree (mean) "
+                       f"{g[f'ins_saving_{name}_eur'].mean():7.0f} EUR")
+    return "\n".join(txt)
+
+
 def main():
     ap = argparse.ArgumentParser(allow_abbrev=False)
     rc.add_common_args(ap)
@@ -155,6 +173,8 @@ def main():
     ap.add_argument("--oos-gap", type=float, default=0.005)
     ap.add_argument("--oos-rt", type=int, default=3, help="RT branches of the evaluation tree")
     ap.add_argument("--fix-reserve", action="store_true")
+    ap.add_argument("--compare-energy-only", action="store_true", help="also evaluate the DA + ID plan without reserve")
+    ap.add_argument("--compare-da-only", action="store_true", help="also evaluate the DA-only plan (no ID, no reserve)")
     ap.set_defaults(gap=0.01, time_limit=600, step=28)
     opt, extra = ap.parse_known_args()
     if not opt.start:
@@ -165,6 +185,11 @@ def main():
     mfrr_tab = ml.load_mfrr_hourly(opt.mfrr) if use_mfrr else None
     ev = Evaluator(ctx, mfrr_tab, opt.oos_gap, opt.oos_rt, opt.fix_reserve)
     trees = parse_trees(opt.trees)
+    variants = []
+    if opt.compare_da_only:
+        variants.append(("da_only", ctx.no_id, ctx.no_res))
+    if opt.compare_energy_only:
+        variants.append(("energy_only", ctx.mkt, ctx.no_res))
     print(f"reserve prices: {'REAL mFRR' if use_mfrr else 'synthetic ' + str(opt.sr_ratio) + ' x DA'}   reserve capacity: "
           f"{'Stage-1 quantity' if ctx.strat.reserve_stage1 else 'price-quantity curve'}   trees: {opt.trees}", flush=True)
     out_dir = os.path.join(opt.out, "oos")
@@ -181,16 +206,34 @@ def main():
             ins = -res.expected_profit_eur
             train_unv = ev.unverified
             cost, gap = ev.oos(model, res, sc, inst, day, opt.seed + 1000 + k)
-            rows.append(dict(day=str(day.date()), tree=f"{n}x{w}", paths=n * w, in_sample=ins, oos=cost,
-                             unverified=int(train_unv or ev.unverified),
-                             diff_eur=cost - ins, diff_pct=100 * (cost - ins) / ins, train_gap=res.mip_gap or 0.0,
-                             oos_gap=gap, seconds=time.time() - t0))
+            row = dict(day=str(day.date()), tree=f"{n}x{w}", paths=n * w, in_sample=ins, oos=cost,
+                       unverified=int(train_unv or ev.unverified),
+                       diff_eur=cost - ins, diff_pct=100 * (cost - ins) / ins, train_gap=res.mip_gap or 0.0,
+                       oos_gap=gap)
+            print(f"[{day.date()}] {n}x{w:<2d} full model: in-sample {ins:9.0f}  out-of-sample {cost:9.0f}  "
+                  f"diff {cost - ins:8.0f} ({100 * (cost - ins) / ins:5.1f}%)  train gap {100 * (res.mip_gap or 0):.2f}%",
+                  flush=True)
+            for name, vm, vr in variants:               # same tree, same actual day, fewer markets
+                mv, rv = ev.solve(inst, sc, r, d, mkt=vm, rsv=vr)
+                ins_v, unv = -rv.expected_profit_eur, ev.unverified
+                cost_v, gap_v = ev.oos(mv, rv, sc, inst, day, opt.seed + 1000 + k, mkt=vm, rsv=vr)
+                row[f"in_{name}"], row[f"oos_{name}"] = ins_v, cost_v
+                row[f"saving_{name}_eur"] = cost_v - cost
+                row[f"saving_{name}_pct"] = 100 * (cost_v - cost) / cost_v
+                row[f"ins_saving_{name}_eur"] = ins_v - ins
+                row[f"noise_{name}_eur"] = (gap + gap_v) * cost_v
+                row["unverified"] = int(row["unverified"] or unv or ev.unverified)
+                print(f"      vs {name:11s}: out-of-sample {cost_v:9.0f}  REALIZED saving {cost_v - cost:7.0f} EUR "
+                      f"({100 * (cost_v - cost) / cost_v:5.2f}%)  expected on tree {ins_v - ins:7.0f}  "
+                      f"noise ~{(gap + gap_v) * cost_v:.0f}", flush=True)
+            row["seconds"] = time.time() - t0
+            rows.append(row)
             rc.save_rows(rows, out_dir, "oos.csv")
-            print(f"[{day.date()}] {n}x{w:<2d} in-sample {ins:9.0f}  out-of-sample {cost:9.0f}  "
-                  f"diff {cost - ins:8.0f} ({100 * (cost - ins) / ins:5.1f}%)  train gap {100 * (res.mip_gap or 0):.2f}%  "
-                  f"{time.time() - t0:.0f}s", flush=True)
+            print(f"      {time.time() - t0:.0f}s", flush=True)
     if rows:
         print(summarize(rows))
+        if variants:
+            print(summarize_savings(rows, [v[0] for v in variants]))
         print(f"\nresults in {out_dir}/oos.csv")
 
 
