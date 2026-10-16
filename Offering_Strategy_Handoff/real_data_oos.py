@@ -19,6 +19,7 @@ Slow part: the 12x2 training solve (24 paths) can use the whole --time-limit.
 import argparse
 import os
 import time
+from dataclasses import replace
 
 import numpy as np
 import pandas as pd
@@ -45,6 +46,7 @@ class Evaluator:
         self.ctx, self.mfrr_tab = ctx, mfrr_tab
         self.oos_gap, self.oos_rt, self.fix_reserve = oos_gap, oos_rt, fix_reserve
         self.T = ctx.base_inst.horizon_h
+        self.unverified = False            # True if the LAST solve failed the independent verification
 
     def solve(self, inst, sc, r, d, fix=None, gap=None):
         ctx, api = self.ctx, self.ctx.api
@@ -53,7 +55,23 @@ class Evaluator:
         if fix:
             fix(model)
         info = api.da.solve_model(model, cfg.solver)
-        res = api.extract_offering(inst, ctx.mkt, sc, r, d, ctx.rsv, ctx.bal, ctx.strat, cfg, model, ctx.cands, info)
+        self.unverified = False
+        try:
+            res = api.extract_offering(inst, ctx.mkt, sc, r, d, ctx.rsv, ctx.bal, ctx.strat, cfg, model, ctx.cands, info)
+        except Exception as e:
+            if type(e).__name__ != "VerificationError":
+                raise
+            # Do not hide it: print the size of the violation, then continue with the (valid) solution and flag the row.
+            import pyomo.environ as pyo
+            S, W, T = sc.n, r.n_w, inst.horizon_h
+            dp = np.array([[[pyo.value(model.Dp[k, w, t]) for t in range(T)] for w in range(W)] for k in range(S)])
+            dm = np.array([[[pyo.value(model.Dm[k, w, t]) for t in range(T)] for w in range(W)] for k in range(S)])
+            both = np.minimum(dp, dm)
+            print(f"   VERIFICATION FAILED: {str(e)[:150]}\n   largest simultaneous deficit/surplus = {both.max():.2e} MW "
+                  f"in {int((both > 1e-6).sum())} of {both.size} hour-branches; continuing with the solution, row flagged", flush=True)
+            res = api.extract_offering(inst, ctx.mkt, sc, r, d, ctx.rsv, ctx.bal, ctx.strat, replace(cfg, strict_verification=False),
+                                       model, ctx.cands, info)
+            self.unverified = True
         return model, res
 
     def actual_day(self, inst, day, seed):
@@ -161,8 +179,10 @@ def main():
             inst, sc, r, d = ctx.tree(end, n=n, w=w, seed=opt.seed + k)
             model, res = ev.solve(inst, sc, r, d)
             ins = -res.expected_profit_eur
+            train_unv = ev.unverified
             cost, gap = ev.oos(model, res, sc, inst, day, opt.seed + 1000 + k)
             rows.append(dict(day=str(day.date()), tree=f"{n}x{w}", paths=n * w, in_sample=ins, oos=cost,
+                             unverified=int(train_unv or ev.unverified),
                              diff_eur=cost - ins, diff_pct=100 * (cost - ins) / ins, train_gap=res.mip_gap or 0.0,
                              oos_gap=gap, seconds=time.time() - t0))
             rc.save_rows(rows, out_dir, "oos.csv")
