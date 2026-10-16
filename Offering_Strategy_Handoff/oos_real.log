@@ -1,0 +1,18 @@
+nohup: ignoring input
+reserve prices: REAL mFRR   reserve capacity: Stage-1 quantity   trees: ['3x3', '4x3', '6x3']
+[2026-08-19] 3x3  in-sample     90707  out-of-sample    277869  diff   187162 (206.3%)  train gap 0.80%  232s
+[2026-08-19] 4x3  in-sample     91546  out-of-sample    277010  diff   185464 (202.6%)  train gap 1.00%  235s
+[2026-08-19] 6x3  in-sample     91317  out-of-sample    277042  diff   185725 (203.4%)  train gap 1.00%  302s
+
+=== IN-SAMPLE vs OUT-OF-SAMPLE (mean over test days) ===
+      days  paths  in_sample        oos       diff  diff_pct  train_gap
+tree                                                                   
+3x3      1      9   90706.60  277868.86  187162.26    206.34       0.01
+4x3      1     12   91545.90  277010.06  185464.16    202.59       0.01
+6x3      1     18   91317.27  277042.41  185725.14    203.38       0.01
+
+paired out-of-sample cost difference vs 3x3 (negative = better than 3x3):
+     4x3: mean     -859 EUR   better on 1 of 1 days
+     6x3: mean     -826 EUR   better on 1 of 1 days
+
+results in /workspaces/Multistage_Flextrade/Offering_Strategy_Handoff/real_data_results/oos/oos.csv

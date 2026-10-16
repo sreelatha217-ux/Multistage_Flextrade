@@ -1,0 +1,16 @@
+nohup: ignoring input
+reserve prices: REAL mFRR | reserve capacity: Stage-1 quantity
+[2026-10-11] none (DA+ID only)        cost     140396  saving        0  gap 0.50%
+[2026-10-11] MT + DR only             cost     140135  saving      261  gap 0.48%
+[2026-10-11] BESS only (dis + ch)     cost     138757  saving     1639  gap 0.50%
+[2026-10-11] all four                 cost     138573  saving     1823  gap 0.50%
+[2026-10-11] assets done in 309s
+
+=== RESULT ===
+history_end         reserve_from  net_cost  saving_vs_none  avg_reserve_mw  gap
+ 2026-10-11    none (DA+ID only) 140396.30            0.00            0.00  0.0
+ 2026-10-11         MT + DR only 140135.00          261.30            0.75  0.0
+ 2026-10-11 BESS only (dis + ch) 138757.03         1639.27            8.50  0.0
+ 2026-10-11             all four 138573.01         1823.29           10.32  0.0
+
+Note: differences smaller than about gap x cost are not resolved.

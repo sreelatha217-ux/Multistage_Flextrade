@@ -1,0 +1,23 @@
+nohup: ignoring input
+reserve prices: REAL mFRR | reserve capacity: Stage-1 quantity
+only 24 joint scenarios: the 5% tail is 1.20 scenarios wide; use more scenarios for a meaningful CVaR
+only 24 joint scenarios: the 5% tail is 1.20 scenarios wide; use more scenarios for a meaningful CVaR
+only 24 joint scenarios: the 5% tail is 1.20 scenarios wide; use more scenarios for a meaningful CVaR
+only 24 joint scenarios: the 5% tail is 1.20 scenarios wide; use more scenarios for a meaningful CVaR
+history_end  beta  exp_profit_eur  cvar_eur  std_eur  worst_eur  avg_reserve_mw
+ 2026-10-11   0.0       -138996.3 -276681.6  84699.1  -276681.6             6.5
+ 2026-10-11   0.2       -139681.3 -272188.8  83357.6  -272188.8             5.8
+ 2026-10-11   0.5       -143280.3 -265437.4  77922.5  -265437.4            12.3
+ 2026-10-11   0.8       -145629.6 -265069.4  75943.0  -265069.4            12.6
+ 2026-10-11   0.9       -145872.9 -263383.5  75375.0  -263383.5            15.4
+[2026-10-11] frontier done in 2312s
+
+=== RESULT ===
+history_end  beta  exp_profit_eur   cvar_eur  std_eur  worst_eur  avg_reserve_mw
+ 2026-10-11  0.00      -138996.35 -276681.57 84699.11 -276681.57            6.46
+ 2026-10-11  0.25      -139681.30 -272188.78 83357.63 -272188.78            5.76
+ 2026-10-11  0.50      -143280.32 -265437.38 77922.49 -265437.38           12.29
+ 2026-10-11  0.75      -145629.56 -265069.36 75943.04 -265069.36           12.58
+ 2026-10-11  0.90      -145872.92 -263383.52 75375.00 -263383.52           15.43
+
+Note: differences smaller than about gap x cost are not resolved.

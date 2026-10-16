@@ -1,0 +1,135 @@
+nohup: ignoring input
+real-data tree + REAL mFRR prices: 3 day types x 3 RT, history to 2026-03-31, probs = [0.189 0.489 0.322], reserve capacity = ONE Stage-1 quantity (same in all scenarios)
+  day type 0: mean DA   61.6 EUR/MWh | real mFRR mean   8.28 (max  37.99) vs old 0.12 x DA =   7.40 EUR/MW/h
+  day type 1: mean DA   96.2 EUR/MWh | real mFRR mean   7.63 (max  24.25) vs old 0.12 x DA =  11.55 EUR/MW/h
+  day type 2: mean DA  128.4 EUR/MWh | real mFRR mean  39.66 (max 113.04) vs old 0.12 x DA =  15.40 EUR/MW/h
+status=optimal  risk-adjusted profit=-158,601.33 EUR  gap=0.2096%  time=12.6s  tree=3 price x 3 RT  bidding=curve  beta=0  alpha=0.95
+E[profit]=-158,601.33  E[net cost]=158,601.33 EUR  CVaR95=-179,680.44  VaR=-179,680.44  std=37,007.69  min=-179,680.44  max=-80,409.19 EUR
+E[revenue]: DA=-96,307.74  ID=-49,877.71  reserve capacity=16,733.12  activation=4,148.85
+E[cost]: imbalance=4,158.44  MT=27,168.03  BESS=888.54  DR=1,082.85 EUR
+reserve: avg offer=36.9 MW over 24 h (MT 0.9 / BESS-dis 27.3 / BESS-ch 4.8 / DR 4.0 MW)  expected activation=73.5 MWh
+Stage 1: MT on 24 h, 1 start(s)  batches=17  units=193
+verification=PASS
+
+Market participation ladder (REAL DA + REAL mFRR capacity prices):
+                        market_stage  expected_net_cost_eur  savings_vs_da_only_eur
+   DA only + RT imbalance settlement              171936.90                    0.00
+   DA + ID + RT imbalance settlement              169469.38                 2467.52
+DA + ID + RT settlement + up-reserve              158601.33                13335.57
+
+written to /workspaces/Multistage_Flextrade/Offering_Strategy_Handoff/real_data_results_gurobi/ladder_mfrr_stage1/2026-03-31
+real-data tree + REAL mFRR prices: 3 day types x 3 RT, history to 2026-04-28, probs = [0.344 0.344 0.311], reserve capacity = ONE Stage-1 quantity (same in all scenarios)
+  day type 0: mean DA   64.3 EUR/MWh | real mFRR mean  13.95 (max  27.72) vs old 0.12 x DA =   7.71 EUR/MW/h
+  day type 1: mean DA   98.9 EUR/MWh | real mFRR mean  12.26 (max  39.63) vs old 0.12 x DA =  11.87 EUR/MW/h
+  day type 2: mean DA  120.7 EUR/MWh | real mFRR mean  35.67 (max  97.51) vs old 0.12 x DA =  14.48 EUR/MW/h
+status=optimal  risk-adjusted profit=-126,778.53 EUR  gap=0.4828%  time=29.7s  tree=3 price x 3 RT  bidding=curve  beta=0  alpha=0.95
+E[profit]=-126,778.53  E[net cost]=126,778.53 EUR  CVaR95=-185,734.22  VaR=-185,734.22  std=56,790.12  min=-185,734.22  max=-50,752.85 EUR
+E[revenue]: DA=-78,539.37  ID=-40,744.48  reserve capacity=19,571.91  activation=4,193.08
+E[cost]: imbalance=3,253.96  MT=26,107.90  BESS=1,103.75  DR=794.06 EUR
+reserve: avg offer=37.3 MW over 23 h (MT 1.3 / BESS-dis 27.4 / BESS-ch 5.7 / DR 2.8 MW)  expected activation=77.4 MWh
+Stage 1: MT on 24 h, 1 start(s)  batches=17  units=193
+verification=PASS
+
+Market participation ladder (REAL DA + REAL mFRR capacity prices):
+                        market_stage  expected_net_cost_eur  savings_vs_da_only_eur
+   DA only + RT imbalance settlement              141214.14                    0.00
+   DA + ID + RT imbalance settlement              138846.75                 2367.40
+DA + ID + RT settlement + up-reserve              126778.53                14435.62
+
+written to /workspaces/Multistage_Flextrade/Offering_Strategy_Handoff/real_data_results_gurobi/ladder_mfrr_stage1/2026-04-28
+real-data tree + REAL mFRR prices: 3 day types x 3 RT, history to 2026-05-26, probs = [0.167 0.4   0.433], reserve capacity = ONE Stage-1 quantity (same in all scenarios)
+  day type 0: mean DA   50.8 EUR/MWh | real mFRR mean   6.29 (max  26.99) vs old 0.12 x DA =   6.10 EUR/MW/h
+  day type 1: mean DA   82.5 EUR/MWh | real mFRR mean  15.31 (max  32.04) vs old 0.12 x DA =   9.90 EUR/MW/h
+  day type 2: mean DA  119.6 EUR/MWh | real mFRR mean  28.80 (max  76.49) vs old 0.12 x DA =  14.35 EUR/MW/h
+status=optimal  risk-adjusted profit=-96,815.60 EUR  gap=0.4987%  time=54.4s  tree=3 price x 3 RT  bidding=curve  beta=0  alpha=0.95
+E[profit]=-96,815.61  E[net cost]=96,815.61 EUR  CVaR95=-158,142.20  VaR=-158,142.20  std=52,966.58  min=-158,142.20  max=-45,368.17 EUR
+E[revenue]: DA=-59,235.22  ID=-30,469.27  reserve capacity=17,616.63  activation=3,904.51
+E[cost]: imbalance=2,369.22  MT=24,181.73  BESS=1,494.66  DR=586.64 EUR
+reserve: avg offer=34.9 MW over 22 h (MT 1.1 / BESS-dis 24.4 / BESS-ch 7.4 / DR 1.9 MW)  expected activation=71.6 MWh
+Stage 1: MT on 24 h, 1 start(s)  batches=17  units=193
+verification=PASS
+
+Market participation ladder (REAL DA + REAL mFRR capacity prices):
+                        market_stage  expected_net_cost_eur  savings_vs_da_only_eur
+   DA only + RT imbalance settlement              109887.27                    0.00
+   DA + ID + RT imbalance settlement              108121.37                 1765.90
+DA + ID + RT settlement + up-reserve               96815.61                13071.66
+
+written to /workspaces/Multistage_Flextrade/Offering_Strategy_Handoff/real_data_results_gurobi/ladder_mfrr_stage1/2026-05-26
+real-data tree + REAL mFRR prices: 3 day types x 3 RT, history to 2026-06-23, probs = [0.5   0.456 0.044], reserve capacity = ONE Stage-1 quantity (same in all scenarios)
+  day type 0: mean DA   68.7 EUR/MWh | real mFRR mean  10.68 (max  22.72) vs old 0.12 x DA =   8.24 EUR/MW/h
+  day type 1: mean DA  113.9 EUR/MWh | real mFRR mean  15.11 (max  54.17) vs old 0.12 x DA =  13.67 EUR/MW/h
+  day type 2: mean DA  148.0 EUR/MWh | real mFRR mean  23.82 (max 172.04) vs old 0.12 x DA =  17.75 EUR/MW/h
+status=optimal  risk-adjusted profit=-86,923.13 EUR  gap=0.4999%  time=77.4s  tree=3 price x 3 RT  bidding=curve  beta=0  alpha=0.95
+E[profit]=-86,923.13  E[net cost]=86,923.13 EUR  CVaR95=-146,507.26  VaR=-146,507.26  std=55,920.44  min=-146,507.26  max=-30,847.61 EUR
+E[revenue]: DA=-52,086.62  ID=-22,238.43  reserve capacity=10,847.87  activation=3,088.36
+E[cost]: imbalance=1,879.26  MT=22,579.81  BESS=1,624.19  DR=451.05 EUR
+reserve: avg offer=22.4 MW over 17 h (MT 0.9 / BESS-dis 15.9 / BESS-ch 4.1 / DR 1.5 MW)  expected activation=48.3 MWh
+Stage 1: MT on 21 h, 2 start(s)  batches=17  units=193
+verification=PASS
+
+Market participation ladder (REAL DA + REAL mFRR capacity prices):
+                        market_stage  expected_net_cost_eur  savings_vs_da_only_eur
+   DA only + RT imbalance settlement               95049.03                    0.00
+   DA + ID + RT imbalance settlement               93316.66                 1732.37
+DA + ID + RT settlement + up-reserve               86923.13                 8125.90
+
+written to /workspaces/Multistage_Flextrade/Offering_Strategy_Handoff/real_data_results_gurobi/ladder_mfrr_stage1/2026-06-23
+real-data tree + REAL mFRR prices: 3 day types x 3 RT, history to 2026-07-21, probs = [0.456 0.5   0.044], reserve capacity = ONE Stage-1 quantity (same in all scenarios)
+  day type 0: mean DA   71.8 EUR/MWh | real mFRR mean   6.59 (max  17.24) vs old 0.12 x DA =   8.61 EUR/MW/h
+  day type 1: mean DA  119.4 EUR/MWh | real mFRR mean  12.66 (max  55.52) vs old 0.12 x DA =  14.33 EUR/MW/h
+  day type 2: mean DA  180.5 EUR/MWh | real mFRR mean  34.46 (max 235.14) vs old 0.12 x DA =  21.66 EUR/MW/h
+status=optimal  risk-adjusted profit=-89,277.73 EUR  gap=0.4499%  time=73.1s  tree=3 price x 3 RT  bidding=curve  beta=0  alpha=0.95
+E[profit]=-89,277.73  E[net cost]=89,277.73 EUR  CVaR95=-143,351.50  VaR=-143,351.50  std=56,551.22  min=-143,351.50  max=-27,133.04 EUR
+E[revenue]: DA=-52,643.77  ID=-22,222.15  reserve capacity=8,941.54  activation=3,341.32
+E[cost]: imbalance=1,757.54  MT=22,999.59  BESS=1,661.17  DR=276.38 EUR
+reserve: avg offer=23.6 MW over 19 h (MT 0.5 / BESS-dis 16.9 / BESS-ch 5.2 / DR 1.0 MW)  expected activation=48.5 MWh
+Stage 1: MT on 21 h, 2 start(s)  batches=17  units=192
+verification=PASS
+
+Market participation ladder (REAL DA + REAL mFRR capacity prices):
+                        market_stage  expected_net_cost_eur  savings_vs_da_only_eur
+   DA only + RT imbalance settlement               95508.03                    0.00
+   DA + ID + RT imbalance settlement               93364.48                 2143.55
+DA + ID + RT settlement + up-reserve               89277.73                 6230.29
+
+written to /workspaces/Multistage_Flextrade/Offering_Strategy_Handoff/real_data_results_gurobi/ladder_mfrr_stage1/2026-07-21
+real-data tree + REAL mFRR prices: 3 day types x 3 RT, history to 2026-08-18, probs = [0.4   0.556 0.044], reserve capacity = ONE Stage-1 quantity (same in all scenarios)
+  day type 0: mean DA   75.6 EUR/MWh | real mFRR mean   4.88 (max  14.11) vs old 0.12 x DA =   9.07 EUR/MW/h
+  day type 1: mean DA  125.4 EUR/MWh | real mFRR mean   9.07 (max  41.72) vs old 0.12 x DA =  15.04 EUR/MW/h
+  day type 2: mean DA  180.5 EUR/MWh | real mFRR mean  34.46 (max 235.14) vs old 0.12 x DA =  21.66 EUR/MW/h
+status=optimal  risk-adjusted profit=-90,706.60 EUR  gap=0.4998%  time=56.2s  tree=3 price x 3 RT  bidding=curve  beta=0  alpha=0.95
+E[profit]=-90,706.60  E[net cost]=90,706.60 EUR  CVaR95=-134,548.60  VaR=-128,159.30  std=45,124.17  min=-138,472.20  max=-35,322.23 EUR
+E[revenue]: DA=-48,617.90  ID=-23,096.75  reserve capacity=5,218.19  activation=2,010.64
+E[cost]: imbalance=1,322.35  MT=22,454.73  BESS=2,166.61  DR=277.09 EUR
+reserve: avg offer=12.7 MW over 16 h (MT 0.2 / BESS-dis 8.6 / BESS-ch 3.0 / DR 1.0 MW)  expected activation=25.0 MWh
+Stage 1: MT on 20 h, 2 start(s)  batches=17  units=193
+verification=PASS
+
+Market participation ladder (REAL DA + REAL mFRR capacity prices):
+                        market_stage  expected_net_cost_eur  savings_vs_da_only_eur
+   DA only + RT imbalance settlement               95197.33                    0.00
+   DA + ID + RT imbalance settlement               92923.08                 2274.25
+DA + ID + RT settlement + up-reserve               90706.60                 4490.73
+
+written to /workspaces/Multistage_Flextrade/Offering_Strategy_Handoff/real_data_results_gurobi/ladder_mfrr_stage1/2026-08-18
+real-data tree + REAL mFRR prices: 3 day types x 3 RT, history to 2026-09-15, probs = [0.422 0.511 0.067], reserve capacity = ONE Stage-1 quantity (same in all scenarios)
+  day type 0: mean DA   86.8 EUR/MWh | real mFRR mean   5.64 (max  23.15) vs old 0.12 x DA =  10.41 EUR/MW/h
+  day type 1: mean DA  141.7 EUR/MWh | real mFRR mean   7.54 (max  33.59) vs old 0.12 x DA =  17.01 EUR/MW/h
+  day type 2: mean DA  195.3 EUR/MWh | real mFRR mean  27.38 (max 193.69) vs old 0.12 x DA =  23.44 EUR/MW/h
+status=optimal  risk-adjusted profit=-114,706.07 EUR  gap=0.4994%  time=37.9s  tree=3 price x 3 RT  bidding=curve  beta=0  alpha=0.95
+E[profit]=-114,706.07  E[net cost]=114,706.07 EUR  CVaR95=-180,424.40  VaR=-174,554.27  std=58,601.48  min=-182,761.72  max=-45,999.66 EUR
+E[revenue]: DA=-56,682.81  ID=-34,020.67  reserve capacity=5,169.31  activation=2,151.63
+E[cost]: imbalance=2,039.71  MT=26,995.93  BESS=2,078.94  DR=208.95 EUR
+reserve: avg offer=11.4 MW over 12 h (MT 0.1 / BESS-dis 8.2 / BESS-ch 2.2 / DR 0.8 MW)  expected activation=22.4 MWh
+Stage 1: MT on 24 h, 1 start(s)  batches=17  units=193
+verification=PASS
+
+Market participation ladder (REAL DA + REAL mFRR capacity prices):
+                        market_stage  expected_net_cost_eur  savings_vs_da_only_eur
+   DA only + RT imbalance settlement              119316.49                    0.00
+   DA + ID + RT imbalance settlement              117360.53                 1955.96
+DA + ID + RT settlement + up-reserve              114706.07                 4610.42
+
+written to /workspaces/Multistage_Flextrade/Offering_Strategy_Handoff/real_data_results_gurobi/ladder_mfrr_stage1/2026-09-15
+Warning: environment still referenced so free is deferred (Continue to use WLS)

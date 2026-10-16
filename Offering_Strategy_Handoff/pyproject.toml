@@ -15,6 +15,7 @@ dependencies = [
     "highspy>=1.7",
     "matplotlib>=3.7",
     "scikit-learn>=1.7.2",
+    "gurobipy>=13.0.3",
 ]
 
 [project.optional-dependencies]

@@ -1,0 +1,42 @@
+nohup: ignoring input
+reserve prices: REAL mFRR   reserve capacity: Stage-1 quantity   trees: ['3x3']
+[2026-04-01] 3x3  full model: in-sample    158601  out-of-sample    225763  diff    67161 ( 42.3%)  train gap 0.21%
+      vs da_only    : out-of-sample    235315  REALIZED saving    9552 EUR ( 4.06%)  expected on tree   13336  noise ~991
+      vs energy_only: out-of-sample    233631  REALIZED saving    7869 EUR ( 3.37%)  expected on tree   10868  noise ~984
+      36s
+[2026-04-29] 3x3  full model: in-sample    126906  out-of-sample     44052  diff   -82854 (-65.3%)  train gap 0.50%
+      vs da_only    : out-of-sample     44987  REALIZED saving     935 EUR ( 2.08%)  expected on tree   14250  noise ~182
+      vs energy_only: out-of-sample     44251  REALIZED saving     199 EUR ( 0.45%)  expected on tree   12043  noise ~179
+      41s
+[2026-05-27] 3x3  full model: in-sample     95806  out-of-sample     28538  diff   -67268 (-70.2%)  train gap 0.50%
+      vs da_only    : out-of-sample     30690  REALIZED saving    2152 EUR ( 7.01%)  expected on tree   14648  noise ~0
+      vs energy_only: out-of-sample     29050  REALIZED saving     512 EUR ( 1.76%)  expected on tree   11946  noise ~0
+      58s
+[2026-06-24] 3x3  full model: in-sample     86841  out-of-sample    144266  diff    57425 ( 66.1%)  train gap 0.50%
+      vs da_only    : out-of-sample    159628  REALIZED saving   15362 EUR ( 9.62%)  expected on tree    8321  noise ~107
+      vs energy_only: out-of-sample    148694  REALIZED saving    4428 EUR ( 2.98%)  expected on tree    6765  noise ~100
+      155s
+[2026-07-22] 3x3  full model: in-sample     89749  out-of-sample     57929  diff   -31820 (-35.5%)  train gap 0.50%
+      vs da_only    : out-of-sample     57559  REALIZED saving    -370 EUR (-0.64%)  expected on tree    6029  noise ~0
+      vs energy_only: out-of-sample     59006  REALIZED saving    1077 EUR ( 1.83%)  expected on tree    4071  noise ~0
+      129s
+[2026-08-19] 3x3  full model: in-sample     91117  out-of-sample    278432  diff   187316 (205.6%)  train gap 0.50%
+      vs da_only    : out-of-sample    285485  REALIZED saving    7053 EUR ( 2.47%)  expected on tree    4257  noise ~192
+      vs energy_only: out-of-sample    292731  REALIZED saving   14299 EUR ( 4.88%)  expected on tree    2143  noise ~197
+      276s
+[2026-09-16] 3x3  full model: in-sample    114408  out-of-sample    251762  diff   137355 (120.1%)  train gap 0.50%
+      vs da_only    : out-of-sample    254898  REALIZED saving    3136 EUR ( 1.23%)  expected on tree    5240  noise ~0
+      vs energy_only: out-of-sample    254287  REALIZED saving    2525 EUR ( 0.99%)  expected on tree    3052  noise ~0
+      108s
+
+=== IN-SAMPLE vs OUT-OF-SAMPLE (mean over test days) ===
+      days  paths  in_sample        oos     diff  diff_pct  train_gap
+tree                                                                 
+3x3      7      9  109061.19  147248.98  38187.8     37.59        0.0
+
+=== REALIZED SAVING of the full model on the actual days (real prices, Stage 1 fixed) ===
+vs da_only       3x3: mean    5403 EUR ( 3.69%)  median  2.47%  min    -370  max   15362  negative days 1  below noise 1  | expected saving on the tree (mean)    9440 EUR
+vs energy_only   3x3: mean    4415 EUR ( 2.32%)  median  1.83%  min     199  max   14299  negative days 0  below noise 0  | expected saving on the tree (mean)    7270 EUR
+
+results in real_data_results_gurobi/realized/oos/oos.csv
+Warning: environment still referenced so free is deferred (Continue to use WLS)

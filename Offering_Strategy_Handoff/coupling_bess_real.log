@@ -1,0 +1,28 @@
+reserve prices: REAL mFRR | reserve capacity: Stage-1 quantity
+
+##### history to 2026-10-11  (3 day types x 3 RT)
+>>> scale 0: integrated
+>>> scale 0: plan A (energy-only DA+ID, no reserve)
+>>> scale 0: decoupled A
+    done 59s: integrated 149037  decoupled A 149037  coupling A 0 (noise ~294)
+>>> scale 0.25: integrated
+>>> scale 0.25: plan A (energy-only DA+ID, no reserve)
+>>> scale 0.25: decoupled A
+    done 128s: integrated 145850  decoupled A 146057  coupling A 208 (noise ~330)
+>>> scale 0.5: integrated
+>>> scale 0.5: plan A (energy-only DA+ID, no reserve)
+>>> scale 0.5: decoupled A
+    done 128s: integrated 143169  decoupled A 143201  coupling A 32 (noise ~401)
+>>> scale 1: integrated
+>>> scale 1: plan A (energy-only DA+ID, no reserve)
+>>> scale 1: decoupled A
+    done 237s: integrated 138573  decoupled A 138462  coupling A -111 (noise ~313)
+
+=== RESULT ===
+history_end  bess_mw  bess_mwh  no_reserve_cost  integrated_cost  decoupled_A_cost  coupling_A  coupling_B  reserve_benefit  noise_eur  avg_reserve_mw
+ 2026-10-11      0.0       0.0         149055.3         149037.4          149037.4         0.0         NaN             17.9      293.5             0.2
+ 2026-10-11     10.0      50.0         146658.0         145849.7          146057.3       207.6         NaN            808.3      329.8             3.0
+ 2026-10-11     20.0     100.0         144315.3         143168.7          143201.2        32.5         NaN           1146.6      400.6             5.6
+ 2026-10-11     40.0     200.0         140396.3         138573.0          138462.5      -110.5         NaN           1823.3      313.1            10.3
+
+written to /workspaces/Multistage_Flextrade/Offering_Strategy_Handoff/real_data_results/coupling_bess/coupling.csv

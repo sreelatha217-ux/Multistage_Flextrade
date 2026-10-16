@@ -1,0 +1,26 @@
+nohup: ignoring input
+reserve prices: REAL mFRR | reserve capacity: price-quantity curve
+
+##### history to 2026-03-31  (3 day types x 3 RT)
+>>> scale 1: integrated
+>>> scale 1: plan A (energy-only DA+ID, no reserve)
+>>> scale 1: decoupled A
+>>> plan B (DA-only)
+>>> decoupled B
+    done 92s: integrated 156876  decoupled A 157557  coupling A 682 (noise ~90)
+
+##### history to 2026-04-28  (3 day types x 3 RT)
+>>> scale 1: integrated
+>>> scale 1: plan A (energy-only DA+ID, no reserve)
+>>> scale 1: decoupled A
+>>> plan B (DA-only)
+>>> decoupled B
+    done 130s: integrated 125691  decoupled A 125597  coupling A -94 (noise ~281)
+
+##### history to 2026-05-26  (3 day types x 3 RT)
+>>> scale 1: integrated
+>>> scale 1: plan A (energy-only DA+ID, no reserve)
+>>> scale 1: decoupled A
+>>> plan B (DA-only)
+/home/codespace/.python/current/lib/python3.14/multiprocessing/resource_tracker.py:396: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/loky-184124-qatrbssp'}
+  warnings.warn(

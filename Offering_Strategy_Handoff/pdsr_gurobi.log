@@ -1,0 +1,106 @@
+nohup: ignoring input
+N = 30 history days, K = 3 scenarios; reserve prices REAL mFRR, reserve Stage-1 quantity
+   F matrix 30x30: 0 cached, 900 solves to do
+   25/900 solves, 0.5 min elapsed, ~17.5 min left
+   50/900 solves, 1.1 min elapsed, ~18.1 min left
+   75/900 solves, 1.6 min elapsed, ~17.7 min left
+   100/900 solves, 2.1 min elapsed, ~17.1 min left
+   125/900 solves, 2.7 min elapsed, ~16.5 min left
+   150/900 solves, 3.2 min elapsed, ~15.8 min left
+   175/900 solves, 3.7 min elapsed, ~15.5 min left
+   200/900 solves, 4.3 min elapsed, ~14.9 min left
+   225/900 solves, 4.8 min elapsed, ~14.4 min left
+   250/900 solves, 5.4 min elapsed, ~14.1 min left
+   275/900 solves, 6.0 min elapsed, ~13.6 min left
+   300/900 solves, 6.5 min elapsed, ~13.0 min left
+   325/900 solves, 7.1 min elapsed, ~12.5 min left
+   350/900 solves, 7.7 min elapsed, ~12.2 min left
+   375/900 solves, 8.4 min elapsed, ~11.7 min left
+   400/900 solves, 9.0 min elapsed, ~11.2 min left
+   425/900 solves, 10.2 min elapsed, ~11.4 min left
+   450/900 solves, 10.7 min elapsed, ~10.7 min left
+   475/900 solves, 11.2 min elapsed, ~10.0 min left
+   500/900 solves, 11.7 min elapsed, ~9.4 min left
+   525/900 solves, 12.3 min elapsed, ~8.8 min left
+   550/900 solves, 12.8 min elapsed, ~8.1 min left
+   575/900 solves, 13.6 min elapsed, ~7.7 min left
+   600/900 solves, 14.1 min elapsed, ~7.0 min left
+   625/900 solves, 14.6 min elapsed, ~6.4 min left
+   650/900 solves, 15.2 min elapsed, ~5.8 min left
+   675/900 solves, 15.7 min elapsed, ~5.2 min left
+   700/900 solves, 16.4 min elapsed, ~4.7 min left
+   725/900 solves, 17.0 min elapsed, ~4.1 min left
+   750/900 solves, 17.5 min elapsed, ~3.5 min left
+   775/900 solves, 18.1 min elapsed, ~2.9 min left
+   800/900 solves, 18.7 min elapsed, ~2.3 min left
+   825/900 solves, 19.2 min elapsed, ~1.7 min left
+   850/900 solves, 19.7 min elapsed, ~1.2 min left
+   875/900 solves, 20.3 min elapsed, ~0.6 min left
+   900/900 solves, 20.8 min elapsed, ~0.0 min left
+[2026-09-01] PDSR picked ['2026-08-07', '2026-08-09', '2026-08-18'] weights [0.433 0.3   0.267] (SPDD 8736, 1247s)
+[2026-09-01] pdsr   in-sample    128383  out-of-sample    151302  diff  17.9%  train gap 0.99%
+[2026-09-01] kmeans in-sample    123904  out-of-sample    152154  diff  22.8%  train gap 0.92%
+   F matrix 30x30: 256 cached, 644 solves to do
+   25/644 solves, 0.5 min elapsed, ~12.3 min left
+   50/644 solves, 1.0 min elapsed, ~11.9 min left
+   75/644 solves, 1.5 min elapsed, ~11.4 min left
+   100/644 solves, 2.0 min elapsed, ~11.0 min left
+   125/644 solves, 2.5 min elapsed, ~10.5 min left
+   150/644 solves, 3.0 min elapsed, ~10.0 min left
+   175/644 solves, 3.5 min elapsed, ~9.5 min left
+   200/644 solves, 4.1 min elapsed, ~9.0 min left
+   250/644 solves, 5.1 min elapsed, ~8.1 min left
+   275/644 solves, 5.6 min elapsed, ~7.6 min left
+   300/644 solves, 6.6 min elapsed, ~7.6 min left
+   325/644 solves, 7.2 min elapsed, ~7.1 min left
+   350/644 solves, 7.8 min elapsed, ~6.5 min left
+   400/644 solves, 8.8 min elapsed, ~5.4 min left
+   425/644 solves, 9.8 min elapsed, ~5.0 min left
+   450/644 solves, 10.3 min elapsed, ~4.4 min left
+   475/644 solves, 10.9 min elapsed, ~3.9 min left
+   500/644 solves, 11.5 min elapsed, ~3.3 min left
+   550/644 solves, 12.6 min elapsed, ~2.1 min left
+   575/644 solves, 13.1 min elapsed, ~1.6 min left
+   600/644 solves, 13.6 min elapsed, ~1.0 min left
+   625/644 solves, 14.2 min elapsed, ~0.4 min left
+[2026-09-15] PDSR picked ['2026-08-19', '2026-08-23', '2026-09-12'] weights [0.6   0.167 0.233] (SPDD 11187, 874s)
+[2026-09-15] pdsr   in-sample    175863  out-of-sample    186055  diff   5.8%  train gap 0.99%
+[2026-09-15] kmeans in-sample    161030  out-of-sample    181967  diff  13.0%  train gap 0.95%
+   F matrix 30x30: 256 cached, 644 solves to do
+   25/644 solves, 0.5 min elapsed, ~12.8 min left
+   50/644 solves, 1.0 min elapsed, ~12.3 min left
+   75/644 solves, 1.5 min elapsed, ~11.8 min left
+   100/644 solves, 2.1 min elapsed, ~11.2 min left
+   125/644 solves, 2.6 min elapsed, ~10.7 min left
+   150/644 solves, 3.1 min elapsed, ~10.2 min left
+   175/644 solves, 3.6 min elapsed, ~9.7 min left
+   200/644 solves, 4.1 min elapsed, ~9.2 min left
+   250/644 solves, 5.4 min elapsed, ~8.5 min left
+   275/644 solves, 6.0 min elapsed, ~8.0 min left
+   300/644 solves, 6.5 min elapsed, ~7.5 min left
+   325/644 solves, 7.1 min elapsed, ~7.0 min left
+   350/644 solves, 7.7 min elapsed, ~6.5 min left
+   400/644 solves, 8.7 min elapsed, ~5.3 min left
+   425/644 solves, 9.3 min elapsed, ~4.8 min left
+   450/644 solves, 9.8 min elapsed, ~4.2 min left
+   475/644 solves, 10.4 min elapsed, ~3.7 min left
+   500/644 solves, 10.9 min elapsed, ~3.1 min left
+   550/644 solves, 11.9 min elapsed, ~2.0 min left
+   575/644 solves, 12.5 min elapsed, ~1.5 min left
+   600/644 solves, 13.1 min elapsed, ~1.0 min left
+   625/644 solves, 13.6 min elapsed, ~0.4 min left
+[2026-09-29] PDSR picked ['2026-09-02', '2026-09-17', '2026-09-20'] weights [0.5   0.267 0.233] (SPDD 14048, 840s)
+[2026-09-29] pdsr   in-sample    137332  out-of-sample    232781  diff  69.5%  train gap 1.00%
+[2026-09-29] kmeans in-sample    143937  out-of-sample    234560  diff  63.0%  train gap 0.95%
+
+=== PDSR vs k-means (same history, same K) ===
+        days  in_sample        oos  diff_pct
+method                                      
+pdsr       3  147192.57  190045.79     31.05
+kmeans     3  142957.32  189560.26     32.92
+
+k-means minus PDSR out-of-sample cost (positive = PDSR better): mean -486 EUR (-0.26%), PDSR better on 2 of 3 days
+Worth continuing only if PDSR wins on most days AND the mean gain exceeds the evaluation noise (about oos-gap x cost, ~0.7k EUR at 0.5%).
+
+results in real_data_results_gurobi/pdsr/pdsr_pilot.csv
+Warning: environment still referenced so free is deferred (Continue to use WLS)

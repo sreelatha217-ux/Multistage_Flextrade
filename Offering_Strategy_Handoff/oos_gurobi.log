@@ -1,0 +1,40 @@
+nohup: ignoring input
+reserve prices: REAL mFRR   reserve capacity: Stage-1 quantity   trees: ['3x3', '6x3', '12x3']
+[2026-04-01] 3x3  in-sample    159281  out-of-sample    222183  diff    62901 ( 39.5%)  train gap 0.99%  14s
+[2026-04-01] 6x3  in-sample    159654  out-of-sample    223720  diff    64066 ( 40.1%)  train gap 0.95%  22s
+[2026-04-01] 12x3  in-sample    158875  out-of-sample    228641  diff    69766 ( 43.9%)  train gap 1.00%  44s
+[2026-04-29] 3x3  in-sample    126927  out-of-sample     43549  diff   -83378 (-65.7%)  train gap 0.86%  12s
+[2026-04-29] 6x3  in-sample    126332  out-of-sample     43970  diff   -82362 (-65.2%)  train gap 0.96%  24s
+   VERIFICATION FAILED: solution failed independent verification: deficit and surplus bought / sold in the same hour
+   largest simultaneous deficit/surplus = 7.98e+02 MW in 18 of 864 hour-branches; continuing with the solution, row flagged
+verification failed: deficit and surplus bought / sold in the same hour
+[2026-04-29] 12x3  in-sample    127414  out-of-sample     45673  diff   -81741 (-64.2%)  train gap 0.55%  95s
+[2026-05-27] 3x3  in-sample     95806  out-of-sample     28538  diff   -67268 (-70.2%)  train gap 1.00%  17s
+[2026-05-27] 6x3  in-sample     97898  out-of-sample     28873  diff   -69025 (-70.5%)  train gap 0.81%  23s
+[2026-05-27] 12x3  in-sample     98140  out-of-sample     28863  diff   -69277 (-70.6%)  train gap 0.99%  121s
+[2026-06-24] 3x3  in-sample     86841  out-of-sample    144266  diff    57425 ( 66.1%)  train gap 0.98%  16s
+[2026-06-24] 6x3  in-sample     88152  out-of-sample    148591  diff    60439 ( 68.6%)  train gap 1.00%  76s
+[2026-06-24] 12x3  in-sample     88898  out-of-sample    141553  diff    52654 ( 59.2%)  train gap 0.96%  154s
+[2026-07-22] 3x3  in-sample     89749  out-of-sample     57929  diff   -31820 (-35.5%)  train gap 1.00%  17s
+[2026-07-22] 6x3  in-sample     90849  out-of-sample     59432  diff   -31417 (-34.6%)  train gap 0.99%  59s
+[2026-07-22] 12x3  in-sample     90556  out-of-sample     59844  diff   -30712 (-33.9%)  train gap 0.99%  250s
+[2026-08-19] 3x3  in-sample     91117  out-of-sample    278432  diff   187316 (205.6%)  train gap 1.00%  54s
+[2026-08-19] 6x3  in-sample     90955  out-of-sample    277194  diff   186239 (204.8%)  train gap 1.00%  101s
+[2026-08-19] 12x3  in-sample     91227  out-of-sample    277359  diff   186132 (204.0%)  train gap 0.99%  201s
+[2026-09-16] 3x3  in-sample    114408  out-of-sample    251762  diff   137355 (120.1%)  train gap 0.99%  20s
+[2026-09-16] 6x3  in-sample    114472  out-of-sample    254413  diff   139942 (122.3%)  train gap 1.00%  42s
+[2026-09-16] 12x3  in-sample    113217  out-of-sample    252303  diff   139086 (122.8%)  train gap 1.00%  127s
+
+=== IN-SAMPLE vs OUT-OF-SAMPLE (mean over test days) ===
+      days  paths  in_sample        oos      diff  diff_pct  train_gap
+tree                                                                  
+3x3      7      9  109161.29  146665.61  37504.32     37.13       0.01
+6x3      7     18  109758.73  148027.52  38268.79     37.92       0.01
+12x3     7     36  109761.12  147747.81  37986.70     37.34       0.01
+
+paired out-of-sample cost difference vs 3x3 (negative = better than 3x3):
+    12x3: mean     1082 EUR   better on 2 of 7 days
+     6x3: mean     1362 EUR   better on 1 of 7 days
+
+results in real_data_results_gurobi/oos/oos.csv
+Warning: environment still referenced so free is deferred (Continue to use WLS)

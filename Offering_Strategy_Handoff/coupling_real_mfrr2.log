@@ -1,0 +1,39 @@
+nohup: ignoring input
+reserve prices: REAL mFRR | reserve capacity: price-quantity curve
+
+##### history to 2026-03-31  (3 day types x 3 RT)
+>>> scale 1: integrated
+>>> scale 1: plan A (energy-only DA+ID, no reserve)
+>>> scale 1: decoupled A
+>>> plan B (DA-only)
+>>> decoupled B
+    done 92s: integrated 156876  decoupled A 157557  coupling A 682 (noise ~90)
+
+##### history to 2026-04-28  (3 day types x 3 RT)
+>>> scale 1: integrated
+>>> scale 1: plan A (energy-only DA+ID, no reserve)
+>>> scale 1: decoupled A
+>>> plan B (DA-only)
+>>> decoupled B
+    done 130s: integrated 125691  decoupled A 125597  coupling A -94 (noise ~281)
+
+##### history to 2026-05-26  (3 day types x 3 RT)
+>>> scale 1: integrated
+>>> scale 1: plan A (energy-only DA+ID, no reserve)
+>>> scale 1: decoupled A
+>>> plan B (DA-only)
+>>> decoupled B
+    done 136s: integrated 95765  decoupled A 97097  coupling A 1332 (noise ~331)
+
+##### history to 2026-06-23  (3 day types x 3 RT)
+>>> scale 1: integrated
+>>> scale 1: plan A (energy-only DA+ID, no reserve)
+>>> scale 1: decoupled A
+>>> plan B (DA-only)
+>>> decoupled B
+    done 536s: integrated 86683  decoupled A 87400  coupling A 718 (noise ~172)
+
+##### history to 2026-07-21  (3 day types x 3 RT)
+>>> scale 1: integrated
+>>> scale 1: plan A (energy-only DA+ID, no reserve)
+>>> scale 1: decoupled A

@@ -1,0 +1,80 @@
+nohup: ignoring input
+N = 30 history days, K = 3 scenarios; reserve prices REAL mFRR, reserve Stage-1 quantity
+   F matrix 30x30: 36 cached, 864 solves to do
+   25/864 solves, 0.8 min elapsed, ~26.9 min left
+   50/864 solves, 1.9 min elapsed, ~30.3 min left
+   75/864 solves, 2.6 min elapsed, ~27.8 min left
+   100/864 solves, 3.5 min elapsed, ~26.9 min left
+   125/864 solves, 4.4 min elapsed, ~25.9 min left
+   150/864 solves, 4.9 min elapsed, ~23.5 min left
+   175/864 solves, 5.9 min elapsed, ~23.4 min left
+   200/864 solves, 6.8 min elapsed, ~22.4 min left
+   225/864 solves, 7.7 min elapsed, ~22.0 min left
+   250/864 solves, 10.2 min elapsed, ~24.9 min left
+   275/864 solves, 11.0 min elapsed, ~23.6 min left
+   300/864 solves, 11.6 min elapsed, ~21.8 min left
+   325/864 solves, 12.6 min elapsed, ~20.9 min left
+   350/864 solves, 14.0 min elapsed, ~20.6 min left
+   375/864 solves, 15.1 min elapsed, ~19.7 min left
+   400/864 solves, 16.1 min elapsed, ~18.7 min left
+   425/864 solves, 17.7 min elapsed, ~18.3 min left
+   450/864 solves, 18.6 min elapsed, ~17.1 min left
+   500/864 solves, 20.3 min elapsed, ~14.8 min left
+   525/864 solves, 21.2 min elapsed, ~13.7 min left
+   550/864 solves, 22.0 min elapsed, ~12.6 min left
+   575/864 solves, 23.0 min elapsed, ~11.6 min left
+   600/864 solves, 23.9 min elapsed, ~10.5 min left
+   650/864 solves, 25.4 min elapsed, ~8.4 min left
+   675/864 solves, 26.3 min elapsed, ~7.4 min left
+   700/864 solves, 27.1 min elapsed, ~6.4 min left
+   725/864 solves, 28.4 min elapsed, ~5.4 min left
+   750/864 solves, 29.2 min elapsed, ~4.4 min left
+   800/864 solves, 30.6 min elapsed, ~2.4 min left
+   825/864 solves, 31.6 min elapsed, ~1.5 min left
+   850/864 solves, 32.6 min elapsed, ~0.5 min left
+[2026-09-01] PDSR picked ['2026-08-07', '2026-08-09', '2026-08-18'] weights [0.433 0.3   0.267] (SPDD 8525, 1973s)
+[2026-09-01] pdsr   in-sample    128379  out-of-sample    151282  diff  17.8%  train gap 0.73%
+[2026-09-01] kmeans in-sample    124980  out-of-sample    151609  diff  21.3%  train gap 1.00%
+   F matrix 30x30: 256 cached, 644 solves to do
+   25/644 solves, 0.6 min elapsed, ~14.2 min left
+   50/644 solves, 1.2 min elapsed, ~13.7 min left
+   75/644 solves, 1.7 min elapsed, ~13.1 min left
+   100/644 solves, 2.3 min elapsed, ~12.5 min left
+   125/644 solves, 2.9 min elapsed, ~11.9 min left
+   150/644 solves, 3.4 min elapsed, ~11.3 min left
+   175/644 solves, 4.0 min elapsed, ~10.8 min left
+   200/644 solves, 4.6 min elapsed, ~10.2 min left
+   250/644 solves, 6.2 min elapsed, ~9.7 min left
+   275/644 solves, 7.0 min elapsed, ~9.4 min left
+   300/644 solves, 8.5 min elapsed, ~9.8 min left
+   325/644 solves, 9.4 min elapsed, ~9.2 min left
+   350/644 solves, 10.1 min elapsed, ~8.5 min left
+   400/644 solves, 11.3 min elapsed, ~6.9 min left
+   425/644 solves, 12.8 min elapsed, ~6.6 min left
+   450/644 solves, 13.7 min elapsed, ~5.9 min left
+   475/644 solves, 14.6 min elapsed, ~5.2 min left
+   500/644 solves, 15.4 min elapsed, ~4.4 min left
+   550/644 solves, 16.7 min elapsed, ~2.9 min left
+   575/644 solves, 17.8 min elapsed, ~2.1 min left
+   600/644 solves, 18.6 min elapsed, ~1.4 min left
+   625/644 solves, 19.3 min elapsed, ~0.6 min left
+[2026-09-15] PDSR picked ['2026-08-19', '2026-08-23', '2026-08-31'] weights [0.567 0.167 0.267] (SPDD 11091, 1186s)
+[2026-09-15] pdsr   in-sample    175936  out-of-sample    182839  diff   3.9%  train gap 0.57%
+[2026-09-15] kmeans in-sample    161692  out-of-sample    178513  diff  10.4%  train gap 1.00%
+   F matrix 30x30: 256 cached, 644 solves to do
+   25/644 solves, 0.6 min elapsed, ~14.7 min left
+   50/644 solves, 1.2 min elapsed, ~14.2 min left
+   75/644 solves, 1.8 min elapsed, ~13.5 min left
+   100/644 solves, 2.4 min elapsed, ~12.8 min left
+   125/644 solves, 2.9 min elapsed, ~12.2 min left
+   150/644 solves, 3.5 min elapsed, ~11.6 min left
+   175/644 solves, 4.1 min elapsed, ~11.1 min left
+   200/644 solves, 4.7 min elapsed, ~10.5 min left
+   250/644 solves, 6.8 min elapsed, ~10.7 min left
+   275/644 solves, 7.6 min elapsed, ~10.2 min left
+   300/644 solves, 9.2 min elapsed, ~10.5 min left
+   325/644 solves, 11.6 min elapsed, ~11.3 min left
+   350/644 solves, 12.8 min elapsed, ~10.7 min left
+   400/644 solves, 14.2 min elapsed, ~8.7 min left
+/home/codespace/.python/current/lib/python3.14/multiprocessing/resource_tracker.py:396: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/loky-92205-yu9watby'}
+  warnings.warn(

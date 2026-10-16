@@ -1,28 +1,27 @@
-nohup: ignoring input
-reserve prices: REAL mFRR   reserve capacity: price-quantity curve
-[1] 2026-04-01  fixed 225877
-      strict (same machine+task, +-3h)                 saves     4717 ( 2.09%)   6 jobs moved
-      noise ~1806 EUR   33s
-[2] 2026-04-29  fixed 44224
-      strict (same machine+task, +-3h)                 saves     5017 (11.35%)  16 jobs moved
-      noise ~276 EUR   39s
-[3] 2026-05-27  fixed 28570
-      strict (same machine+task, +-3h)                 saves     1609 ( 5.63%)  12 jobs moved
-      noise ~131 EUR   37s
-[4] 2026-06-24  fixed 144971
-      strict (same machine+task, +-3h)                 saves     1552 ( 1.07%)   8 jobs moved
-      noise ~1336 EUR   135s
-[5] 2026-07-22  fixed 57931
-      strict (same machine+task, +-3h)                 saves     1362 ( 2.35%)   7 jobs moved
-      noise ~227 EUR   230s
-[6] 2026-08-19  fixed 278858
-      strict (same machine+task, +-3h)                 saves     1113 ( 0.40%)   5 jobs moved
-      noise ~415 EUR   102s
-[7] 2026-09-16  fixed 251692
-      strict (same machine+task, +-3h)                 saves     1111 ( 0.44%)   1 jobs moved
-      noise ~1547 EUR   46s
+reserve prices: REAL mFRR   reserve capacity: Stage-1 quantity
+[1] 2026-04-01  fixed 225690
+      strict (same machine+task, +-3h)                 saves     5723 ( 2.54%)   7 jobs moved
+      noise ~1510 EUR   44s
+[2] 2026-04-29  fixed 45880
+      strict (same machine+task, +-3h)                 saves     4881 (10.64%)  13 jobs moved
+      noise ~281 EUR   43s
+[3] 2026-05-27  fixed 28785
+      strict (same machine+task, +-3h)                 saves     1743 ( 6.06%)  12 jobs moved
+      noise ~37 EUR   42s
+[4] 2026-06-24  fixed 144835
+      strict (same machine+task, +-3h)                 saves     1821 ( 1.26%)   9 jobs moved
+      noise ~1257 EUR   106s
+[5] 2026-07-22  fixed 57899
+      strict (same machine+task, +-3h)                 saves     1704 ( 2.94%)  13 jobs moved
+      noise ~288 EUR   114s
+[6] 2026-08-19  fixed 280025
+      strict (same machine+task, +-3h)                 saves     2099 ( 0.75%)   7 jobs moved
+      noise ~1615 EUR   124s
+[7] 2026-09-16  fixed 252868
+      strict (same machine+task, +-3h)                 saves     2194 ( 0.87%)   2 jobs moved
+      noise ~1722 EUR   124s
 
 === PRODUCTION RECOURSE AFTER DA CLEARING (DA quantities booked, real DK1 days) ===
 days: 7
-strict: mean 2355 EUR (3.33%)  median 2.09%  days below noise: 1  negative days: 0
-mean noise level ~820 EUR;  results in /workspaces/Multistage_Flextrade/Offering_Strategy_Handoff/real_data_results/resched_backtest/backtest.csv
+strict: mean 2881 EUR (3.58%)  median 2.54%  days below noise: 0  negative days: 0
+mean noise level ~959 EUR;  results in /workspaces/Multistage_Flextrade/Offering_Strategy_Handoff/real_data_results/resched_backtest/backtest.csv

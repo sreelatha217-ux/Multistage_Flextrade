@@ -1,0 +1,14 @@
+nohup: ignoring input
+reserve prices: REAL mFRR | reserve capacity: Stage-1 quantity
+[2026-10-11] sr_ratio 0.06: saving 2900 (2.03%)  offer 5.1 MW
+[2026-10-11] sr_ratio 0.12: saving 4127 (2.89%)  offer 10.3 MW
+[2026-10-11] sr_ratio 0.18: saving 5926 (4.15%)  offer 12.1 MW
+[2026-10-11] reserve done in 497s
+
+=== RESULT ===
+history_end  sr_ratio  da_only_cost  full_cost  saving_eur  saving_pct  avg_reserve_mw  gap
+ 2026-10-11      0.06     142700.24  139800.01     2900.23        2.03            5.12  0.0
+ 2026-10-11      0.12     142700.24  138573.01     4127.23        2.89           10.32  0.0
+ 2026-10-11      0.18     142700.24  136774.52     5925.72        4.15           12.06  0.0
+
+Note: differences smaller than about gap x cost are not resolved.
