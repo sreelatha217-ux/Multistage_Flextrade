@@ -5,7 +5,7 @@ All inputs come from the reference tree (history end 2026-10-11, real DK1 DA + m
                                                           joint_scenarios,market_stage_comparison}.csv, summary.json
   <root>/real_data_results/resched_backtest/backtest.csv
   <root>/real_data_results_gurobi/realized/oos/oos.csv
-Usage: python real_data_figures.py --root Offering_Strategy_Handoff --out Figures
+Usage (from anywhere): python real_data_figures.py [--root <Offering_Strategy_Handoff folder>] --out Figures
 Writes fig_real_dashboard, fig_real_stage1, fig_real_reserve, fig_real_bess_mt, fig_real_stage2, fig_real_stage3 (.pdf/.png)
 """
 import argparse, json, os
@@ -15,7 +15,7 @@ mpl.use("Agg")
 import matplotlib.pyplot as plt
 
 ap = argparse.ArgumentParser()
-ap.add_argument("--root", default="Offering_Strategy_Handoff")
+ap.add_argument("--root", default=os.path.dirname(os.path.abspath(__file__)))  # folder containing real_data_results/
 ap.add_argument("--out", default="Figures")
 ap.add_argument("--tree", default="2026-10-11")
 a = ap.parse_args()
