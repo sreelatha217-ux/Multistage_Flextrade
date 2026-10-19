@@ -1,0 +1,286 @@
+{
+  "run_settings": {
+    "delivery_date": "2026-10-20",
+    "horizon_h": 24,
+    "start_step_h": 0.5,
+    "bidding": "curve",
+    "risk_aversion_beta": 0.0,
+    "cvar_alpha": 0.95,
+    "include_reserve": true,
+    "compare_strategies": true,
+    "id_reschedule_hour": 0,
+    "include_scenario_detail": false,
+    "solver": {
+      "name": "appsi_highs",
+      "mip_gap": 0.01,
+      "time_limit_s": 300
+    }
+  },
+  "plant": {
+    "machines": [
+      "m1",
+      "m2",
+      "m3"
+    ],
+    "tasks": [
+      "p1",
+      "p2",
+      "p3",
+      "p4",
+      "p5",
+      "p6"
+    ],
+    "power_mw": [
+      [
+        65.3,
+        70.0,
+        80.4,
+        67.5,
+        75.5,
+        72.0
+      ],
+      [
+        66.0,
+        71.5,
+        79.0,
+        68.0,
+        74.0,
+        73.5
+      ],
+      [
+        64.0,
+        69.0,
+        81.0,
+        66.5,
+        76.0,
+        71.0
+      ]
+    ],
+    "duration_h": [
+      [
+        1.7,
+        1.8,
+        1.7,
+        1.3,
+        1.6,
+        1.5
+      ],
+      [
+        1.8,
+        1.7,
+        1.8,
+        1.4,
+        1.6,
+        1.5
+      ],
+      [
+        1.6,
+        1.9,
+        1.7,
+        1.3,
+        1.7,
+        1.4
+      ]
+    ],
+    "yield_units": [
+      11,
+      12,
+      15,
+      14,
+      10,
+      13
+    ],
+    "base_load_mw": [
+      18,
+      18,
+      17,
+      17,
+      17,
+      19,
+      22,
+      25,
+      26,
+      26,
+      25,
+      25,
+      24,
+      24,
+      24,
+      25,
+      26,
+      27,
+      27,
+      26,
+      24,
+      22,
+      20,
+      19
+    ],
+    "demand_units": [
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0
+    ],
+    "buffer_h": 1.0,
+    "max_batches_per_machine": 3,
+    "inventory_init": 50,
+    "inventory_max": 500
+  },
+  "grid": {
+    "import_limit_mw": 400,
+    "export_limit_mw": 400,
+    "id_cap_buy_mw": 100,
+    "id_cap_sell_mw": 100,
+    "reference_tariff": {
+      "buy_eur_mwh": [
+        62,
+        58,
+        55,
+        54,
+        56,
+        66,
+        85,
+        105,
+        112,
+        98,
+        88,
+        80,
+        72,
+        70,
+        74,
+        82,
+        98,
+        120,
+        135,
+        118,
+        100,
+        86,
+        74,
+        66
+      ],
+      "sell_eur_mwh": [
+        34.1,
+        31.9,
+        30.25,
+        29.7,
+        30.8,
+        36.3,
+        46.75,
+        57.75,
+        61.6,
+        53.9,
+        48.4,
+        44.0,
+        39.6,
+        38.5,
+        40.7,
+        45.1,
+        53.9,
+        66.0,
+        74.25,
+        64.9,
+        55.0,
+        47.3,
+        40.7,
+        36.3
+      ]
+    }
+  },
+  "microturbine": {
+    "p_min_mw": 10,
+    "p_max_mw": 25,
+    "ramp_up_mw_h": 20,
+    "ramp_down_mw_h": 20,
+    "startup_ramp_mw_h": 20,
+    "shutdown_ramp_mw_h": 20,
+    "startup_cost_eur": 87.4,
+    "shutdown_cost_eur": 8.74,
+    "min_up_h": 4,
+    "min_down_h": 2,
+    "block_width_mw": [
+      5.3,
+      4.7,
+      5.0
+    ],
+    "block_cost_eur_mwh": [
+      48.41,
+      48.78,
+      51.84
+    ],
+    "base_cost_eur_mwh": 48.41,
+    "initial_on": false,
+    "initial_power_mw": 0,
+    "initial_hours_in_state": null
+  },
+  "bess": {
+    "p_max_mw": 40,
+    "e_max_mwh": 200,
+    "soc_min_frac": 0.1,
+    "soc_max_frac": 0.9,
+    "soc_init_mwh": 20,
+    "eta_ch": 0.8,
+    "eta_dis": 0.95,
+    "degradation_eur_mwh": 5,
+    "degradation_basis": "throughput",
+    "enforce_exclusive": true
+  },
+  "reserve_flex": {
+    "assets": [
+      "mt",
+      "bess_dis",
+      "bess_ch",
+      "dr"
+    ],
+    "mt_response_minutes": 10,
+    "dr_fraction": 0.1,
+    "dr_cost_eur_mwh": 150,
+    "activation_price_ratio": 1.0,
+    "max_reserve_mw": null,
+    "bess_reserve_hours": 1.0
+  },
+  "market_scenarios": {
+    "mode": "generate",
+    "n_scenarios": 3,
+    "seed": 7,
+    "price_sigma": 0.15,
+    "level_sigma": 0.05,
+    "id_spread_sigma": 0.08,
+    "sr_ratio": 0.12,
+    "sr_sigma": 0.2,
+    "load_sigma": 0.0
+  },
+  "realtime_scenarios": {
+    "mode": "generate",
+    "n_branches": 3,
+    "rt_seed": 11,
+    "rt_load_sigma": 0.03,
+    "rt_load_rho": 0.6,
+    "r_premium": 0.25,
+    "r_discount": 0.25,
+    "r_sigma": 0.3,
+    "rho_mean": 0.08,
+    "rho_sigma": 0.8,
+    "rho_seed": 13
+  }
+}

@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "factory-multistage-offering-service"
+version = "1.0.0"
+description = "Three-stage factory scheduling with strategic energy bids and reserve offers, plus a JSON in/out service layer"
+readme = "README_DEVELOPER.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=1.5",
+    "pyomo>=6.7",
+    "highspy>=1.7",
+    "matplotlib>=3.7",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7.4"]
+db = ["psycopg[binary]>=3.1"]          # only needed for market_scenarios.mode = "database"
+
+[project.scripts]
+factory-mt-da = "factory_mt_da_scheduler:main"
+factory-mt-id = "factory_mt_id_scheduler:main"
+factory-mt-rt = "factory_mt_rt_scheduler:main"
+factory-mt-offering = "factory_mt_offering_strategy:main"
+offering-service = "offering_service.__main__:main"
+
+[tool.setuptools]
+py-modules = [
+    "factory_mt_da_scheduler",
+    "factory_mt_id_scheduler",
+    "factory_mt_rt_scheduler",
+    "factory_mt_offering_strategy",
+    "factory_mt_offering_cli",
+    "factory_mt_offering_plotting",
+    "factory_mt_production_rescheduler",
+]
+packages = ["offering_service"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

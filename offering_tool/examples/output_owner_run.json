@@ -1,0 +1,4407 @@
+{
+ "meta": {
+  "status": "optimal",
+  "solve_time_s": 21.349622108000403,
+  "mip_gap": 0.00985987423812393,
+  "model_stats": {
+   "variables": 8522,
+   "binaries": 6554,
+   "constraints": 3069
+  },
+  "verification": {
+   "passed": true,
+   "issues": []
+  },
+  "warnings": []
+ },
+ "summary": {
+  "risk_adjusted_profit_eur": -129533.6479377312,
+  "expected_profit_eur": -129533.64793773125,
+  "cvar_profit_eur": -142355.96713569917,
+  "profit_std_eur": 8247.975913805874,
+  "profit_min_eur": -142355.96713569917,
+  "profit_max_eur": -118292.9932419143,
+  "revenue_da_eur": -83067.39576234501,
+  "revenue_id_eur": -29438.99675055348,
+  "revenue_reserve_eur": 12071.823301614877,
+  "revenue_activation_eur": 4530.378391610079,
+  "cost_imbalance_eur": 3860.3122136932,
+  "cost_mt_eur": 28408.53225101315,
+  "cost_bess_eur": 747.4505822567164,
+  "cost_dr_eur": 613.1620710946564,
+  "n_batches": 17.0,
+  "units_produced": 193.0,
+  "mt_on_hours": 24.0,
+  "mt_starts": 1.0,
+  "reserve_hours": 23.0,
+  "avg_reserve_offer_mw": 36.14857432174775,
+  "exp_activated_mwh": 70.98532427932385,
+  "exp_deficit_mwh": 46.11767276980369,
+  "exp_surplus_mwh": 5.984200403532162
+ },
+ "day_ahead": {
+  "production_schedule": [
+   {
+    "machine": "m1",
+    "position_n": 1,
+    "task": "p30",
+    "start_h": 2.0,
+    "end_h": 3.8,
+    "start_time": "02:00",
+    "end_time": "03:48",
+    "duration_h": 1.8,
+    "power_mw": 71.8,
+    "units_out": 9.0,
+    "energy_mwh": 129.24,
+    "energy_cost_eur": 8584.120799999999
+   },
+   {
+    "machine": "m1",
+    "position_n": 2,
+    "task": "p3",
+    "start_h": 12.0,
+    "end_h": 14.1,
+    "start_time": "12:00",
+    "end_time": "14:06",
+    "duration_h": 2.1,
+    "power_mw": 77.7,
+    "units_out": 11.0,
+    "energy_mwh": 163.17000000000002,
+    "energy_cost_eur": 11239.149599999997
+   },
+   {
+    "machine": "m1",
+    "position_n": 3,
+    "task": "p17",
+    "start_h": 18.5,
+    "end_h": 20.1,
+    "start_time": "18:30",
+    "end_time": "20:06",
+    "duration_h": 1.6,
+    "power_mw": 94.4,
+    "units_out": 10.0,
+    "energy_mwh": 151.04000000000002,
+    "energy_cost_eur": 10519.747200000016
+   },
+   {
+    "machine": "m1",
+    "position_n": 4,
+    "task": "p24",
+    "start_h": 22.5,
+    "end_h": 23.9,
+    "start_time": "22:30",
+    "end_time": "23:54",
+    "duration_h": 1.4,
+    "power_mw": 91.9,
+    "units_out": 10.0,
+    "energy_mwh": 128.66,
+    "energy_cost_eur": 8545.597199999993
+   },
+   {
+    "machine": "m2",
+    "position_n": 1,
+    "task": "p28",
+    "start_h": 2.0,
+    "end_h": 3.5,
+    "start_time": "02:00",
+    "end_time": "03:30",
+    "duration_h": 1.5,
+    "power_mw": 68.5,
+    "units_out": 10.0,
+    "energy_mwh": 102.75,
+    "energy_cost_eur": 6824.655
+   },
+   {
+    "machine": "m2",
+    "position_n": 2,
+    "task": "p2",
+    "start_h": 4.5,
+    "end_h": 6.2,
+    "start_time": "04:30",
+    "end_time": "06:12",
+    "duration_h": 1.7,
+    "power_mw": 65.3,
+    "units_out": 11.0,
+    "energy_mwh": 111.00999999999999,
+    "energy_cost_eur": 10216.5768
+   },
+   {
+    "machine": "m2",
+    "position_n": 3,
+    "task": "p5",
+    "start_h": 12.5,
+    "end_h": 14.1,
+    "start_time": "12:30",
+    "end_time": "14:06",
+    "duration_h": 1.6,
+    "power_mw": 75.5,
+    "units_out": 10.0,
+    "energy_mwh": 120.80000000000001,
+    "energy_cost_eur": 8413.568999999998
+   },
+   {
+    "machine": "m2",
+    "position_n": 4,
+    "task": "p20",
+    "start_h": 18.0,
+    "end_h": 20.0,
+    "start_time": "18:00",
+    "end_time": "20:00",
+    "duration_h": 2.0,
+    "power_mw": 60.5,
+    "units_out": 10.0,
+    "energy_mwh": 121.0,
+    "energy_cost_eur": 8036.820000000001
+   },
+   {
+    "machine": "m2",
+    "position_n": 5,
+    "task": "p19",
+    "start_h": 22.0,
+    "end_h": 24.0,
+    "start_time": "22:00",
+    "end_time": "24:00",
+    "duration_h": 2.0,
+    "power_mw": 64.6,
+    "units_out": 14.0,
+    "energy_mwh": 129.2,
+    "energy_cost_eur": 8581.464
+   },
+   {
+    "machine": "m3",
+    "position_n": 1,
+    "task": "p7",
+    "start_h": 2.0,
+    "end_h": 3.7,
+    "start_time": "02:00",
+    "end_time": "03:42",
+    "duration_h": 1.7,
+    "power_mw": 80.4,
+    "units_out": 15.0,
+    "energy_mwh": 136.68,
+    "energy_cost_eur": 9078.285600000001
+   },
+   {
+    "machine": "m3",
+    "position_n": 2,
+    "task": "p21",
+    "start_h": 12.0,
+    "end_h": 13.9,
+    "start_time": "12:00",
+    "end_time": "13:54",
+    "duration_h": 1.9,
+    "power_mw": 86.0,
+    "units_out": 11.0,
+    "energy_mwh": 163.4,
+    "energy_cost_eur": 10853.028000000004
+   },
+   {
+    "machine": "m4",
+    "position_n": 1,
+    "task": "p6",
+    "start_h": 2.0,
+    "end_h": 3.8,
+    "start_time": "02:00",
+    "end_time": "03:48",
+    "duration_h": 1.8,
+    "power_mw": 95.6,
+    "units_out": 13.0,
+    "energy_mwh": 172.07999999999998,
+    "energy_cost_eur": 11429.553599999997
+   },
+   {
+    "machine": "m4",
+    "position_n": 2,
+    "task": "p12",
+    "start_h": 12.0,
+    "end_h": 13.8,
+    "start_time": "12:00",
+    "end_time": "13:48",
+    "duration_h": 1.8,
+    "power_mw": 97.6,
+    "units_out": 15.0,
+    "energy_mwh": 175.68,
+    "energy_cost_eur": 11668.665600000004
+   },
+   {
+    "machine": "m5",
+    "position_n": 1,
+    "task": "p27",
+    "start_h": 2.0,
+    "end_h": 3.3,
+    "start_time": "02:00",
+    "end_time": "03:18",
+    "duration_h": 1.3,
+    "power_mw": 67.8,
+    "units_out": 7.0,
+    "energy_mwh": 88.14,
+    "energy_cost_eur": 5854.258799999999
+   },
+   {
+    "machine": "m5",
+    "position_n": 2,
+    "task": "p16",
+    "start_h": 12.0,
+    "end_h": 13.7,
+    "start_time": "12:00",
+    "end_time": "13:42",
+    "duration_h": 1.7,
+    "power_mw": 72.4,
+    "units_out": 9.0,
+    "energy_mwh": 123.08000000000001,
+    "energy_cost_eur": 8174.9735999999975
+   },
+   {
+    "machine": "m5",
+    "position_n": 3,
+    "task": "p4",
+    "start_h": 18.5,
+    "end_h": 19.8,
+    "start_time": "18:30",
+    "end_time": "19:48",
+    "duration_h": 1.3,
+    "power_mw": 67.5,
+    "units_out": 14.0,
+    "energy_mwh": 87.75,
+    "energy_cost_eur": 5828.355000000003
+   },
+   {
+    "machine": "m5",
+    "position_n": 4,
+    "task": "p10",
+    "start_h": 22.5,
+    "end_h": 23.9,
+    "start_time": "22:30",
+    "end_time": "23:54",
+    "duration_h": 1.4,
+    "power_mw": 72.8,
+    "units_out": 14.0,
+    "energy_mwh": 101.91999999999999,
+    "energy_cost_eur": 6769.526399999993
+   }
+  ],
+  "hourly_offers": [
+   {
+    "hour": 0,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 63.6209,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 64.1333,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 64.6499,
+      "quantity_mw": 0.0
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 115.6814,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 116.6132,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 117.5524,
+      "quantity_mw": 0.0
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 11.6829,
+      "quantity_mw": 17.4974
+     },
+     {
+      "price_eur_mw_h": 13.7165,
+      "quantity_mw": 17.4974
+     },
+     {
+      "price_eur_mw_h": 16.1041,
+      "quantity_mw": 17.4974
+     }
+    ]
+   },
+   {
+    "hour": 1,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 60.8441,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 64.1333,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 67.6003,
+      "quantity_mw": 22.3859
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 110.6324,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 116.6132,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 122.9173,
+      "quantity_mw": 0.0
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 11.3747,
+      "quantity_mw": 13.2981
+     },
+     {
+      "price_eur_mw_h": 13.7165,
+      "quantity_mw": 22.4492
+     },
+     {
+      "price_eur_mw_h": 16.5404,
+      "quantity_mw": 22.47
+     }
+    ]
+   },
+   {
+    "hour": 2,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 34.8953,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 36.0762,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 37.2972,
+      "quantity_mw": 0.0
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 63.4476,
+      "quantity_mw": 261.73
+     },
+     {
+      "price_eur_mwh": 65.5949,
+      "quantity_mw": 261.73
+     },
+     {
+      "price_eur_mwh": 67.8149,
+      "quantity_mw": 261.73
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 7.575,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mw_h": 7.7155,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mw_h": 7.8586,
+      "quantity_mw": 0.0
+     }
+    ]
+   },
+   {
+    "hour": 3,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 31.8132,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 36.0762,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 40.9104,
+      "quantity_mw": 0.0
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 57.8438,
+      "quantity_mw": 162.58
+     },
+     {
+      "price_eur_mwh": 65.5949,
+      "quantity_mw": 145.7782
+     },
+     {
+      "price_eur_mwh": 74.3846,
+      "quantity_mw": 145.7782
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 7.6356,
+      "quantity_mw": 40.0
+     },
+     {
+      "price_eur_mw_h": 7.7155,
+      "quantity_mw": 47.6772
+     },
+     {
+      "price_eur_mw_h": 7.7963,
+      "quantity_mw": 47.6772
+     }
+    ]
+   },
+   {
+    "hour": 4,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 45.2871,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 48.1049,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 51.0981,
+      "quantity_mw": 0.0
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 82.3367,
+      "quantity_mw": 10.5336
+     },
+     {
+      "price_eur_mwh": 87.4599,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 92.9018,
+      "quantity_mw": 0.0
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 9.3259,
+      "quantity_mw": 43.265
+     },
+     {
+      "price_eur_mw_h": 10.2874,
+      "quantity_mw": 43.265
+     },
+     {
+      "price_eur_mw_h": 11.3479,
+      "quantity_mw": 43.265
+     }
+    ]
+   },
+   {
+    "hour": 5,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 41.7824,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 48.1049,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 55.3842,
+      "quantity_mw": 0.0
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 75.9649,
+      "quantity_mw": 40.7739
+     },
+     {
+      "price_eur_mwh": 87.4599,
+      "quantity_mw": 40.7739
+     },
+     {
+      "price_eur_mwh": 100.6944,
+      "quantity_mw": 40.7739
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 10.2429,
+      "quantity_mw": 40.0
+     },
+     {
+      "price_eur_mw_h": 10.2874,
+      "quantity_mw": 46.53
+     },
+     {
+      "price_eur_mw_h": 10.332,
+      "quantity_mw": 46.53
+     }
+    ]
+   },
+   {
+    "hour": 6,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 63.0611,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 64.1333,
+      "quantity_mw": 4.41
+     },
+     {
+      "price_eur_mwh": 65.2237,
+      "quantity_mw": 4.9865
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 114.6637,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 116.6132,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 118.5958,
+      "quantity_mw": 0.0
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 13.6678,
+      "quantity_mw": 44.6393
+     },
+     {
+      "price_eur_mw_h": 13.7165,
+      "quantity_mw": 44.6393
+     },
+     {
+      "price_eur_mw_h": 13.7653,
+      "quantity_mw": 44.6393
+     }
+    ]
+   },
+   {
+    "hour": 7,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 52.0442,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 64.1333,
+      "quantity_mw": 21.2147
+     },
+     {
+      "price_eur_mwh": 79.0305,
+      "quantity_mw": 21.2287
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 94.6317,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 116.6132,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 143.7006,
+      "quantity_mw": 0.0
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 9.7404,
+      "quantity_mw": 21.24
+     },
+     {
+      "price_eur_mw_h": 13.7165,
+      "quantity_mw": 40.0
+     },
+     {
+      "price_eur_mw_h": 19.3157,
+      "quantity_mw": 40.0
+     }
+    ]
+   },
+   {
+    "hour": 8,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 90.0656,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 96.2098,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 102.7732,
+      "quantity_mw": 0.0
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 163.7489,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 174.9198,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 186.8528,
+      "quantity_mw": 0.0
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 16.4834,
+      "quantity_mw": 40.0
+     },
+     {
+      "price_eur_mw_h": 20.5747,
+      "quantity_mw": 40.0
+     },
+     {
+      "price_eur_mw_h": 25.6816,
+      "quantity_mw": 40.0
+     }
+    ]
+   },
+   {
+    "hour": 9,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 88.3493,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 96.2098,
+      "quantity_mw": 20.7021
+     },
+     {
+      "price_eur_mwh": 104.7698,
+      "quantity_mw": 20.7729
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 160.6284,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 174.9198,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 190.4827,
+      "quantity_mw": 0.0
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 16.5056,
+      "quantity_mw": 40.0
+     },
+     {
+      "price_eur_mw_h": 20.5747,
+      "quantity_mw": 40.0
+     },
+     {
+      "price_eur_mw_h": 25.6471,
+      "quantity_mw": 40.0
+     }
+    ]
+   },
+   {
+    "hour": 10,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 88.6963,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 96.2098,
+      "quantity_mw": 20.4994
+     },
+     {
+      "price_eur_mwh": 104.3599,
+      "quantity_mw": 20.5509
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 161.2593,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 174.9198,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 189.7375,
+      "quantity_mw": 0.0
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 18.2128,
+      "quantity_mw": 40.0
+     },
+     {
+      "price_eur_mw_h": 20.5747,
+      "quantity_mw": 40.0
+     },
+     {
+      "price_eur_mw_h": 23.243,
+      "quantity_mw": 40.0
+     }
+    ]
+   },
+   {
+    "hour": 11,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 90.4829,
+      "quantity_mw": 20.4871
+     },
+     {
+      "price_eur_mwh": 96.2098,
+      "quantity_mw": 20.4871
+     },
+     {
+      "price_eur_mwh": 102.2992,
+      "quantity_mw": 20.4918
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 164.5076,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 174.9198,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 185.991,
+      "quantity_mw": 0.0
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 19.9409,
+      "quantity_mw": 40.0
+     },
+     {
+      "price_eur_mw_h": 20.5747,
+      "quantity_mw": 40.0
+     },
+     {
+      "price_eur_mw_h": 21.2287,
+      "quantity_mw": 40.0
+     }
+    ]
+   },
+   {
+    "hour": 12,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 35.233,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 36.0762,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 36.9396,
+      "quantity_mw": 0.0
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 64.0618,
+      "quantity_mw": 290.95
+     },
+     {
+      "price_eur_mwh": 65.5949,
+      "quantity_mw": 290.95
+     },
+     {
+      "price_eur_mwh": 67.1647,
+      "quantity_mw": 290.95
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 7.3458,
+      "quantity_mw": 36.2479
+     },
+     {
+      "price_eur_mw_h": 7.7155,
+      "quantity_mw": 36.2479
+     },
+     {
+      "price_eur_mw_h": 8.1038,
+      "quantity_mw": 77.145
+     }
+    ]
+   },
+   {
+    "hour": 13,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 31.6235,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 36.0762,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 41.1559,
+      "quantity_mw": 0.0
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 57.4989,
+      "quantity_mw": 326.6519
+     },
+     {
+      "price_eur_mwh": 65.5949,
+      "quantity_mw": 326.6519
+     },
+     {
+      "price_eur_mwh": 74.8309,
+      "quantity_mw": 326.6519
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 5.3338,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mw_h": 7.7155,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mw_h": 11.1608,
+      "quantity_mw": 75.936
+     }
+    ]
+   },
+   {
+    "hour": 14,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 63.9124,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 64.1333,
+      "quantity_mw": 1.9073
+     },
+     {
+      "price_eur_mwh": 64.3549,
+      "quantity_mw": 1.9109
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 116.2116,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 116.6132,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 117.0162,
+      "quantity_mw": 0.0
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 12.2581,
+      "quantity_mw": 44.8653
+     },
+     {
+      "price_eur_mw_h": 13.7165,
+      "quantity_mw": 44.8653
+     },
+     {
+      "price_eur_mw_h": 15.3484,
+      "quantity_mw": 44.8653
+     }
+    ]
+   },
+   {
+    "hour": 15,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 57.3304,
+      "quantity_mw": 17.4127
+     },
+     {
+      "price_eur_mwh": 64.1333,
+      "quantity_mw": 17.4127
+     },
+     {
+      "price_eur_mwh": 71.7435,
+      "quantity_mw": 17.4127
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 104.2435,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 116.6132,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 130.4507,
+      "quantity_mw": 0.0
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 12.7522,
+      "quantity_mw": 43.3333
+     },
+     {
+      "price_eur_mw_h": 13.7165,
+      "quantity_mw": 43.3333
+     },
+     {
+      "price_eur_mw_h": 14.7537,
+      "quantity_mw": 43.3333
+     }
+    ]
+   },
+   {
+    "hour": 16,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 79.2603,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 96.2098,
+      "quantity_mw": 20.9732
+     },
+     {
+      "price_eur_mwh": 116.784,
+      "quantity_mw": 20.9917
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 144.1037,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 174.9198,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 212.3258,
+      "quantity_mw": 0.0
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 20.2878,
+      "quantity_mw": 40.0
+     },
+     {
+      "price_eur_mw_h": 20.5747,
+      "quantity_mw": 40.0
+     },
+     {
+      "price_eur_mw_h": 20.8657,
+      "quantity_mw": 40.0
+     }
+    ]
+   },
+   {
+    "hour": 17,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 90.5341,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 96.2098,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 102.2414,
+      "quantity_mw": 0.0
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 164.6007,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 174.9198,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 185.8858,
+      "quantity_mw": 0.0
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 17.3888,
+      "quantity_mw": 30.5022
+     },
+     {
+      "price_eur_mw_h": 20.5747,
+      "quantity_mw": 40.0
+     },
+     {
+      "price_eur_mw_h": 24.3444,
+      "quantity_mw": 40.0
+     }
+    ]
+   },
+   {
+    "hour": 18,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 27.3383,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 36.0762,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 47.607,
+      "quantity_mw": 0.0
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 49.7073,
+      "quantity_mw": 139.1886
+     },
+     {
+      "price_eur_mwh": 65.5949,
+      "quantity_mw": 19.3471
+     },
+     {
+      "price_eur_mwh": 86.5605,
+      "quantity_mw": 15.5027
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 4.487,
+      "quantity_mw": 3.3333
+     },
+     {
+      "price_eur_mw_h": 7.7155,
+      "quantity_mw": 40.0
+     },
+     {
+      "price_eur_mw_h": 13.2671,
+      "quantity_mw": 40.0
+     }
+    ]
+   },
+   {
+    "hour": 19,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 29.9653,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 36.0762,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 43.4333,
+      "quantity_mw": 0.0
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 54.4839,
+      "quantity_mw": 186.6629
+     },
+     {
+      "price_eur_mwh": 65.5949,
+      "quantity_mw": 87.14
+     },
+     {
+      "price_eur_mwh": 78.9718,
+      "quantity_mw": 84.505
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 5.4669,
+      "quantity_mw": 43.3333
+     },
+     {
+      "price_eur_mw_h": 7.7155,
+      "quantity_mw": 60.89
+     },
+     {
+      "price_eur_mw_h": 10.889,
+      "quantity_mw": 60.89
+     }
+    ]
+   },
+   {
+    "hour": 20,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 49.0353,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 64.1333,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 83.8799,
+      "quantity_mw": 0.0
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 89.1606,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 116.6132,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 152.5184,
+      "quantity_mw": 0.0
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 11.936,
+      "quantity_mw": 40.944
+     },
+     {
+      "price_eur_mw_h": 13.7165,
+      "quantity_mw": 40.944
+     },
+     {
+      "price_eur_mw_h": 15.7626,
+      "quantity_mw": 40.944
+     }
+    ]
+   },
+   {
+    "hour": 21,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 62.3983,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 64.1333,
+      "quantity_mw": 18.7815
+     },
+     {
+      "price_eur_mwh": 65.9166,
+      "quantity_mw": 18.7815
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 113.4584,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 116.6132,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 119.8557,
+      "quantity_mw": 0.0
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 8.9593,
+      "quantity_mw": 40.0
+     },
+     {
+      "price_eur_mw_h": 13.7165,
+      "quantity_mw": 43.3333
+     },
+     {
+      "price_eur_mw_h": 20.9997,
+      "quantity_mw": 43.3333
+     }
+    ]
+   },
+   {
+    "hour": 22,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 30.0648,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 36.0762,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 43.2896,
+      "quantity_mw": 0.0
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 54.6647,
+      "quantity_mw": 122.1916
+     },
+     {
+      "price_eur_mwh": 65.5949,
+      "quantity_mw": 21.1689
+     },
+     {
+      "price_eur_mwh": 78.7106,
+      "quantity_mw": 15.2933
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 5.861,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mw_h": 7.7155,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mw_h": 10.1568,
+      "quantity_mw": 40.0
+     }
+    ]
+   },
+   {
+    "hour": 23,
+    "mt_online": 1,
+    "energy_offer_sell": [
+     {
+      "price_eur_mwh": 34.3673,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 36.0762,
+      "quantity_mw": 0.0
+     },
+     {
+      "price_eur_mwh": 37.8701,
+      "quantity_mw": 0.0
+     }
+    ],
+    "energy_bid_buy": [
+     {
+      "price_eur_mwh": 62.4878,
+      "quantity_mw": 182.9911
+     },
+     {
+      "price_eur_mwh": 65.5949,
+      "quantity_mw": 84.8308
+     },
+     {
+      "price_eur_mwh": 68.8566,
+      "quantity_mw": 84.8308
+     }
+    ],
+    "reserve_offer_up": [
+     {
+      "price_eur_mw_h": 7.4945,
+      "quantity_mw": 40.0
+     },
+     {
+      "price_eur_mw_h": 7.7155,
+      "quantity_mw": 40.0
+     },
+     {
+      "price_eur_mw_h": 7.9431,
+      "quantity_mw": 40.0
+     }
+    ]
+   }
+  ],
+  "expected_position": [
+   {
+    "hour": 0,
+    "exp_price_da_buy_eur_mwh": 116.61568819337255,
+    "exp_price_da_sell_eur_mwh": 64.13467811041339,
+    "exp_price_sr_up_eur_mw_h": 13.8344857465544,
+    "exp_p_da_buy_mw": 0.0,
+    "exp_p_da_sell_mw": 0.0,
+    "exp_p_mt_mw": 20.0,
+    "exp_bess_ch_mw": 17.49743554245601,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 17.49743554245601,
+    "exp_r_mt_mw": 0.0,
+    "exp_r_bess_dis_mw": 0.0,
+    "exp_r_bess_ch_mw": 17.49743554245601,
+    "exp_r_dr_mw": 0.0
+   },
+   {
+    "hour": 1,
+    "exp_price_da_buy_eur_mwh": 116.7209605159069,
+    "exp_price_da_sell_eur_mwh": 64.1925743216717,
+    "exp_price_sr_up_eur_mw_h": 13.877199990544323,
+    "exp_p_da_buy_mw": 0.0,
+    "exp_p_da_sell_mw": 7.46195966357722,
+    "exp_p_mt_mw": 24.999999999999996,
+    "exp_bess_ch_mw": 14.973058957708563,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 19.40574262846409,
+    "exp_r_mt_mw": 0.0,
+    "exp_r_bess_dis_mw": 4.432683670755523,
+    "exp_r_bess_ch_mw": 14.973058957708567,
+    "exp_r_dr_mw": 0.0
+   },
+   {
+    "hour": 2,
+    "exp_price_da_buy_eur_mwh": 65.61914102544073,
+    "exp_price_da_sell_eur_mwh": 36.089539621489756,
+    "exp_price_sr_up_eur_mw_h": 7.716394978076812,
+    "exp_p_da_buy_mw": 261.73000000000013,
+    "exp_p_da_sell_mw": 0.0,
+    "exp_p_mt_mw": 24.999999999999996,
+    "exp_bess_ch_mw": 4.221381134970802,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 0.0,
+    "exp_r_mt_mw": 0.0,
+    "exp_r_bess_dis_mw": 0.0,
+    "exp_r_bess_ch_mw": 0.0,
+    "exp_r_dr_mw": 0.0
+   },
+   {
+    "hour": 3,
+    "exp_price_da_buy_eur_mwh": 65.94113227724009,
+    "exp_price_da_sell_eur_mwh": 36.26662996217375,
+    "exp_price_sr_up_eur_mw_h": 7.715805019274754,
+    "exp_p_da_buy_mw": 151.3787976424212,
+    "exp_p_da_sell_mw": 0.0,
+    "exp_p_mt_mw": 24.999999999999996,
+    "exp_bess_ch_mw": 21.06606548787729,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 45.118130975754575,
+    "exp_r_mt_mw": 0.0,
+    "exp_r_bess_dis_mw": 13.333333333333332,
+    "exp_r_bess_ch_mw": 21.06606548787729,
+    "exp_r_dr_mw": 10.718732154543954
+   },
+   {
+    "hour": 4,
+    "exp_price_da_buy_eur_mwh": 87.56614812066,
+    "exp_price_da_sell_eur_mwh": 48.16335902165028,
+    "exp_price_sr_up_eur_mw_h": 10.320408326561287,
+    "exp_p_da_buy_mw": 3.5112155013819306,
+    "exp_p_da_sell_mw": 0.0,
+    "exp_p_mt_mw": 24.999999999999996,
+    "exp_bess_ch_mw": 0.0,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 43.265,
+    "exp_r_mt_mw": 0.0,
+    "exp_r_bess_dis_mw": 40.0,
+    "exp_r_bess_ch_mw": 0.0,
+    "exp_r_dr_mw": 3.265
+   },
+   {
+    "hour": 5,
+    "exp_price_da_buy_eur_mwh": 88.0397007524054,
+    "exp_price_da_sell_eur_mwh": 48.42382366361412,
+    "exp_price_sr_up_eur_mw_h": 10.287432393311864,
+    "exp_p_da_buy_mw": 40.77391269506978,
+    "exp_p_da_sell_mw": 0.0,
+    "exp_p_mt_mw": 24.999999999999996,
+    "exp_bess_ch_mw": 0.0,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 44.35333333333333,
+    "exp_r_mt_mw": 0.0,
+    "exp_r_bess_dis_mw": 40.0,
+    "exp_r_bess_ch_mw": 0.0,
+    "exp_r_dr_mw": 4.3533333333333335
+   },
+   {
+    "hour": 6,
+    "exp_price_da_buy_eur_mwh": 116.62423523006062,
+    "exp_price_da_sell_eur_mwh": 64.13937869105807,
+    "exp_price_sr_up_eur_mw_h": 13.716548708813267,
+    "exp_p_da_buy_mw": 0.0,
+    "exp_p_da_sell_mw": 3.132164854234614,
+    "exp_p_mt_mw": 21.666666666666664,
+    "exp_bess_ch_mw": 0.0,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 44.63933333333334,
+    "exp_r_mt_mw": 3.3333333333333335,
+    "exp_r_bess_dis_mw": 40.0,
+    "exp_r_bess_ch_mw": 0.0,
+    "exp_r_dr_mw": 1.306000000000001
+   },
+   {
+    "hour": 7,
+    "exp_price_da_buy_eur_mwh": 118.31517356159729,
+    "exp_price_da_sell_eur_mwh": 65.06933749229445,
+    "exp_price_sr_up_eur_mw_h": 14.257521114123712,
+    "exp_p_da_buy_mw": 0.0,
+    "exp_p_da_sell_mw": 14.147803522536968,
+    "exp_p_mt_mw": 24.999999999999996,
+    "exp_bess_ch_mw": 7.080000000000002,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 33.74666666666667,
+    "exp_r_mt_mw": 0.0,
+    "exp_r_bess_dis_mw": 26.666666666666664,
+    "exp_r_bess_ch_mw": 7.080000000000003,
+    "exp_r_dr_mw": 0.0
+   },
+   {
+    "hour": 8,
+    "exp_price_da_buy_eur_mwh": 175.17380510303775,
+    "exp_price_da_sell_eur_mwh": 96.34954885466315,
+    "exp_price_sr_up_eur_mw_h": 20.913242191256558,
+    "exp_p_da_buy_mw": 0.0,
+    "exp_p_da_sell_mw": 0.0,
+    "exp_p_mt_mw": 24.999999999999996,
+    "exp_bess_ch_mw": 0.0,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 40.0,
+    "exp_r_mt_mw": 0.0,
+    "exp_r_bess_dis_mw": 40.0,
+    "exp_r_bess_ch_mw": 0.0,
+    "exp_r_dr_mw": 0.0
+   },
+   {
+    "hour": 9,
+    "exp_price_da_buy_eur_mwh": 175.34362111458296,
+    "exp_price_da_sell_eur_mwh": 96.44295149606296,
+    "exp_price_sr_up_eur_mw_h": 20.90913114281574,
+    "exp_p_da_buy_mw": 0.0,
+    "exp_p_da_sell_mw": 13.82499017037536,
+    "exp_p_mt_mw": 24.999999999999996,
+    "exp_bess_ch_mw": 0.0,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 40.0,
+    "exp_r_mt_mw": 0.0,
+    "exp_r_bess_dis_mw": 40.0,
+    "exp_r_bess_ch_mw": 0.0,
+    "exp_r_dr_mw": 0.0
+   },
+   {
+    "hour": 10,
+    "exp_price_da_buy_eur_mwh": 175.30551242759645,
+    "exp_price_da_sell_eur_mwh": 96.4219908575906,
+    "exp_price_sr_up_eur_mw_h": 20.676843183511647,
+    "exp_p_da_buy_mw": 0.0,
+    "exp_p_da_sell_mw": 13.683425513209045,
+    "exp_p_mt_mw": 24.999999999999996,
+    "exp_bess_ch_mw": 0.0,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 40.0,
+    "exp_r_mt_mw": 0.0,
+    "exp_r_bess_dis_mw": 40.0,
+    "exp_r_bess_ch_mw": 0.0,
+    "exp_r_dr_mw": 0.0
+   },
+   {
+    "hour": 11,
+    "exp_price_da_buy_eur_mwh": 175.13945206666028,
+    "exp_price_da_sell_eur_mwh": 96.33065390884171,
+    "exp_price_sr_up_eur_mw_h": 20.581451957989497,
+    "exp_p_da_buy_mw": 0.0,
+    "exp_p_da_sell_mw": 20.48863881342873,
+    "exp_p_mt_mw": 24.999999999999996,
+    "exp_bess_ch_mw": 0.0,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 40.0,
+    "exp_r_mt_mw": 0.0,
+    "exp_r_bess_dis_mw": 40.0,
+    "exp_r_bess_ch_mw": 0.0,
+    "exp_r_dr_mw": 0.0
+   },
+   {
+    "hour": 12,
+    "exp_price_da_buy_eur_mwh": 65.60714733102452,
+    "exp_price_da_sell_eur_mwh": 36.08294327013439,
+    "exp_price_sr_up_eur_mw_h": 7.721728454858477,
+    "exp_p_da_buy_mw": 290.94999999999993,
+    "exp_p_da_sell_mw": 0.0,
+    "exp_p_mt_mw": 24.999999999999996,
+    "exp_bess_ch_mw": 25.415975630014294,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 49.88028459336192,
+    "exp_r_mt_mw": 0.0,
+    "exp_r_bess_dis_mw": 13.333333333333332,
+    "exp_r_bess_ch_mw": 24.165284593361918,
+    "exp_r_dr_mw": 12.381666666666668
+   },
+   {
+    "hour": 13,
+    "exp_price_da_buy_eur_mwh": 65.97490015337064,
+    "exp_price_da_sell_eur_mwh": 36.285201785646336,
+    "exp_price_sr_up_eur_mw_h": 8.070035395123448,
+    "exp_p_da_buy_mw": 326.6518963991772,
+    "exp_p_da_sell_mw": 0.0,
+    "exp_p_mt_mw": 24.999999999999996,
+    "exp_bess_ch_mw": 3.6657310461476316,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 25.312,
+    "exp_r_mt_mw": 0.0,
+    "exp_r_bess_dis_mw": 13.333333333333332,
+    "exp_r_bess_ch_mw": 0.0,
+    "exp_r_dr_mw": 11.978666666666669
+   },
+   {
+    "hour": 14,
+    "exp_price_da_buy_eur_mwh": 116.613649286848,
+    "exp_price_da_sell_eur_mwh": 64.13355678089353,
+    "exp_price_sr_up_eur_mw_h": 13.774326217972128,
+    "exp_p_da_buy_mw": 0.0,
+    "exp_p_da_sell_mw": 1.2727322997337218,
+    "exp_p_mt_mw": 21.666666666666664,
+    "exp_bess_ch_mw": 0.0,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 44.86533333333333,
+    "exp_r_mt_mw": 3.3333333333333335,
+    "exp_r_bess_dis_mw": 40.0,
+    "exp_r_bess_ch_mw": 0.0,
+    "exp_r_dr_mw": 1.5319999999999945
+   },
+   {
+    "hour": 15,
+    "exp_price_da_buy_eur_mwh": 117.10245665699678,
+    "exp_price_da_sell_eur_mwh": 64.40238427596012,
+    "exp_price_sr_up_eur_mw_h": 13.740795909570124,
+    "exp_p_da_buy_mw": 0.0,
+    "exp_p_da_sell_mw": 17.412652633533526,
+    "exp_p_mt_mw": 21.666666666666664,
+    "exp_bess_ch_mw": 0.0,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 43.333333333333336,
+    "exp_r_mt_mw": 3.333333333333335,
+    "exp_r_bess_dis_mw": 40.0,
+    "exp_r_bess_ch_mw": 0.0,
+    "exp_r_dr_mw": 0.0
+   },
+   {
+    "hour": 16,
+    "exp_price_da_buy_eur_mwh": 177.11642524448064,
+    "exp_price_da_sell_eur_mwh": 97.41803380373362,
+    "exp_price_sr_up_eur_mw_h": 20.576088645169904,
+    "exp_p_da_buy_mw": 0.0,
+    "exp_p_da_sell_mw": 13.98830861198653,
+    "exp_p_mt_mw": 24.999999999999996,
+    "exp_bess_ch_mw": 0.0,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 40.0,
+    "exp_r_mt_mw": 0.0,
+    "exp_r_bess_dis_mw": 40.0,
+    "exp_r_bess_ch_mw": 0.0,
+    "exp_r_dr_mw": 0.0
+   },
+   {
+    "hour": 17,
+    "exp_price_da_buy_eur_mwh": 175.13541903863285,
+    "exp_price_da_sell_eur_mwh": 96.32843565234649,
+    "exp_price_sr_up_eur_mw_h": 20.769314283756838,
+    "exp_p_da_buy_mw": 0.0,
+    "exp_p_da_sell_mw": 0.0,
+    "exp_p_mt_mw": 24.999999999999996,
+    "exp_bess_ch_mw": 0.0,
+    "exp_bess_dis_mw": 3.165921129202114,
+    "exp_r_total_mw": 36.83407887079788,
+    "exp_r_mt_mw": 0.0,
+    "exp_r_bess_dis_mw": 36.83407887079788,
+    "exp_r_bess_ch_mw": 0.0,
+    "exp_r_dr_mw": 0.0
+   },
+   {
+    "hour": 18,
+    "exp_price_da_buy_eur_mwh": 67.28759559379915,
+    "exp_price_da_sell_eur_mwh": 37.00716451432525,
+    "exp_price_sr_up_eur_mw_h": 8.489868519737689,
+    "exp_p_da_buy_mw": 58.01280993421535,
+    "exp_p_da_sell_mw": 0.0,
+    "exp_p_mt_mw": 23.33333333333333,
+    "exp_bess_ch_mw": 4.746210488200191,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 27.777777777777775,
+    "exp_r_mt_mw": 1.1111111111111112,
+    "exp_r_bess_dis_mw": 26.666666666666664,
+    "exp_r_bess_ch_mw": 0.0,
+    "exp_r_dr_mw": 0.0
+   },
+   {
+    "hour": 19,
+    "exp_price_da_buy_eur_mwh": 66.35021642192984,
+    "exp_price_da_sell_eur_mwh": 36.49162008270246,
+    "exp_price_sr_up_eur_mw_h": 8.023822659875684,
+    "exp_p_da_buy_mw": 119.43598374567314,
+    "exp_p_da_sell_mw": 0.0,
+    "exp_p_mt_mw": 23.888888888888886,
+    "exp_bess_ch_mw": 0.0,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 55.03777777777776,
+    "exp_r_mt_mw": 1.1111111111111112,
+    "exp_r_bess_dis_mw": 40.0,
+    "exp_r_bess_ch_mw": 0.0,
+    "exp_r_dr_mw": 13.926666666666648
+   },
+   {
+    "hour": 20,
+    "exp_price_da_buy_eur_mwh": 119.43073215358952,
+    "exp_price_da_sell_eur_mwh": 65.68285692796498,
+    "exp_price_sr_up_eur_mw_h": 13.805025589401357,
+    "exp_p_da_buy_mw": 0.0,
+    "exp_p_da_sell_mw": 0.0,
+    "exp_p_mt_mw": 20.855260821228416,
+    "exp_bess_ch_mw": 0.0,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 40.94399999999998,
+    "exp_r_mt_mw": 1.1111111111111112,
+    "exp_r_bess_dis_mw": 39.20355555555554,
+    "exp_r_bess_ch_mw": 0.0,
+    "exp_r_dr_mw": 0.6293333333333373
+   },
+   {
+    "hour": 21,
+    "exp_price_da_buy_eur_mwh": 116.64242700945594,
+    "exp_price_da_sell_eur_mwh": 64.1493835534728,
+    "exp_price_sr_up_eur_mw_h": 14.558492188746708,
+    "exp_p_da_buy_mw": 0.0,
+    "exp_p_da_sell_mw": 12.52099096901576,
+    "exp_p_mt_mw": 22.777777777777775,
+    "exp_bess_ch_mw": 0.0,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 42.22222222222222,
+    "exp_r_mt_mw": 2.2222222222222223,
+    "exp_r_bess_dis_mw": 40.0,
+    "exp_r_bess_ch_mw": 0.0,
+    "exp_r_dr_mw": 0.0
+   },
+   {
+    "hour": 22,
+    "exp_price_da_buy_eur_mwh": 66.32341213081182,
+    "exp_price_da_sell_eur_mwh": 36.47687812614507,
+    "exp_price_sr_up_eur_mw_h": 7.911126470290489,
+    "exp_p_da_buy_mw": 52.88459680594686,
+    "exp_p_da_sell_mw": 0.0,
+    "exp_p_mt_mw": 24.999999999999996,
+    "exp_bess_ch_mw": 0.0,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 13.333333333333332,
+    "exp_r_mt_mw": 0.0,
+    "exp_r_bess_dis_mw": 13.333333333333332,
+    "exp_r_bess_ch_mw": 0.0,
+    "exp_r_dr_mw": 0.0
+   },
+   {
+    "hour": 23,
+    "exp_price_da_buy_eur_mwh": 65.6464172175538,
+    "exp_price_da_sell_eur_mwh": 36.104541116489614,
+    "exp_price_sr_up_eur_mw_h": 7.717699634166701,
+    "exp_p_da_buy_mw": 117.5509115427019,
+    "exp_p_da_sell_mw": 0.0,
+    "exp_p_mt_mw": 24.999999999999996,
+    "exp_bess_ch_mw": 0.0,
+    "exp_bess_dis_mw": 0.0,
+    "exp_r_total_mw": 40.000000000000306,
+    "exp_r_mt_mw": 0.0,
+    "exp_r_bess_dis_mw": 32.905666666666946,
+    "exp_r_bess_ch_mw": 0.0,
+    "exp_r_dr_mw": 7.094333333333361
+   }
+  ]
+ },
+ "intraday": {
+  "reschedules": [
+   {
+    "id_scenario": 0,
+    "probability": 0.3333333333333333,
+    "operating_cost_eur": 121532.18828390329,
+    "fixed_plan_cost_eur": 127602.00038491002,
+    "production_reschedule_savings_eur": 6069.812101006726,
+    "jobs_changed": 13,
+    "frozen_jobs": 0,
+    "batches": 17,
+    "units_produced": 193.0,
+    "mip_gap": 0.0096876903257539,
+    "solve_time_s": 2.9716301190001104,
+    "verification_passed": true,
+    "jobs": [
+     {
+      "machine": "m1",
+      "position_n": 1,
+      "task": "p30",
+      "start_h": 2.0,
+      "end_h": 3.8,
+      "start_time": "02:00",
+      "end_time": "03:48",
+      "duration_h": 1.8,
+      "power_mw": 71.8,
+      "units_out": 9.0,
+      "energy_mwh": 129.24,
+      "energy_cost_eur": 7648.557075869828
+     },
+     {
+      "machine": "m1",
+      "position_n": 2,
+      "task": "p3",
+      "start_h": 18.0,
+      "end_h": 20.1,
+      "start_time": "18:00",
+      "end_time": "20:06",
+      "duration_h": 2.1,
+      "power_mw": 77.7,
+      "units_out": 11.0,
+      "energy_mwh": 163.17000000000002,
+      "energy_cost_eur": 9188.072384531119
+     },
+     {
+      "machine": "m1",
+      "position_n": 3,
+      "task": "p24",
+      "start_h": 22.0,
+      "end_h": 23.4,
+      "start_time": "22:00",
+      "end_time": "23:24",
+      "duration_h": 1.4,
+      "power_mw": 91.9,
+      "units_out": 10.0,
+      "energy_mwh": 128.66,
+      "energy_cost_eur": 7452.55038478354
+     },
+     {
+      "machine": "m2",
+      "position_n": 1,
+      "task": "p20",
+      "start_h": 1.5,
+      "end_h": 3.5,
+      "start_time": "01:30",
+      "end_time": "03:30",
+      "duration_h": 2.0,
+      "power_mw": 60.5,
+      "units_out": 10.0,
+      "energy_mwh": 121.0,
+      "energy_cost_eur": 8432.80823338656
+     },
+     {
+      "machine": "m2",
+      "position_n": 2,
+      "task": "p28",
+      "start_h": 4.5,
+      "end_h": 6.0,
+      "start_time": "04:30",
+      "end_time": "06:00",
+      "duration_h": 1.5,
+      "power_mw": 68.5,
+      "units_out": 10.0,
+      "energy_mwh": 102.75,
+      "energy_cost_eur": 7425.970364306302
+     },
+     {
+      "machine": "m2",
+      "position_n": 3,
+      "task": "p5",
+      "start_h": 12.5,
+      "end_h": 14.1,
+      "start_time": "12:30",
+      "end_time": "14:06",
+      "duration_h": 1.6,
+      "power_mw": 75.5,
+      "units_out": 10.0,
+      "energy_mwh": 120.80000000000001,
+      "energy_cost_eur": 7715.380899684558
+     },
+     {
+      "machine": "m2",
+      "position_n": 4,
+      "task": "p19",
+      "start_h": 18.0,
+      "end_h": 20.0,
+      "start_time": "18:00",
+      "end_time": "20:00",
+      "duration_h": 2.0,
+      "power_mw": 64.6,
+      "units_out": 14.0,
+      "energy_mwh": 129.2,
+      "energy_cost_eur": 7131.692003916574
+     },
+     {
+      "machine": "m2",
+      "position_n": 5,
+      "task": "p2",
+      "start_h": 22.0,
+      "end_h": 23.7,
+      "start_time": "22:00",
+      "end_time": "23:42",
+      "duration_h": 1.7,
+      "power_mw": 65.3,
+      "units_out": 11.0,
+      "energy_mwh": 111.00999999999999,
+      "energy_cost_eur": 6572.776297469059
+     },
+     {
+      "machine": "m3",
+      "position_n": 1,
+      "task": "p7",
+      "start_h": 2.0,
+      "end_h": 3.7,
+      "start_time": "02:00",
+      "end_time": "03:42",
+      "duration_h": 1.7,
+      "power_mw": 80.4,
+      "units_out": 15.0,
+      "energy_mwh": 136.68,
+      "energy_cost_eur": 8102.896087106337
+     },
+     {
+      "machine": "m3",
+      "position_n": 2,
+      "task": "p21",
+      "start_h": 18.0,
+      "end_h": 19.9,
+      "start_time": "18:00",
+      "end_time": "19:54",
+      "duration_h": 1.9,
+      "power_mw": 86.0,
+      "units_out": 11.0,
+      "energy_mwh": 163.4,
+      "energy_cost_eur": 8973.503432367894
+     },
+     {
+      "machine": "m4",
+      "position_n": 1,
+      "task": "p6",
+      "start_h": 2.0,
+      "end_h": 3.8,
+      "start_time": "02:00",
+      "end_time": "03:48",
+      "duration_h": 1.8,
+      "power_mw": 95.6,
+      "units_out": 13.0,
+      "energy_mwh": 172.07999999999998,
+      "energy_cost_eur": 10183.872652550912
+     },
+     {
+      "machine": "m4",
+      "position_n": 2,
+      "task": "p12",
+      "start_h": 18.0,
+      "end_h": 19.8,
+      "start_time": "18:00",
+      "end_time": "19:48",
+      "duration_h": 1.8,
+      "power_mw": 97.6,
+      "units_out": 15.0,
+      "energy_mwh": 175.68,
+      "energy_cost_eur": 9592.949528009669
+     },
+     {
+      "machine": "m5",
+      "position_n": 1,
+      "task": "p16",
+      "start_h": 2.0,
+      "end_h": 3.7,
+      "start_time": "02:00",
+      "end_time": "03:42",
+      "duration_h": 1.7,
+      "power_mw": 72.4,
+      "units_out": 9.0,
+      "energy_mwh": 123.08000000000001,
+      "energy_cost_eur": 7296.637769981328
+     },
+     {
+      "machine": "m5",
+      "position_n": 2,
+      "task": "p4",
+      "start_h": 5.0,
+      "end_h": 6.3,
+      "start_time": "05:00",
+      "end_time": "06:18",
+      "duration_h": 1.3,
+      "power_mw": 67.5,
+      "units_out": 14.0,
+      "energy_mwh": 87.75,
+      "energy_cost_eur": 6826.476812496735
+     },
+     {
+      "machine": "m5",
+      "position_n": 3,
+      "task": "p27",
+      "start_h": 13.0,
+      "end_h": 14.3,
+      "start_time": "13:00",
+      "end_time": "14:18",
+      "duration_h": 1.3,
+      "power_mw": 67.8,
+      "units_out": 7.0,
+      "energy_mwh": 88.14,
+      "energy_cost_eur": 6060.109375941429
+     },
+     {
+      "machine": "m5",
+      "position_n": 4,
+      "task": "p17",
+      "start_h": 18.0,
+      "end_h": 19.8,
+      "start_time": "18:00",
+      "end_time": "19:48",
+      "duration_h": 1.8,
+      "power_mw": 76.3,
+      "units_out": 10.0,
+      "energy_mwh": 137.34,
+      "energy_cost_eur": 7499.406239622313
+     },
+     {
+      "machine": "m5",
+      "position_n": 5,
+      "task": "p10",
+      "start_h": 22.0,
+      "end_h": 23.4,
+      "start_time": "22:00",
+      "end_time": "23:24",
+      "duration_h": 1.4,
+      "power_mw": 72.8,
+      "units_out": 14.0,
+      "energy_mwh": 101.91999999999999,
+      "energy_cost_eur": 5903.652535497733
+     }
+    ]
+   },
+   {
+    "id_scenario": 1,
+    "probability": 0.3333333333333333,
+    "operating_cost_eur": 145579.47519250293,
+    "fixed_plan_cost_eur": 146511.77533018278,
+    "production_reschedule_savings_eur": 932.3001376798493,
+    "jobs_changed": 13,
+    "frozen_jobs": 0,
+    "batches": 17,
+    "units_produced": 192.0,
+    "mip_gap": 0.009348892832062803,
+    "solve_time_s": 4.301734049000515,
+    "verification_passed": true,
+    "jobs": [
+     {
+      "machine": "m1",
+      "position_n": 1,
+      "task": "p30",
+      "start_h": 2.0,
+      "end_h": 3.8,
+      "start_time": "02:00",
+      "end_time": "03:48",
+      "duration_h": 1.8,
+      "power_mw": 71.8,
+      "units_out": 9.0,
+      "energy_mwh": 129.24,
+      "energy_cost_eur": 9342.849343869922
+     },
+     {
+      "machine": "m1",
+      "position_n": 2,
+      "task": "p3",
+      "start_h": 12.0,
+      "end_h": 14.1,
+      "start_time": "12:00",
+      "end_time": "14:06",
+      "duration_h": 2.1,
+      "power_mw": 77.7,
+      "units_out": 11.0,
+      "energy_mwh": 163.17000000000002,
+      "energy_cost_eur": 11603.737888249152
+     },
+     {
+      "machine": "m1",
+      "position_n": 3,
+      "task": "p24",
+      "start_h": 22.5,
+      "end_h": 23.9,
+      "start_time": "22:30",
+      "end_time": "23:54",
+      "duration_h": 1.4,
+      "power_mw": 91.9,
+      "units_out": 10.0,
+      "energy_mwh": 128.66,
+      "energy_cost_eur": 8994.070466434865
+     },
+     {
+      "machine": "m2",
+      "position_n": 1,
+      "task": "p5",
+      "start_h": 2.0,
+      "end_h": 3.6,
+      "start_time": "02:00",
+      "end_time": "03:36",
+      "duration_h": 1.6,
+      "power_mw": 75.5,
+      "units_out": 10.0,
+      "energy_mwh": 120.80000000000001,
+      "energy_cost_eur": 8700.33321370145
+     },
+     {
+      "machine": "m2",
+      "position_n": 2,
+      "task": "p20",
+      "start_h": 5.5,
+      "end_h": 7.5,
+      "start_time": "05:30",
+      "end_time": "07:30",
+      "duration_h": 2.0,
+      "power_mw": 60.5,
+      "units_out": 10.0,
+      "energy_mwh": 121.0,
+      "energy_cost_eur": 13701.86052680764
+     },
+     {
+      "machine": "m2",
+      "position_n": 3,
+      "task": "p2",
+      "start_h": 12.0,
+      "end_h": 13.7,
+      "start_time": "12:00",
+      "end_time": "13:42",
+      "duration_h": 1.7,
+      "power_mw": 65.3,
+      "units_out": 11.0,
+      "energy_mwh": 111.00999999999999,
+      "energy_cost_eur": 7457.597049502812
+     },
+     {
+      "machine": "m2",
+      "position_n": 4,
+      "task": "p28",
+      "start_h": 18.5,
+      "end_h": 20.0,
+      "start_time": "18:30",
+      "end_time": "20:00",
+      "duration_h": 1.5,
+      "power_mw": 68.5,
+      "units_out": 10.0,
+      "energy_mwh": 102.75,
+      "energy_cost_eur": 7774.1315863436475
+     },
+     {
+      "machine": "m2",
+      "position_n": 5,
+      "task": "p19",
+      "start_h": 22.0,
+      "end_h": 24.0,
+      "start_time": "22:00",
+      "end_time": "24:00",
+      "duration_h": 2.0,
+      "power_mw": 64.6,
+      "units_out": 14.0,
+      "energy_mwh": 129.2,
+      "energy_cost_eur": 9255.990201670422
+     },
+     {
+      "machine": "m3",
+      "position_n": 1,
+      "task": "p21",
+      "start_h": 2.0,
+      "end_h": 3.9,
+      "start_time": "02:00",
+      "end_time": "03:54",
+      "duration_h": 1.9,
+      "power_mw": 86.0,
+      "units_out": 11.0,
+      "energy_mwh": 163.4,
+      "energy_cost_eur": 11830.742574229236
+     },
+     {
+      "machine": "m3",
+      "position_n": 2,
+      "task": "p7",
+      "start_h": 12.0,
+      "end_h": 13.7,
+      "start_time": "12:00",
+      "end_time": "13:42",
+      "duration_h": 1.7,
+      "power_mw": 80.4,
+      "units_out": 15.0,
+      "energy_mwh": 136.68,
+      "energy_cost_eur": 9182.094988974366
+     },
+     {
+      "machine": "m3",
+      "position_n": 3,
+      "task": "p29",
+      "start_h": 22.0,
+      "end_h": 24.0,
+      "start_time": "22:00",
+      "end_time": "24:00",
+      "duration_h": 2.0,
+      "power_mw": 72.0,
+      "units_out": 8.0,
+      "energy_mwh": 144.0,
+      "energy_cost_eur": 10316.273908982515
+     },
+     {
+      "machine": "m4",
+      "position_n": 1,
+      "task": "p6",
+      "start_h": 12.0,
+      "end_h": 13.8,
+      "start_time": "12:00",
+      "end_time": "13:48",
+      "duration_h": 1.8,
+      "power_mw": 95.6,
+      "units_out": 13.0,
+      "energy_mwh": 172.07999999999998,
+      "energy_cost_eur": 11665.1938256971
+     },
+     {
+      "machine": "m4",
+      "position_n": 2,
+      "task": "p12",
+      "start_h": 22.0,
+      "end_h": 23.8,
+      "start_time": "22:00",
+      "end_time": "23:48",
+      "duration_h": 1.8,
+      "power_mw": 97.6,
+      "units_out": 15.0,
+      "energy_mwh": 175.68,
+      "energy_cost_eur": 12704.39393995052
+     },
+     {
+      "machine": "m5",
+      "position_n": 1,
+      "task": "p17",
+      "start_h": 2.0,
+      "end_h": 3.8,
+      "start_time": "02:00",
+      "end_time": "03:48",
+      "duration_h": 1.8,
+      "power_mw": 76.3,
+      "units_out": 10.0,
+      "energy_mwh": 137.34,
+      "energy_cost_eur": 9928.403968485725
+     },
+     {
+      "machine": "m5",
+      "position_n": 2,
+      "task": "p27",
+      "start_h": 12.0,
+      "end_h": 13.3,
+      "start_time": "12:00",
+      "end_time": "13:18",
+      "duration_h": 1.3,
+      "power_mw": 67.8,
+      "units_out": 7.0,
+      "energy_mwh": 88.14,
+      "energy_cost_eur": 5623.493642163291
+     },
+     {
+      "machine": "m5",
+      "position_n": 3,
+      "task": "p4",
+      "start_h": 19.0,
+      "end_h": 20.3,
+      "start_time": "19:00",
+      "end_time": "20:18",
+      "duration_h": 1.3,
+      "power_mw": 67.5,
+      "units_out": 14.0,
+      "energy_mwh": 87.75,
+      "energy_cost_eur": 8250.501790758619
+     },
+     {
+      "machine": "m5",
+      "position_n": 4,
+      "task": "p10",
+      "start_h": 22.5,
+      "end_h": 23.9,
+      "start_time": "22:30",
+      "end_time": "23:54",
+      "duration_h": 1.4,
+      "power_mw": 72.8,
+      "units_out": 14.0,
+      "energy_mwh": 101.91999999999999,
+      "energy_cost_eur": 7124.791403225877
+     }
+    ]
+   },
+   {
+    "id_scenario": 2,
+    "probability": 0.3333333333333333,
+    "operating_cost_eur": 137665.27428517106,
+    "fixed_plan_cost_eur": 137665.27428517106,
+    "production_reschedule_savings_eur": 0.0,
+    "jobs_changed": 0,
+    "frozen_jobs": 0,
+    "batches": 17,
+    "units_produced": 193.0,
+    "mip_gap": 0.0,
+    "solve_time_s": 0.6287985930002833,
+    "verification_passed": true,
+    "jobs": [
+     {
+      "machine": "m1",
+      "position_n": 1,
+      "task": "p30",
+      "start_h": 2.0,
+      "end_h": 3.8,
+      "start_time": "02:00",
+      "end_time": "03:48",
+      "duration_h": 1.8,
+      "power_mw": 71.8,
+      "units_out": 9.0,
+      "energy_mwh": 129.24,
+      "energy_cost_eur": 8450.402538466278
+     },
+     {
+      "machine": "m1",
+      "position_n": 2,
+      "task": "p3",
+      "start_h": 12.0,
+      "end_h": 14.1,
+      "start_time": "12:00",
+      "end_time": "14:06",
+      "duration_h": 2.1,
+      "power_mw": 77.7,
+      "units_out": 11.0,
+      "energy_mwh": 163.17000000000002,
+      "energy_cost_eur": 11064.072899584806
+     },
+     {
+      "machine": "m1",
+      "position_n": 3,
+      "task": "p17",
+      "start_h": 18.5,
+      "end_h": 20.1,
+      "start_time": "18:30",
+      "end_time": "20:06",
+      "duration_h": 1.6,
+      "power_mw": 94.4,
+      "units_out": 10.0,
+      "energy_mwh": 151.04000000000002,
+      "energy_cost_eur": 10355.876916702253
+     },
+     {
+      "machine": "m1",
+      "position_n": 4,
+      "task": "p24",
+      "start_h": 22.5,
+      "end_h": 23.9,
+      "start_time": "22:30",
+      "end_time": "23:54",
+      "duration_h": 1.4,
+      "power_mw": 91.9,
+      "units_out": 10.0,
+      "energy_mwh": 128.66,
+      "energy_cost_eur": 8412.479035895003
+     },
+     {
+      "machine": "m2",
+      "position_n": 1,
+      "task": "p28",
+      "start_h": 2.0,
+      "end_h": 3.5,
+      "start_time": "02:00",
+      "end_time": "03:30",
+      "duration_h": 1.5,
+      "power_mw": 68.5,
+      "units_out": 10.0,
+      "energy_mwh": 102.75,
+      "energy_cost_eur": 6718.344636547587
+     },
+     {
+      "machine": "m2",
+      "position_n": 2,
+      "task": "p2",
+      "start_h": 4.5,
+      "end_h": 6.2,
+      "start_time": "04:30",
+      "end_time": "06:12",
+      "duration_h": 1.7,
+      "power_mw": 65.3,
+      "units_out": 11.0,
+      "energy_mwh": 111.00999999999999,
+      "energy_cost_eur": 10057.429122520702
+     },
+     {
+      "machine": "m2",
+      "position_n": 3,
+      "task": "p5",
+      "start_h": 12.5,
+      "end_h": 14.1,
+      "start_time": "12:30",
+      "end_time": "14:06",
+      "duration_h": 1.6,
+      "power_mw": 75.5,
+      "units_out": 10.0,
+      "energy_mwh": 120.80000000000001,
+      "energy_cost_eur": 8282.507491642145
+     },
+     {
+      "machine": "m2",
+      "position_n": 4,
+      "task": "p20",
+      "start_h": 18.0,
+      "end_h": 20.0,
+      "start_time": "18:00",
+      "end_time": "20:00",
+      "duration_h": 2.0,
+      "power_mw": 60.5,
+      "units_out": 10.0,
+      "energy_mwh": 121.0,
+      "energy_cost_eur": 7911.627260557256
+     },
+     {
+      "machine": "m2",
+      "position_n": 5,
+      "task": "p19",
+      "start_h": 22.0,
+      "end_h": 24.0,
+      "start_time": "22:00",
+      "end_time": "24:00",
+      "duration_h": 2.0,
+      "power_mw": 64.6,
+      "units_out": 14.0,
+      "energy_mwh": 129.2,
+      "energy_cost_eur": 8447.787124495846
+     },
+     {
+      "machine": "m3",
+      "position_n": 1,
+      "task": "p7",
+      "start_h": 2.0,
+      "end_h": 3.7,
+      "start_time": "02:00",
+      "end_time": "03:42",
+      "duration_h": 1.7,
+      "power_mw": 80.4,
+      "units_out": 15.0,
+      "energy_mwh": 136.68,
+      "energy_cost_eur": 8936.86953696666
+     },
+     {
+      "machine": "m3",
+      "position_n": 2,
+      "task": "p21",
+      "start_h": 12.0,
+      "end_h": 13.9,
+      "start_time": "12:00",
+      "end_time": "13:54",
+      "duration_h": 1.9,
+      "power_mw": 86.0,
+      "units_out": 11.0,
+      "energy_mwh": 163.4,
+      "energy_cost_eur": 10683.966069215336
+     },
+     {
+      "machine": "m4",
+      "position_n": 1,
+      "task": "p6",
+      "start_h": 2.0,
+      "end_h": 3.8,
+      "start_time": "02:00",
+      "end_time": "03:48",
+      "duration_h": 1.8,
+      "power_mw": 95.6,
+      "units_out": 13.0,
+      "energy_mwh": 172.07999999999998,
+      "energy_cost_eur": 11251.51090079911
+     },
+     {
+      "machine": "m4",
+      "position_n": 2,
+      "task": "p12",
+      "start_h": 12.0,
+      "end_h": 13.8,
+      "start_time": "12:00",
+      "end_time": "13:48",
+      "duration_h": 1.8,
+      "power_mw": 97.6,
+      "units_out": 15.0,
+      "energy_mwh": 175.68,
+      "energy_cost_eur": 11486.898158138009
+     },
+     {
+      "machine": "m5",
+      "position_n": 1,
+      "task": "p27",
+      "start_h": 2.0,
+      "end_h": 3.3,
+      "start_time": "02:00",
+      "end_time": "03:18",
+      "duration_h": 1.3,
+      "power_mw": 67.8,
+      "units_out": 7.0,
+      "energy_mwh": 88.14,
+      "energy_cost_eur": 5763.064683847243
+     },
+     {
+      "machine": "m5",
+      "position_n": 2,
+      "task": "p16",
+      "start_h": 12.0,
+      "end_h": 13.7,
+      "start_time": "12:00",
+      "end_time": "13:42",
+      "duration_h": 1.7,
+      "power_mw": 72.4,
+      "units_out": 9.0,
+      "energy_mwh": 123.08000000000001,
+      "energy_cost_eur": 8047.628787019725
+     },
+     {
+      "machine": "m5",
+      "position_n": 3,
+      "task": "p4",
+      "start_h": 18.5,
+      "end_h": 19.8,
+      "start_time": "18:30",
+      "end_time": "19:48",
+      "duration_h": 1.3,
+      "power_mw": 67.5,
+      "units_out": 14.0,
+      "energy_mwh": 87.75,
+      "energy_cost_eur": 5737.564397635533
+     },
+     {
+      "machine": "m5",
+      "position_n": 4,
+      "task": "p10",
+      "start_h": 22.5,
+      "end_h": 23.9,
+      "start_time": "22:30",
+      "end_time": "23:54",
+      "duration_h": 1.4,
+      "power_mw": 72.8,
+      "units_out": 14.0,
+      "energy_mwh": 101.91999999999999,
+      "energy_cost_eur": 6664.0747966611125
+     }
+    ]
+   }
+  ],
+  "expected_id_position": [
+   {
+    "hour": 0,
+    "exp_p_id_buy_mw": 0.0,
+    "exp_p_id_sell_mw": 0.0
+   },
+   {
+    "hour": 1,
+    "exp_p_id_buy_mw": 0.0,
+    "exp_p_id_sell_mw": 0.0
+   },
+   {
+    "hour": 2,
+    "exp_p_id_buy_mw": 94.93965083414597,
+    "exp_p_id_sell_mw": 0.0
+   },
+   {
+    "hour": 3,
+    "exp_p_id_buy_mw": 87.74088690917188,
+    "exp_p_id_sell_mw": 0.0
+   },
+   {
+    "hour": 4,
+    "exp_p_id_buy_mw": 5.842570049042462,
+    "exp_p_id_sell_mw": 0.0
+   },
+   {
+    "hour": 5,
+    "exp_p_id_buy_mw": 1.1154062340074233,
+    "exp_p_id_sell_mw": 0.0
+   },
+   {
+    "hour": 6,
+    "exp_p_id_buy_mw": 0.0,
+    "exp_p_id_sell_mw": 1.6874265245890996
+   },
+   {
+    "hour": 7,
+    "exp_p_id_buy_mw": 0.0,
+    "exp_p_id_sell_mw": 0.0
+   },
+   {
+    "hour": 8,
+    "exp_p_id_buy_mw": 0.0,
+    "exp_p_id_sell_mw": 20.92987008401549
+   },
+   {
+    "hour": 9,
+    "exp_p_id_buy_mw": 0.0,
+    "exp_p_id_sell_mw": 6.884394245364907
+   },
+   {
+    "hour": 10,
+    "exp_p_id_buy_mw": 0.0,
+    "exp_p_id_sell_mw": 6.855141552011121
+   },
+   {
+    "hour": 11,
+    "exp_p_id_buy_mw": 0.0,
+    "exp_p_id_sell_mw": 0.011832643099709845
+   },
+   {
+    "hour": 12,
+    "exp_p_id_buy_mw": 82.72720151915667,
+    "exp_p_id_sell_mw": 0.0
+   },
+   {
+    "hour": 13,
+    "exp_p_id_buy_mw": 9.202758047574168,
+    "exp_p_id_sell_mw": 0.0
+   },
+   {
+    "hour": 14,
+    "exp_p_id_buy_mw": 0.0,
+    "exp_p_id_sell_mw": 0.5596760839756426
+   },
+   {
+    "hour": 15,
+    "exp_p_id_buy_mw": 0.0,
+    "exp_p_id_sell_mw": 0.012977910382115708
+   },
+   {
+    "hour": 16,
+    "exp_p_id_buy_mw": 0.0,
+    "exp_p_id_sell_mw": 6.966327445243948
+   },
+   {
+    "hour": 17,
+    "exp_p_id_buy_mw": 0.0,
+    "exp_p_id_sell_mw": 24.362697193044603
+   },
+   {
+    "hour": 18,
+    "exp_p_id_buy_mw": 66.66666666666666,
+    "exp_p_id_sell_mw": 0.0
+   },
+   {
+    "hour": 19,
+    "exp_p_id_buy_mw": 66.66666666666666,
+    "exp_p_id_sell_mw": 0.0
+   },
+   {
+    "hour": 20,
+    "exp_p_id_buy_mw": 0.0,
+    "exp_p_id_sell_mw": 8.227632963070874
+   },
+   {
+    "hour": 21,
+    "exp_p_id_buy_mw": 0.0,
+    "exp_p_id_sell_mw": 7.3905570599648875
+   },
+   {
+    "hour": 22,
+    "exp_p_id_buy_mw": 66.66666666666666,
+    "exp_p_id_sell_mw": 0.0
+   },
+   {
+    "hour": 23,
+    "exp_p_id_buy_mw": 66.48480686738043,
+    "exp_p_id_sell_mw": 0.0
+   }
+  ]
+ },
+ "real_time": {
+  "hourly_expected": [
+   {
+    "hour": 0,
+    "exp_imb_deficit_mw": 0.019831327234226363,
+    "exp_imb_surplus_mw": 0.022395784778216132,
+    "exp_activated_mwh": 1.5822297710942572,
+    "exp_soc_mwh": 32.7321646170894,
+    "exp_profit_eur": -794.9765079506021
+   },
+   {
+    "hour": 1,
+    "exp_imb_deficit_mw": 0.015209072105413914,
+    "exp_imb_surplus_mw": 0.05019045081962912,
+    "exp_activated_mwh": 1.51192384877477,
+    "exp_soc_mwh": 43.361203954025065,
+    "exp_profit_eur": -422.41904988372073
+   },
+   {
+    "hour": 2,
+    "exp_imb_deficit_mw": 11.401996963427154,
+    "exp_imb_surplus_mw": 2.1202666626024382,
+    "exp_activated_mwh": 0.0,
+    "exp_soc_mwh": 46.7383088620017,
+    "exp_profit_eur": -25504.53180454456
+   },
+   {
+    "hour": 3,
+    "exp_imb_deficit_mw": 6.01392214834598,
+    "exp_imb_surplus_mw": 1.487541212061826,
+    "exp_activated_mwh": 3.5013906551184233,
+    "exp_soc_mwh": 61.05405018301669,
+    "exp_profit_eur": -17065.535058339356
+   },
+   {
+    "hour": 4,
+    "exp_imb_deficit_mw": 1.296214449575607,
+    "exp_imb_surplus_mw": 1.578983857244667e-15,
+    "exp_activated_mwh": 3.448732121221046,
+    "exp_soc_mwh": 57.69776280233722,
+    "exp_profit_eur": -1626.7044185390127
+   },
+   {
+    "hour": 5,
+    "exp_imb_deficit_mw": 1.7321595725557324,
+    "exp_imb_surplus_mw": 0.08147850163295484,
+    "exp_activated_mwh": 3.335465056396359,
+    "exp_soc_mwh": 54.490518803006104,
+    "exp_profit_eur": -4542.22986584864
+   },
+   {
+    "hour": 6,
+    "exp_imb_deficit_mw": 4.934324553889585e-16,
+    "exp_imb_surplus_mw": 0.2870752878429416,
+    "exp_activated_mwh": 3.460464379073901,
+    "exp_soc_mwh": 51.226496864295235,
+    "exp_profit_eur": 61.70007607326699
+   },
+   {
+    "hour": 7,
+    "exp_imb_deficit_mw": 0.0030094195565220573,
+    "exp_imb_surplus_mw": 0.015205897019552772,
+    "exp_activated_mwh": 2.3893841898306962,
+    "exp_soc_mwh": 54.45773356128467,
+    "exp_profit_eur": 414.9498117181552
+   },
+   {
+    "hour": 8,
+    "exp_imb_deficit_mw": 0.0,
+    "exp_imb_surplus_mw": 0.07012991598450806,
+    "exp_activated_mwh": 2.6083603048036985,
+    "exp_soc_mwh": 51.712091135175505,
+    "exp_profit_eur": 1869.2631400325702
+   },
+   {
+    "hour": 9,
+    "exp_imb_deficit_mw": 0.0,
+    "exp_imb_surplus_mw": 0.08061558425973163,
+    "exp_activated_mwh": 2.926707899218704,
+    "exp_soc_mwh": 48.63134597810319,
+    "exp_profit_eur": 1920.215473100477
+   },
+   {
+    "hour": 10,
+    "exp_imb_deficit_mw": 0.0,
+    "exp_imb_surplus_mw": 0.09143293477983189,
+    "exp_activated_mwh": 4.481351261608927,
+    "exp_soc_mwh": 43.91413412377801,
+    "exp_profit_eur": 2028.024120987161
+   },
+   {
+    "hour": 11,
+    "exp_imb_deficit_mw": 0.0,
+    "exp_imb_surplus_mw": 0.029528543471561378,
+    "exp_activated_mwh": 4.851813662439716,
+    "exp_soc_mwh": 38.80696184752567,
+    "exp_profit_eur": 2003.7515660743388
+   },
+   {
+    "hour": 12,
+    "exp_imb_deficit_mw": 3.768422021590538,
+    "exp_imb_surplus_mw": 1.0796479107329193,
+    "exp_activated_mwh": 6.012124745682687,
+    "exp_soc_mwh": 54.77089204721979,
+    "exp_profit_eur": -25572.480879592953
+   },
+   {
+    "hour": 13,
+    "exp_imb_deficit_mw": 6.641076599396317,
+    "exp_imb_surplus_mw": 0.0,
+    "exp_activated_mwh": 1.1413192603775828,
+    "exp_soc_mwh": 57.070634124374784,
+    "exp_profit_eur": -23687.910184695993
+   },
+   {
+    "hour": 14,
+    "exp_imb_deficit_mw": 5.921189464667501e-16,
+    "exp_imb_surplus_mw": 0.14425828295735282,
+    "exp_activated_mwh": 2.644783866895734,
+    "exp_soc_mwh": 54.58855470051227,
+    "exp_profit_eur": -179.43905336913525
+   },
+   {
+    "hour": 15,
+    "exp_imb_deficit_mw": 0.0,
+    "exp_imb_surplus_mw": 0.031036122751022865,
+    "exp_activated_mwh": 3.9327109388774177,
+    "exp_soc_mwh": 50.76729710808078,
+    "exp_profit_eur": 882.3967251369278
+   },
+   {
+    "hour": 16,
+    "exp_imb_deficit_mw": 0.0,
+    "exp_imb_surplus_mw": 0.04536394276952057,
+    "exp_activated_mwh": 2.987457710256155,
+    "exp_soc_mwh": 47.62260478149535,
+    "exp_profit_eur": 1918.5798056182614
+   },
+   {
+    "hour": 17,
+    "exp_imb_deficit_mw": 0.0,
+    "exp_imb_surplus_mw": 0.043223936157510356,
+    "exp_activated_mwh": 2.179985519375258,
+    "exp_soc_mwh": 41.99533462509812,
+    "exp_profit_eur": 2136.528461118484
+   },
+   {
+    "hour": 18,
+    "exp_imb_deficit_mw": 1.7237979798402752,
+    "exp_imb_surplus_mw": 0.04039742585544875,
+    "exp_activated_mwh": 2.8637451010254265,
+    "exp_soc_mwh": 42.913058118121704,
+    "exp_profit_eur": -9174.826981860502
+   },
+   {
+    "hour": 19,
+    "exp_imb_deficit_mw": 2.149015098871963,
+    "exp_imb_surplus_mw": 0.0005544001005988421,
+    "exp_activated_mwh": 2.5914521644293385,
+    "exp_soc_mwh": 40.90440783645714,
+    "exp_profit_eur": -12943.812266532559
+   },
+   {
+    "hour": 20,
+    "exp_imb_deficit_mw": 1.6974076465380168e-14,
+    "exp_imb_surplus_mw": 0.18762785815742627,
+    "exp_activated_mwh": 3.38306107620766,
+    "exp_soc_mwh": 37.499892284226675,
+    "exp_profit_eur": 397.9862583385465
+   },
+   {
+    "hour": 21,
+    "exp_imb_deficit_mw": 0.0,
+    "exp_imb_surplus_mw": 0.07622974879712807,
+    "exp_activated_mwh": 3.7889237795375887,
+    "exp_soc_mwh": 33.750044275028024,
+    "exp_profit_eur": 1032.2082065161803
+   },
+   {
+    "hour": 22,
+    "exp_imb_deficit_mw": 5.028736527386488,
+    "exp_imb_surplus_mw": 4.1053580288361343e-14,
+    "exp_activated_mwh": 1.3026848452288966,
+    "exp_soc_mwh": 32.37879706952392,
+    "exp_profit_eur": -9336.609893169549
+   },
+   {
+    "hour": 23,
+    "exp_imb_deficit_mw": 6.324281589917455,
+    "exp_imb_surplus_mw": 0.0,
+    "exp_activated_mwh": 4.0592521218496005,
+    "exp_soc_mwh": 28.78889665811721,
+    "exp_profit_eur": -13347.775618119033
+   }
+  ]
+ },
+ "strategy_comparison": {
+  "strategies": [
+   {
+    "strategy": "self-schedule (one quantity for all prices, no reserve)",
+    "risk_adjusted_eur": -138401.3041851136,
+    "exp_profit_eur": -138401.3041851136,
+    "cvar_eur": -150723.75872672838,
+    "std_eur": 7630.00720597272,
+    "reserve_revenue_eur": 0.0,
+    "gap_pct": 0.8036520410374446,
+    "gain_vs_self_schedule_eur": 0.0
+   },
+   {
+    "strategy": "offer/bid curves, energy only",
+    "risk_adjusted_eur": -137712.34676626505,
+    "exp_profit_eur": -137712.34676626514,
+    "cvar_eur": -151757.7632039987,
+    "std_eur": 8577.358522366592,
+    "reserve_revenue_eur": 0.0,
+    "gap_pct": 0.9461188846537048,
+    "gain_vs_self_schedule_eur": 688.9574188485567
+   },
+   {
+    "strategy": "offer/bid curves + spinning reserve",
+    "risk_adjusted_eur": -129533.6479377312,
+    "exp_profit_eur": -129533.64793773125,
+    "cvar_eur": -142355.96713569917,
+    "std_eur": 8247.975913805874,
+    "reserve_revenue_eur": 16602.201693224957,
+    "gap_pct": 0.985987423812393,
+    "gain_vs_self_schedule_eur": 8867.656247382401
+   }
+  ],
+  "market_stages": [
+   {
+    "market_stage": "DA only + RT imbalance settlement",
+    "expected_net_cost_eur": 138744.2256641696,
+    "expected_profit_eur": -138744.2256641696,
+    "cvar_profit_eur": -152952.15507617348,
+    "reserve_revenue_eur": 0.0,
+    "mip_gap": 0.008520292922589465,
+    "savings_vs_da_only_eur": 0.0
+   },
+   {
+    "market_stage": "DA + ID + RT imbalance settlement",
+    "expected_net_cost_eur": 137712.34676626514,
+    "expected_profit_eur": -137712.34676626514,
+    "cvar_profit_eur": -151757.7632039987,
+    "reserve_revenue_eur": 0.0,
+    "mip_gap": 0.009461188846537048,
+    "savings_vs_da_only_eur": 1031.8788979044475
+   },
+   {
+    "market_stage": "DA + ID + RT settlement + up-reserve",
+    "expected_net_cost_eur": 129533.64793773125,
+    "expected_profit_eur": -129533.64793773125,
+    "cvar_profit_eur": -142355.96713569917,
+    "reserve_revenue_eur": 16602.201693224957,
+    "mip_gap": 0.00985987423812393,
+    "savings_vs_da_only_eur": 9210.577726438336
+   }
+  ]
+ },
+ "scenarios_used": {
+  "price": {
+   "prob": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+   ],
+   "da_buy": [
+    [
+     117.55242898436306,
+     122.91729684036481,
+     63.44764591003819,
+     57.84384166462652,
+     82.33672364246883,
+     75.96485958539016,
+     118.59584539728094,
+     143.70063356486392,
+     163.74888175400017,
+     160.6284265965173,
+     189.73746069898127,
+     185.9909607688878,
+     67.16470643011831,
+     57.498885417593584,
+     117.01617133835727,
+     130.4507021841554,
+     144.10365127991267,
+     164.60071945048372,
+     49.707327622621506,
+     54.483892597266106,
+     89.16063758516736,
+     113.45839950183935,
+     54.664734721063894,
+     68.85655475821859
+    ],
+    [
+     115.68144891343708,
+     110.6323980250384,
+     67.81485965748038,
+     74.38463765829015,
+     92.90183070777304,
+     100.69435266008787,
+     114.66367361058342,
+     94.63170043761048,
+     186.8527535316368,
+     190.48265672375533,
+     161.25929656033185,
+     164.50761540761675,
+     64.06181805415166,
+     74.83089753371473,
+     116.21158983986922,
+     104.24348110451746,
+     212.32584443005294,
+     185.8857576419385,
+     86.56054164997235,
+     78.97183915971985,
+     152.5183721932837,
+     119.85569484421097,
+     78.71058416256794,
+     62.48777938563922
+    ],
+    [
+     116.61318668231752,
+     116.61318668231752,
+     65.5949175088036,
+     65.5949175088036,
+     87.45989001173814,
+     87.45989001173814,
+     116.61318668231752,
+     116.61318668231752,
+     174.91978002347628,
+     174.91978002347628,
+     174.91978002347628,
+     174.91978002347628,
+     65.5949175088036,
+     65.5949175088036,
+     116.61318668231752,
+     116.61318668231752,
+     174.91978002347628,
+     174.91978002347628,
+     65.5949175088036,
+     65.5949175088036,
+     116.61318668231752,
+     116.61318668231752,
+     65.5949175088036,
+     65.5949175088036
+    ]
+   ],
+   "da_sell": [
+    [
+     64.64985381304655,
+     67.60034939713152,
+     34.895250001410645,
+     31.813242035664057,
+     45.28705745962801,
+     41.78238832886579,
+     65.22369749406694,
+     79.03048055303407,
+     90.06558299726004,
+     88.34926218966076,
+     104.35988833160997,
+     102.2992287607557,
+     36.93957732448393,
+     31.62352129335582,
+     64.35493027365278,
+     71.74346713955836,
+     79.2602625772871,
+     90.534112967853,
+     27.338281813525498,
+     29.96532063502154,
+     49.035330325040384,
+     62.3982762842941,
+     30.064781080404458,
+     37.870068432967855
+    ],
+    [
+     63.620878154120966,
+     60.84407120381092,
+     37.29715181101714,
+     40.9104307988157,
+     51.09810494326587,
+     55.384167999919605,
+     63.06113621503461,
+     52.044229559776625,
+     102.7732342426155,
+     104.7697629744142,
+     88.69625491704792,
+     90.48290364165551,
+     35.23303543387775,
+     41.155867011541694,
+     63.912437704955174,
+     57.330383324249354,
+     116.78400950979989,
+     102.24136466507254,
+     47.60699467740876,
+     43.433322561044356,
+     83.87993809478188,
+     65.91657201205166,
+     43.289636245989264,
+     34.367337864459515
+    ],
+    [
+     64.13330236407266,
+     64.13330236407266,
+     36.07621705204149,
+     36.07621705204149,
+     48.10491466205696,
+     48.10491466205696,
+     64.13330236407266,
+     64.13330236407266,
+     96.20982932411393,
+     96.20982932411393,
+     96.20982932411393,
+     96.20982932411393,
+     36.07621705204149,
+     36.07621705204149,
+     64.13330236407266,
+     64.13330236407266,
+     96.20982932411393,
+     96.20982932411393,
+     36.07621705204149,
+     36.07621705204149,
+     64.13330236407266,
+     64.13330236407266,
+     36.07621705204149,
+     36.07621705204149
+    ]
+   ],
+   "sr_up": [
+    [
+     16.104083033506676,
+     11.374686786310535,
+     7.5750109847748925,
+     7.635598884863131,
+     9.325916675355044,
+     10.242947056801386,
+     13.765348489453629,
+     19.31569886536714,
+     25.681606303887506,
+     16.50556838607044,
+     23.24303498689743,
+     19.940902474395322,
+     8.103840245219896,
+     5.333795690609727,
+     12.258116466872318,
+     14.753681776309378,
+     20.287847864184656,
+     24.344440918420663,
+     4.486995233098521,
+     5.466907499151866,
+     11.935973315523915,
+     8.95927001822092,
+     5.86100616213204,
+     7.943106954152055
+    ],
+    [
+     11.682883301026855,
+     16.540422280192765,
+     7.8586478153201025,
+     7.796290038825693,
+     11.347940125481562,
+     10.331981944286953,
+     13.6678067318565,
+     9.74037357187433,
+     16.48338391218766,
+     25.647088684682263,
+     18.212758205942997,
+     21.22871704187866,
+     7.345818985220095,
+     11.160784360625174,
+     15.348371281914396,
+     12.752215047271319,
+     20.86568171363055,
+     17.388765575155343,
+     13.267084191979103,
+     10.889034346339747,
+     15.762612547550487,
+     20.99971564288953,
+     10.156847114603986,
+     7.494465814212606
+    ],
+    [
+     13.716490905129673,
+     13.716490905129673,
+     7.715526134135441,
+     7.715526134135441,
+     10.287368178847256,
+     10.287368178847256,
+     13.716490905129673,
+     13.716490905129673,
+     20.574736357694512,
+     20.574736357694512,
+     20.574736357694512,
+     20.574736357694512,
+     7.715526134135441,
+     7.715526134135441,
+     13.716490905129673,
+     13.716490905129673,
+     20.574736357694512,
+     20.574736357694512,
+     7.715526134135441,
+     7.715526134135441,
+     13.716490905129673,
+     13.716490905129673,
+     7.715526134135441,
+     7.715526134135441
+    ]
+   ],
+   "id_buy": [
+    [
+     115.43758134388737,
+     100.18024053392459,
+     60.577265159983476,
+     57.435749258060845,
+     82.82102413515297,
+     66.99781441864691,
+     113.7839179870652,
+     132.45602132100862,
+     152.99833918825445,
+     174.29786059627065,
+     177.29917444216665,
+     184.91501443906608,
+     71.85851361532985,
+     54.70075593330543,
+     115.60462751540389,
+     131.18814652392675,
+     144.37807548924508,
+     148.7576085482888,
+     49.8512503200799,
+     60.54645871887636,
+     78.52900800568968,
+     121.1448407313192,
+     55.01286792382761,
+     65.20315077757863
+    ],
+    [
+     117.04924680332512,
+     134.8757187753406,
+     70.57505628004911,
+     74.43524204321723,
+     91.7693746936239,
+     113.44300798942419,
+     118.75036637985698,
+     102.01032625276731,
+     198.7063032629834,
+     174.4240249505654,
+     171.4713815285747,
+     164.40922592303704,
+     59.49530101392519,
+     78.15694362926057,
+     116.88011318836854,
+     102.99621045896266,
+     210.57029803488936,
+     204.37095407866317,
+     85.76001345015895,
+     70.61096533833143,
+     172.06230273685128,
+     111.53493510356653,
+     77.71352520426524,
+     65.56805686493634
+    ],
+    [
+     116.2406209080956,
+     116.2406209080956,
+     65.38534926080376,
+     65.38534926080376,
+     87.1804656810717,
+     87.1804656810717,
+     116.2406209080956,
+     116.2406209080956,
+     174.3609313621434,
+     174.3609313621434,
+     174.3609313621434,
+     174.3609313621434,
+     65.38534926080376,
+     65.38534926080376,
+     116.2406209080956,
+     116.2406209080956,
+     174.3609313621434,
+     174.3609313621434,
+     65.38534926080376,
+     65.38534926080376,
+     116.2406209080956,
+     116.2406209080956,
+     65.38534926080376,
+     65.38534926080376
+    ]
+   ],
+   "id_sell": [
+    [
+     63.48675925196515,
+     55.09573865407404,
+     33.316583804489554,
+     31.58879735617228,
+     45.55343366783312,
+     36.850310979361915,
+     62.57730042411936,
+     72.84632473396256,
+     84.15254180058575,
+     95.86775959399664,
+     97.5185499895883,
+     101.70743398065616,
+     39.52110060776875,
+     30.084592204812516,
+     63.57862898755359,
+     72.14903654525578,
+     79.41120208989528,
+     81.82004417781332,
+     27.41743713026978,
+     33.299640725693365,
+     43.18829420638116,
+     66.62555857970756,
+     30.256249100533314,
+     35.86075124819252
+    ],
+    [
+     64.37312065894253,
+     74.1770763657742,
+     38.81521839672077,
+     40.93826244864085,
+     50.475228560596435,
+     62.39621634106653,
+     65.30867880003312,
+     56.102223804663865,
+     109.29295429019784,
+     95.93715283809894,
+     94.31313227480662,
+     90.42878720315193,
+     32.72151981389171,
+     42.98514228811937,
+     64.28010290017491,
+     56.644426720909856,
+     115.81841934597402,
+     112.40864016679858,
+     47.1667162200287,
+     38.83496783813982,
+     94.6284378364763,
+     61.34043602325211,
+     42.74126883034943,
+     36.06144410232046
+    ],
+    [
+     63.928403809042415,
+     63.928403809042415,
+     35.960957670839534,
+     35.960957670839534,
+     47.95122496979452,
+     47.95122496979452,
+     63.928403809042415,
+     63.928403809042415,
+     95.90244993958903,
+     95.90244993958903,
+     95.90244993958903,
+     95.90244993958903,
+     35.960957670839534,
+     35.960957670839534,
+     63.928403809042415,
+     63.928403809042415,
+     95.90244993958903,
+     95.90244993958903,
+     35.960957670839534,
+     35.960957670839534,
+     63.928403809042415,
+     63.928403809042415,
+     35.960957670839534,
+     35.960957670839534
+    ]
+   ],
+   "load_dev_mw": [
+    [
+     0.0,
+     -0.0,
+     -0.0,
+     -0.0,
+     0.0,
+     -0.0,
+     -0.0,
+     0.0,
+     -0.0,
+     -0.0,
+     -0.0,
+     -0.0,
+     -0.0,
+     0.0,
+     0.0,
+     -0.0,
+     0.0,
+     -0.0,
+     0.0,
+     -0.0,
+     0.0,
+     -0.0,
+     0.0,
+     -0.0
+    ],
+    [
+     -0.0,
+     0.0,
+     0.0,
+     0.0,
+     -0.0,
+     0.0,
+     0.0,
+     -0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     -0.0,
+     -0.0,
+     0.0,
+     -0.0,
+     0.0,
+     -0.0,
+     0.0,
+     -0.0,
+     0.0,
+     -0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   ]
+  },
+  "real_time": {
+   "prob": [
+    [
+     0.3333333333333333,
+     0.3333333333333333,
+     0.3333333333333333
+    ],
+    [
+     0.3333333333333333,
+     0.3333333333333333,
+     0.3333333333333333
+    ],
+    [
+     0.3333333333333333,
+     0.3333333333333333,
+     0.3333333333333333
+    ]
+   ],
+   "load_rel_dev": [
+    [
+     [
+      0.001025783017595525,
+      0.0332494107779964,
+      0.049342952352860216,
+      0.017358401568812108,
+      0.003263772674732535,
+      -0.010698957027962685,
+      0.007254058364949432,
+      0.003006888481874837,
+      0.019729387879281954,
+      -0.03249816244780945,
+      0.018098273124102827,
+      0.008544592030726801,
+      0.021455838097015588,
+      0.009595910842765487,
+      -0.0033408191041371877,
+      0.009110152343859769,
+      0.02525441606703857,
+      0.010291932743580305,
+      0.002508291360463453,
+      0.017961741475700264,
+      -0.01011113052131195,
+      -0.042411882402340666,
+      -0.015967564735415676,
+      -0.02567411860975851
+     ],
+     [
+      -0.001025783017595525,
+      -0.0332494107779964,
+      -0.049342952352860216,
+      -0.017358401568812108,
+      -0.003263772674732535,
+      0.010698957027962685,
+      -0.007254058364949432,
+      -0.003006888481874837,
+      -0.019729387879281954,
+      0.03249816244780945,
+      -0.018098273124102827,
+      -0.008544592030726801,
+      -0.021455838097015588,
+      -0.009595910842765487,
+      0.0033408191041371877,
+      -0.009110152343859769,
+      -0.02525441606703857,
+      -0.010291932743580305,
+      -0.002508291360463453,
+      -0.017961741475700264,
+      0.01011113052131195,
+      0.042411882402340666,
+      0.015967564735415676,
+      0.02567411860975851
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ]
+    ],
+    [
+     [
+      -0.057610217703540856,
+      -0.054103418556813145,
+      -0.043684392547513815,
+      -0.05484749498688255,
+      -0.06872763020964234,
+      -0.04035727027911008,
+      -0.002680380006000108,
+      -0.007203397874651029,
+      -0.022168343433002894,
+      -0.004061154649851939,
+      0.01477696658275405,
+      0.0016659255859289728,
+      0.014071582741658813,
+      0.033471961082986175,
+      0.01511622218079193,
+      -0.010454639699082578,
+      0.002070830544922681,
+      0.0071835961100619496,
+      0.03068166410798297,
+      -0.0124209402265385,
+      -0.023331274464456247,
+      -0.03411477173584994,
+      -0.06208521935109839,
+      -0.03421670228593113
+     ],
+     [
+      0.057610217703540856,
+      0.054103418556813145,
+      0.043684392547513815,
+      0.05484749498688255,
+      0.06872763020964234,
+      0.04035727027911008,
+      0.002680380006000108,
+      0.007203397874651029,
+      0.022168343433002894,
+      0.004061154649851939,
+      -0.01477696658275405,
+      -0.0016659255859289728,
+      -0.014071582741658813,
+      -0.033471961082986175,
+      -0.01511622218079193,
+      0.010454639699082578,
+      -0.002070830544922681,
+      -0.0071835961100619496,
+      -0.03068166410798297,
+      0.0124209402265385,
+      0.023331274464456247,
+      0.03411477173584994,
+      0.06208521935109839,
+      0.03421670228593113
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ]
+    ],
+    [
+     [
+      0.01583412637486572,
+      -0.008230484930499925,
+      0.028317238829607856,
+      0.03671652737761515,
+      0.037086951918621935,
+      0.031893141345756444,
+      0.04207195435422111,
+      -0.006724343536501787,
+      0.010699705676095671,
+      0.020886467410460154,
+      -0.029893365405155303,
+      -0.009607296793788068,
+      -0.011774490397312083,
+      0.011691850467093538,
+      -0.003522382223047924,
+      -0.0025512099174071624,
+      0.006697710465179434,
+      -0.017011654250753325,
+      0.004159327005877231,
+      -2.352032104169885e-05,
+      0.01180547077567681,
+      -0.005440817686676822,
+      0.02280434642665433,
+      0.028207455338299978
+     ],
+     [
+      -0.01583412637486572,
+      0.008230484930499925,
+      -0.028317238829607856,
+      -0.03671652737761515,
+      -0.037086951918621935,
+      -0.031893141345756444,
+      -0.04207195435422111,
+      0.006724343536501787,
+      -0.010699705676095671,
+      -0.020886467410460154,
+      0.029893365405155303,
+      0.009607296793788068,
+      0.011774490397312083,
+      -0.011691850467093538,
+      0.003522382223047924,
+      0.0025512099174071624,
+      -0.006697710465179434,
+      0.017011654250753325,
+      -0.004159327005877231,
+      2.352032104169885e-05,
+      -0.01180547077567681,
+      0.005440817686676822,
+      -0.02280434642665433,
+      -0.028207455338299978
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ]
+    ]
+   ],
+   "r_plus": [
+    [
+     [
+      1.2265698782179968,
+      1.2888905986299635,
+      1.3487612066106234,
+      1.4090402540711433,
+      1.1490658279539827,
+      1.311500349852542,
+      1.2747829382163927,
+      1.2323634367882883,
+      1.1767014238620186,
+      1.3484927762635766,
+      1.1636842913572059,
+      1.28331080831257,
+      1.3531953547417626,
+      1.147903514401628,
+      1.2182640494223995,
+      1.1613693557564275,
+      1.2571545202358236,
+      1.3764455657344223,
+      1.4385736368227147,
+      1.14019391690959,
+      1.2011349782263758,
+      1.2951620258881893,
+      1.3838580080452614,
+      1.2711912010803
+     ],
+     [
+      1.1910653122570203,
+      1.2612820227151336,
+      1.2378107424560651,
+      1.2248286825164467,
+      1.1917360311475482,
+      1.2684430654291883,
+      1.2621258693520856,
+      1.2324245554289066,
+      1.2236214207144371,
+      1.1625500487569498,
+      1.2065635715816512,
+      1.3432282985737307,
+      1.2257195818995694,
+      1.1551747223163071,
+      1.3566638565580653,
+      1.2802103413933126,
+      1.4498377789051398,
+      1.243523773129679,
+      1.2081055793912754,
+      1.1548051931741559,
+      1.3555309937123403,
+      1.5166235012355955,
+      1.1868265108372278,
+      1.196828861099662
+     ],
+     [
+      1.285807228535918,
+      1.1862998154942885,
+      1.220366794940635,
+      1.2151874713651913,
+      1.2531668060810683,
+      1.3319241406806408,
+      1.2405868614900861,
+      1.3148618422543368,
+      1.2107124165485261,
+      1.263696937200308,
+      1.1258377326678066,
+      1.1546982581262974,
+      1.3034554892735009,
+      1.200219867085724,
+      1.2844152718297,
+      1.2812275686161945,
+      1.3553646961799444,
+      1.3049106051463786,
+      1.3242641050895896,
+      1.2311251915924644,
+      1.1938288135033688,
+      1.191903623399986,
+      1.2064478288683327,
+      1.1702915867048682
+     ]
+    ],
+    [
+     [
+      1.2028015355078607,
+      1.2324534993921248,
+      1.2577382422536654,
+      1.215895324373536,
+      1.1342033326861678,
+      1.2338724851362617,
+      1.255715284073628,
+      1.3308958245077247,
+      1.2842403225654624,
+      1.1970372332243968,
+      1.192352177534838,
+      1.4368719687912879,
+      1.2999009651734579,
+      1.4140111329650165,
+      1.4527292556806077,
+      1.186986387087379,
+      1.2682828162341673,
+      1.2742146021379614,
+      1.2826882174173329,
+      1.281190277821583,
+      1.2539347410317334,
+      1.2518162591317972,
+      1.1522784778197153,
+      1.227429559734757
+     ],
+     [
+      1.1909812026115174,
+      1.2482129655058596,
+      1.2077212506582697,
+      1.2877284470687438,
+      1.3055714501872884,
+      1.262189789091259,
+      1.262778470872739,
+      1.2457574129934337,
+      1.2089555500113018,
+      1.2274909684750968,
+      1.2059775328218565,
+      1.26850164971124,
+      1.2400134447140532,
+      1.2845327261755475,
+      1.1604313979962928,
+      1.3119349262623061,
+      1.19011935265414,
+      1.1917468978425503,
+      1.225253857645449,
+      1.2018339927676336,
+      1.2608116440564996,
+      1.2011823045736636,
+      1.1734028764455038,
+      1.1854379037530451
+     ],
+     [
+      1.3542687888100489,
+      1.242193844646219,
+      1.168376380284696,
+      1.2396007841100563,
+      1.1498563237566688,
+      1.4088428634407835,
+      1.1512777376887724,
+      1.2759133119533508,
+      1.2813356997022838,
+      1.154695488105873,
+      1.261528659324698,
+      1.3223418182662097,
+      1.2749896618234922,
+      1.2584664246175368,
+      1.3177261735297534,
+      1.2508191803549236,
+      1.2643802755195594,
+      1.230084688936538,
+      1.2888774748236245,
+      1.1801960948410426,
+      1.303077908288881,
+      1.2053817531220317,
+      1.1723047835296625,
+      1.2666763109994674
+     ]
+    ],
+    [
+     [
+      1.3971633207297838,
+      1.318927684057022,
+      1.2047451365999435,
+      1.2946766989091727,
+      1.2085540378388047,
+      1.2302705866255057,
+      1.2455055283767764,
+      1.119258744091133,
+      1.2531406714159312,
+      1.175489315588813,
+      1.1938803728022251,
+      1.1535680505193033,
+      1.1516375983098601,
+      1.1800944792026682,
+      1.306169878514138,
+      1.3939694318303983,
+      1.237198984710938,
+      1.3316228064648499,
+      1.2208020776043453,
+      1.1346756197566281,
+      1.2499937462798265,
+      1.273186687044789,
+      1.2101614303659511,
+      1.261681519029593
+     ],
+     [
+      1.283788088431522,
+      1.1844611085645027,
+      1.153455510108977,
+      1.223650522979474,
+      1.2243355126983986,
+      1.2150051440607983,
+      1.3213834452406852,
+      1.4010706332988283,
+      1.2109174474204416,
+      1.2947498200238161,
+      1.3169488016175332,
+      1.2960143236874557,
+      1.3272442401925368,
+      1.2126585285317604,
+      1.2983904386373581,
+      1.4386954772228187,
+      1.304162039988539,
+      1.1984411965480528,
+      1.2867970050541948,
+      1.3490359778811674,
+      1.2669754759425036,
+      1.201833017402724,
+      1.3797013766166022,
+      1.16427318495353
+     ],
+     [
+      1.2779631168977246,
+      1.2378423943074377,
+      1.1670613650497021,
+      1.3445695038508938,
+      1.2652909626640523,
+      1.1684133652467976,
+      1.2862825971326046,
+      1.2099733859655761,
+      1.135047202734739,
+      1.1943750189143916,
+      1.2586630765528326,
+      1.2892154128794682,
+      1.2511700976273414,
+      1.242259731492244,
+      1.2751889410201591,
+      1.22434119552352,
+      1.3402046332436457,
+      1.2498981443707833,
+      1.261030532595276,
+      1.2810972276406016,
+      1.174044369836981,
+      1.1931936115957864,
+      1.3780530962686095,
+      1.2642917284275632
+     ]
+    ]
+   ],
+   "r_minus": [
+    [
+     [
+      0.7734301217820032,
+      0.7111094013700365,
+      0.6512387933893765,
+      0.5909597459288567,
+      0.8509341720460173,
+      0.6884996501474581,
+      0.7252170617836073,
+      0.7676365632117117,
+      0.8232985761379813,
+      0.6515072237364234,
+      0.8363157086427941,
+      0.7166891916874302,
+      0.6468046452582374,
+      0.8520964855983719,
+      0.7817359505776006,
+      0.8386306442435725,
+      0.7428454797641764,
+      0.6235544342655777,
+      0.5614263631772853,
+      0.85980608309041,
+      0.7988650217736242,
+      0.7048379741118107,
+      0.6161419919547386,
+      0.7288087989197001
+     ],
+     [
+      0.8089346877429797,
+      0.7387179772848664,
+      0.762189257543935,
+      0.7751713174835532,
+      0.8082639688524517,
+      0.7315569345708118,
+      0.7378741306479144,
+      0.7675754445710933,
+      0.776378579285563,
+      0.8374499512430502,
+      0.7934364284183489,
+      0.6567717014262693,
+      0.7742804181004305,
+      0.8448252776836928,
+      0.6433361434419347,
+      0.7197896586066875,
+      0.5501622210948602,
+      0.756476226870321,
+      0.7918944206087246,
+      0.8451948068258442,
+      0.6444690062876596,
+      0.48337649876440447,
+      0.8131734891627722,
+      0.803171138900338
+     ],
+     [
+      0.7141927714640821,
+      0.8137001845057115,
+      0.7796332050593651,
+      0.7848125286348087,
+      0.7468331939189317,
+      0.6680758593193592,
+      0.7594131385099139,
+      0.6851381577456632,
+      0.7892875834514739,
+      0.7363030627996922,
+      0.8741622673321935,
+      0.8453017418737026,
+      0.696544510726499,
+      0.799780132914276,
+      0.7155847281703,
+      0.7187724313838055,
+      0.6446353038200556,
+      0.6950893948536214,
+      0.6757358949104104,
+      0.7688748084075356,
+      0.8061711864966312,
+      0.8080963766000141,
+      0.7935521711316673,
+      0.8297084132951319
+     ]
+    ],
+    [
+     [
+      0.7971984644921393,
+      0.7675465006078751,
+      0.7422617577463346,
+      0.784104675626464,
+      0.8657966673138322,
+      0.7661275148637383,
+      0.7442847159263719,
+      0.6691041754922753,
+      0.7157596774345375,
+      0.8029627667756032,
+      0.807647822465162,
+      0.5631280312087121,
+      0.7000990348265421,
+      0.5859888670349835,
+      0.5472707443193923,
+      0.8130136129126211,
+      0.7317171837658327,
+      0.7257853978620384,
+      0.7173117825826671,
+      0.7188097221784171,
+      0.7460652589682665,
+      0.7481837408682028,
+      0.8477215221802847,
+      0.772570440265243
+     ],
+     [
+      0.8090187973884826,
+      0.7517870344941404,
+      0.7922787493417303,
+      0.7122715529312561,
+      0.6944285498127115,
+      0.737810210908741,
+      0.737221529127261,
+      0.7542425870065663,
+      0.7910444499886982,
+      0.7725090315249031,
+      0.7940224671781435,
+      0.7314983502887601,
+      0.7599865552859468,
+      0.7154672738244525,
+      0.8395686020037073,
+      0.6880650737376939,
+      0.80988064734586,
+      0.8082531021574498,
+      0.774746142354551,
+      0.7981660072323664,
+      0.7391883559435003,
+      0.7988176954263364,
+      0.8265971235544962,
+      0.814562096246955
+     ],
+     [
+      0.6457312111899511,
+      0.7578061553537809,
+      0.831623619715304,
+      0.7603992158899439,
+      0.8501436762433311,
+      0.5911571365592165,
+      0.8487222623112277,
+      0.7240866880466493,
+      0.7186643002977162,
+      0.8453045118941269,
+      0.7384713406753021,
+      0.6776581817337903,
+      0.725010338176508,
+      0.7415335753824632,
+      0.6822738264702466,
+      0.7491808196450764,
+      0.7356197244804406,
+      0.769915311063462,
+      0.7111225251763755,
+      0.8198039051589574,
+      0.6969220917111189,
+      0.7946182468779682,
+      0.8276952164703374,
+      0.7333236890005326
+     ]
+    ],
+    [
+     [
+      0.6028366792702162,
+      0.6810723159429779,
+      0.7952548634000565,
+      0.7053233010908274,
+      0.7914459621611953,
+      0.7697294133744943,
+      0.7544944716232236,
+      0.880741255908867,
+      0.7468593285840688,
+      0.824510684411187,
+      0.8061196271977747,
+      0.8464319494806967,
+      0.8483624016901398,
+      0.8199055207973318,
+      0.6938301214858621,
+      0.6060305681696017,
+      0.7628010152890622,
+      0.6683771935351502,
+      0.7791979223956547,
+      0.865324380243372,
+      0.7500062537201734,
+      0.726813312955211,
+      0.7898385696340489,
+      0.7383184809704072
+     ],
+     [
+      0.716211911568478,
+      0.8155388914354973,
+      0.8465444898910229,
+      0.7763494770205258,
+      0.7756644873016014,
+      0.7849948559392018,
+      0.6786165547593148,
+      0.5989293667011717,
+      0.7890825525795584,
+      0.7052501799761839,
+      0.6830511983824669,
+      0.7039856763125443,
+      0.6727557598074632,
+      0.7873414714682396,
+      0.7016095613626419,
+      0.5613045227771815,
+      0.695837960011461,
+      0.8015588034519472,
+      0.7132029949458053,
+      0.6509640221188326,
+      0.7330245240574964,
+      0.798166982597276,
+      0.6202986233833979,
+      0.8357268150464701
+     ],
+     [
+      0.7220368831022754,
+      0.7621576056925624,
+      0.8329386349502979,
+      0.6554304961491061,
+      0.7347090373359478,
+      0.8315866347532025,
+      0.7137174028673954,
+      0.7900266140344238,
+      0.864952797265261,
+      0.8056249810856084,
+      0.7413369234471674,
+      0.7107845871205318,
+      0.7488299023726587,
+      0.7577402685077562,
+      0.7248110589798409,
+      0.7756588044764801,
+      0.6597953667563543,
+      0.7501018556292166,
+      0.738969467404724,
+      0.7189027723593984,
+      0.825955630163019,
+      0.8068063884042136,
+      0.6219469037313904,
+      0.7357082715724367
+     ]
+    ]
+   ]
+  },
+  "deployment": {
+   "rho": [
+    [
+     [
+      0.2504932271013454,
+      0.004949868974911665,
+      0.12502051138501583,
+      0.06142005538796439,
+      0.1667718405481244,
+      0.07908553867010548,
+      0.25059385894202785,
+      0.059586059278924325,
+      0.038437866446158854,
+      0.09242657742381544,
+      0.08208145630267706,
+      0.043665361673693406,
+      0.047664342281770765,
+      0.10329398822821467,
+      0.10205168797276282,
+      0.03912960143415732,
+      0.04328714269473363,
+      0.013689023714724783,
+      0.22260359943174834,
+      0.048549987242141726,
+      0.16932984851625787,
+      0.08112564370471623,
+      0.2751171080224858,
+      0.19868379985834408
+     ],
+     [
+      0.07493832082254523,
+      0.18992654090031835,
+      0.02716495755152651,
+      0.15900269457116495,
+      0.017773129402525373,
+      0.07644837899877159,
+      0.13617322793525327,
+      0.06947259428666427,
+      0.04330710186349843,
+      0.03049548375156934,
+      0.04415855248502675,
+      0.1346833878349857,
+      0.11847455261755677,
+      0.04710228267578343,
+      0.021439245767380818,
+      0.09960620164678567,
+      0.018212851759111123,
+      0.037990750073494735,
+      0.032270836670495656,
+      0.1052816145113913,
+      0.07016056687505283,
+      0.0840582844297553,
+      0.0722370421169653,
+      0.03377370501876243
+     ],
+     [
+      0.08915776323498446,
+      0.17982693738097102,
+      0.056407923730877337,
+      0.09643818240514795,
+      0.05252577913913886,
+      0.1322733978640963,
+      0.09902139683168275,
+      0.1170594834673082,
+      0.07676624544625113,
+      0.21573045617881523,
+      0.04351502025753422,
+      0.04446461804941755,
+      0.0361811638524039,
+      0.09470784111116476,
+      0.035307888813537844,
+      0.034688233092231006,
+      0.10396003000253519,
+      0.14718690655645872,
+      0.09197417448510706,
+      0.006790630472144109,
+      0.027088808576560645,
+      0.02461202267481109,
+      0.022109727960743415,
+      0.04192207408821923
+     ]
+    ],
+    [
+     [
+      0.24865371398230485,
+      0.04542705222879411,
+      0.032254901467560514,
+      0.1016041956993375,
+      0.061397186905088906,
+      0.06398006417715932,
+      0.03353827570649095,
+      0.058022047118077236,
+      0.08224119880627943,
+      0.012590988667172823,
+      0.016020147836850636,
+      0.13833455761541513,
+      0.11402643353306306,
+      0.038733360635574185,
+      0.025683878802840038,
+      0.05007837780057312,
+      0.02235622492291297,
+      0.04425414512415758,
+      0.2176540713676716,
+      0.06456575161719336,
+      0.1476814196551325,
+      0.04861490697260231,
+      0.07806634828858865,
+      0.17603644176240202
+     ],
+     [
+      0.019950946561381074,
+      0.043993603086624214,
+      0.05123935218748426,
+      0.07279240174829359,
+      0.20133295153536795,
+      0.10052920050019774,
+      0.017529643389544994,
+      0.04677032879390973,
+      0.028420533721769673,
+      0.027848775861502174,
+      0.29350327765270817,
+      0.024820007642062908,
+      0.07018557282532592,
+      0.0327812547013015,
+      0.11567810612856554,
+      0.07709120685615574,
+      0.0643263155233465,
+      0.05465785420675945,
+      0.1443441195642736,
+      0.027568304539229604,
+      0.03247517575062924,
+      0.023777548542363858,
+      0.16896029803429255,
+      0.04593252772515097
+     ],
+     [
+      0.02533295248733271,
+      0.04154461518268509,
+      0.4291233248819329,
+      0.05330596672825526,
+      0.11466824267434636,
+      0.08428231831522846,
+      0.05751926924734378,
+      0.033376854262201654,
+      0.044460023732686975,
+      0.043748822694237244,
+      0.00992052352609015,
+      0.46133864764902605,
+      0.12174097611046024,
+      0.06375552456249015,
+      0.04937021583068184,
+      0.030886250872244753,
+      0.12417899180135912,
+      0.05002594877473551,
+      0.08523777310923672,
+      0.019144787783917882,
+      0.07863429001857718,
+      0.28780050893279374,
+      0.04607744385362058,
+      0.11016625056293453
+     ]
+    ],
+    [
+     [
+      0.05975743058665235,
+      0.14063657306595123,
+      0.13645109091988963,
+      0.061028668646302624,
+      0.0371275132075044,
+      0.07307088254660052,
+      0.06006587389578671,
+      0.035435140248732226,
+      0.08369755056952409,
+      0.08209564123922995,
+      0.028525697590258314,
+      0.05313502505405451,
+      0.6012063624859987,
+      0.11166398461299737,
+      0.06281852935320012,
+      0.43306703602779273,
+      0.040354546937782274,
+      0.008008819238576475,
+      0.012635034041643116,
+      0.017225964743145295,
+      0.07152669080931177,
+      0.12686349564273688,
+      0.01023562665322529,
+      0.1419992266447957
+     ],
+     [
+      0.02175483174838958,
+      0.07131983740925939,
+      0.08419725471763563,
+      0.08209609912496638,
+      0.0584437234484363,
+      0.06660789045492745,
+      0.023340044062615445,
+      0.07257352217615241,
+      0.1271984577825151,
+      0.12187607371954075,
+      0.4698008870333951,
+      0.1381876671528492,
+      0.1038729501778176,
+      0.21982397403143705,
+      0.07045236062179329,
+      0.02069981698317156,
+      0.009680743912515154,
+      0.1613028038455217,
+      0.09151031643650341,
+      0.11441866236150325,
+      0.044510571273737,
+      0.07654586867002952,
+      0.26189192460424826,
+      0.0759362366094844
+     ],
+     [
+      0.023798241553940457,
+      0.04113530939992708,
+      0.1759350912226555,
+      0.024289830947781057,
+      0.0073660607597011854,
+      0.009270733329941836,
+      0.019903099388702557,
+      0.11011678203163104,
+      0.06235209021214857,
+      0.03169645778832534,
+      0.02077847117746802,
+      0.05302880137743166,
+      0.051128911921576654,
+      0.03699878519112234,
+      0.04774256355984863,
+      0.031547085669121094,
+      0.24582113725333885,
+      0.008744925088581134,
+      0.06405728232911327,
+      0.02580329443513401,
+      0.10223149345901586,
+      0.04813173239640436,
+      0.0778546629025153,
+      0.08888146514605978
+     ]
+    ]
+   ]
+  }
+ },
+ "strategy_settings": {
+  "bidding": "curve",
+  "beta": 0.0,
+  "alpha": 0.95,
+  "currency": "EUR"
+ }
+}
