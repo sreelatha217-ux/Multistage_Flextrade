@@ -186,7 +186,7 @@ ax[1, 0].bar(range(len(jt)), jt.profit_eur / 1e3, color=[SC[int(s)] for s in jt.
 ep, cv = K["exp_profit_eur"] / 1e3, K["cvar_profit_eur"] / 1e3
 ax[1, 0].axhline(ep, color="#4F9D69", lw=1.6, label=f"Expected {ep:,.1f} k"); ax[1, 0].axhline(cv, color="#C0504D", lw=1.6, ls="--", label=f"CVaR95 {cv:,.1f} k")
 ax[1, 0].set_xticks(range(len(jt))); ax[1, 0].set_xticklabels(lab, rotation=45, fontsize=7); ax[1, 0].set_ylabel("Profit (kEUR; negative = cost)")
-ax[1, 0].legend(frameon=False, fontsize=7.5, loc="lower right"); ax[1, 0].set_title("(c) Profit on the 9 joint paths")
+ax[1, 0].legend(frameon=False, fontsize=7.5, loc="lower left"); ax[1, 0].set_title("(c) Profit on the 9 joint paths")
 cols = ["rev_da_eur", "rev_id_eur", "rev_sr_eur", "rev_act_eur"]
 sc = pd.read_csv(os.path.join(T, "scenarios.csv"))
 ax[1, 1].bar(sc.scenario, sc.prob, color=SC, width=.5)
