@@ -79,31 +79,107 @@ ax[1, 1].set_title(f"(d) Realized {oos.saving_da_only_eur.mean():,.0f} EUR vs ex
 fig.tight_layout(); save(fig, "fig_real_dashboard")
 
 # ---------------------------------------------------------------- 2. Stage-1: Gantt, MT, DA curves
-fig = plt.figure(figsize=(11, 9.2))
-gs = fig.add_gridspec(3, 1, height_ratios=[1.6, .8, 1.6], hspace=.42)
+# ---------------------------------------------------------------- 2. Stage-1: single-column figure
+# Designed for direct insertion into a two-column paper.
+fig = plt.figure(figsize=(3.4, 5.8))
+gs = fig.add_gridspec(
+    3, 1,
+    height_ratios=[1.5, 0.85, 1.65],
+    hspace=0.65
+)
+
+# (a) Production schedule
 ax = fig.add_subplot(gs[0])
-mach = sorted(jobs.machine.unique()); cm = plt.cm.tab10
+mach = sorted(jobs.machine.unique())
+cm = plt.cm.tab10
+
 for _, r in jobs.iterrows():
     y = mach.index(r.machine)
-    ax.barh(y, r.end_h - r.start_h, left=r.start_h, color=cm(y), edgecolor="white", height=.62)
-    ax.text((r.start_h + r.end_h) / 2, y, r.task, ha="center", va="center", fontsize=6.5, color="white")
-ax.set_yticks(range(len(mach))); ax.set_yticklabels(mach); ax.invert_yaxis(); ax.set_xlim(0, 24)
-ax.set_xlabel("Hour of day"); ax.set_title(f"(a) Stage-1 production schedule: {len(jobs)} jobs, {jobs.units_out.sum():.0f} units")
+    ax.barh(
+        y, r.end_h - r.start_h,
+        left=r.start_h,
+        color=cm(y),
+        edgecolor="white",
+        height=0.62
+    )
+    ax.text(
+        (r.start_h + r.end_h) / 2, y, r.task,
+        ha="center", va="center",
+        fontsize=6, color="white"
+    )
+
+ax.set_yticks(range(len(mach)))
+ax.set_yticklabels(mach, fontsize=7)
+ax.invert_yaxis()
+ax.set_xlim(0, 24)
+ax.set_xticks(range(0, 25, 6))
+ax.tick_params(axis="both", labelsize=7, pad=2)
+ax.set_xlabel("Hour of day", fontsize=7)
+ax.set_title(
+    f"(a) Production schedule: {len(jobs)} jobs, "
+    f"{jobs.units_out.sum():.0f} units",
+    fontsize=8, pad=5
+)
+
+# (b) Microturbine commitment
 ax = fig.add_subplot(gs[1])
-ax.step(H, pos.mt_on, where="post", color="#7B2D8E", label="MT online")
-ax.plot(H, pos.exp_p_mt_mw / 25, color="#4F9D69", label="Expected MT output / 25 MW")
-ax.set_ylim(-.05, 1.15); ax.set_xlabel("Hour of day"); ax.legend(frameon=False, ncol=2, fontsize=7.5)
-ax.set_title(f"(b) Microturbine commitment (online {K['mt_on_hours']:.0f} h, {K['mt_starts']:.0f} start-up)")
+ax.step(H, pos.mt_on, where="post",
+        color="#7B2D8E", label="MT online")
+ax.plot(H, pos.exp_p_mt_mw / 25,
+        color="#4F9D69", label="Expected output / 25 MW")
+
+ax.set_ylim(-0.05, 1.15)
+ax.set_xlim(0, 24)
+ax.set_xticks(range(0, 25, 6))
+ax.tick_params(axis="both", labelsize=7, pad=2)
+ax.set_xlabel("Hour of day", fontsize=7)
+ax.set_title(
+    f"(b) Microturbine commitment "
+    f"({K['mt_on_hours']:.0f} h online, "
+    f"{K['mt_starts']:.0f} start-up)",
+    fontsize=8, pad=5
+)
+ax.legend(frameon=False, fontsize=6, loc="lower left")
+
+# (c) Day-Ahead offer curves
 ax = fig.add_subplot(gs[2])
 oc["net_export"] = oc.p_da_sell_mw - oc.p_da_buy_mw
-rng = oc.groupby("hour").net_export.agg(lambda s: s.max() - s.min()).sort_values(ascending=False)
+
+rng = oc.groupby("hour").net_export.agg(
+    lambda s: s.max() - s.min()
+).sort_values(ascending=False)
+
 hours = sorted(rng.index[:7])
-for h, col in zip(hours, plt.cm.viridis(np.linspace(0, .9, len(hours)))):
+
+for h, col in zip(
+    hours, plt.cm.viridis(np.linspace(0, 0.9, len(hours)))
+):
     g = oc[oc.hour == h].sort_values("price_da_sell_eur_mwh")
-    ax.step(g.price_da_sell_eur_mwh, g.net_export, where="post", marker="o", ms=3, color=col, label=f"h {h}")
-ax.axhline(0, color="k", lw=.5); ax.set_xlabel("Scenario DA sell price (EUR/MWh)"); ax.set_ylabel("Net DA export (MW)")
-ax.legend(frameon=False, ncol=7, fontsize=7); ax.set_title("(c) Day-Ahead offer curves, the 7 hours with the largest quantity range (negative = net import)")
+    ax.step(
+        g.price_da_sell_eur_mwh,
+        g.net_export,
+        where="post",
+        marker="o", ms=2,
+        color=col, label=f"h{h}"
+    )
+
+ax.axhline(0, color="k", lw=0.5)
+ax.set_xlabel("DA sell price (EUR/MWh)", fontsize=7)
+ax.set_ylabel("Net export (MW)", fontsize=7)
+ax.tick_params(axis="both", labelsize=7, pad=2)
+ax.set_title(
+    "(c) Day-Ahead offer curves (7 hours)",
+    fontsize=8, pad=5
+)
+ax.legend(
+    frameon=False, ncol=4, fontsize=6,
+    loc="upper center",
+    bbox_to_anchor=(0.5, -0.24),
+    columnspacing=0.8, handlelength=1.2
+)
+
 save(fig, "fig_real_stage1")
+
 
 # ---------------------------------------------------------------- 3. Reserve stack
 fig, ax = plt.subplots(1, 2, figsize=(11, 3.9), gridspec_kw=dict(width_ratios=[1.7, 1]))
