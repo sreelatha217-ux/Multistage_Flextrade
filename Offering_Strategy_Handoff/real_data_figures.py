@@ -109,16 +109,16 @@ for _, r in jobs.iterrows():
     )
 
 ax.set_yticks(range(len(mach)))
-ax.set_yticklabels(mach, fontsize=7)
+ax.set_yticklabels(mach, fontsize=6)
 ax.invert_yaxis()
 ax.set_xlim(0, 24)
 ax.set_xticks(range(0, 25, 6))
-ax.tick_params(axis="both", labelsize=7, pad=2)
-ax.set_xlabel("Hour of day", fontsize=7)
+ax.tick_params(axis="both", labelsize=6, pad=2)
+ax.set_xlabel("Hour of day", fontsize=6)
 ax.set_title(
     f"(a) Production schedule: {len(jobs)} jobs, "
     f"{jobs.units_out.sum():.0f} units",
-    fontsize=8, pad=5
+    fontsize=6, pad=5
 )
 
 # (b) Microturbine commitment
@@ -131,13 +131,13 @@ ax.plot(H, pos.exp_p_mt_mw / 25,
 ax.set_ylim(-0.05, 1.15)
 ax.set_xlim(0, 24)
 ax.set_xticks(range(0, 25, 6))
-ax.tick_params(axis="both", labelsize=7, pad=2)
-ax.set_xlabel("Hour of day", fontsize=7)
+ax.tick_params(axis="both", labelsize=6, pad=2)
+ax.set_xlabel("Hour of day", fontsize=6)
 ax.set_title(
     f"(b) Microturbine commitment "
     f"({K['mt_on_hours']:.0f} h online, "
     f"{K['mt_starts']:.0f} start-up)",
-    fontsize=8, pad=5
+    fontsize=6, pad=5
 )
 ax.legend(frameon=False, fontsize=6, loc="lower left")
 
@@ -164,12 +164,12 @@ for h, col in zip(
     )
 
 ax.axhline(0, color="k", lw=0.5)
-ax.set_xlabel("DA sell price (EUR/MWh)", fontsize=7)
-ax.set_ylabel("Net export (MW)", fontsize=7)
-ax.tick_params(axis="both", labelsize=7, pad=2)
+ax.set_xlabel("DA sell price (EUR/MWh)", fontsize=6)
+ax.set_ylabel("Net export (MW)", fontsize=6)
+ax.tick_params(axis="both", labelsize=6, pad=2)
 ax.set_title(
     "(c) Day-Ahead offer curves (7 hours)",
-    fontsize=8, pad=5
+    fontsize=6, pad=5
 )
 ax.legend(
     frameon=False, ncol=4, fontsize=6,
@@ -177,11 +177,6 @@ ax.legend(
     bbox_to_anchor=(0.5, -0.24),
     columnspacing=0.8, handlelength=1.2
 )
-# Reduce font sizes slightly to match other figures
-ax.set_title(..., fontsize=7.2, pad=4)
-ax.set_xlabel("Hour of day", fontsize=6.5)
-ax.set_ylabel("Net export (MW)", fontsize=6.5)
-ax.tick_params(axis="both", labelsize=6, pad=2)
 
 save(fig, "fig_real_stage1")
 
