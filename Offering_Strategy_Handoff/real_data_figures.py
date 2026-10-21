@@ -177,6 +177,11 @@ ax.legend(
     bbox_to_anchor=(0.5, -0.24),
     columnspacing=0.8, handlelength=1.2
 )
+# Reduce font sizes slightly to match other figures
+ax.set_title(..., fontsize=7.2, pad=4)
+ax.set_xlabel("Hour of day", fontsize=6.5)
+ax.set_ylabel("Net export (MW)", fontsize=6.5)
+ax.tick_params(axis="both", labelsize=6, pad=2)
 
 save(fig, "fig_real_stage1")
 
