@@ -206,25 +206,138 @@ ax[1].set_xlabel("Mean over 24 h (MW)"); ax[1].set_xlim(0, max(tot) * 1.3); ax[1
 fig.tight_layout(); save(fig, "fig_real_reserve")
 
 # ---------------------------------------------------------------- 4. BESS and MT
-fig, ax = plt.subplots(2, 1, figsize=(10, 6.8), sharex=True)
-ax[0].bar(H, pos.exp_bess_ch_mw, color="#4F9D69", width=.8, label="Expected charge")
-ax[0].bar(H, -pos.exp_bess_dis_mw, color="#C0504D", width=.8, label="Expected discharge")
-ax[0].set_ylabel("BESS power (MW)"); a3 = ax[0].twinx(); a3.spines["right"].set_visible(True)
+
+# ----------------------------------------------------------------
+# 4. BESS and MT — compact Elsevier single-column figure
+# ----------------------------------------------------------------
+fig, ax = plt.subplots(
+    2, 1,
+    figsize=(3.4, 5.2),
+    sharex=True,
+    gridspec_kw={
+        "height_ratios": [1.35, 1.0],
+        "hspace": 0.30
+    }
+)
+
+FS_TITLE = 7
+FS_LABEL = 7
+FS_TICK = 6
+FS_LEGEND = 5.5
+
+# (a) BESS dispatch and state of charge
+ax[0].bar(
+    H, pos.exp_bess_ch_mw,
+    color="#4F9D69", width=0.75,
+    label="Expected charge"
+)
+ax[0].bar(
+    H, -pos.exp_bess_dis_mw,
+    color="#C0504D", width=0.75,
+    label="Expected discharge"
+)
+
+ax[0].set_ylabel("BESS power (MW)", fontsize=FS_LABEL, labelpad=2)
+ax[0].tick_params(axis="both", labelsize=FS_TICK, pad=1.5, length=2)
+
+a3 = ax[0].twinx()
+a3.spines["right"].set_visible(True)
+
 for (s, w_), g in hr.groupby(["scenario", "rt"]):
-    a3.plot(g.hour, g.soc_path_mwh, color=SC[s], lw=.7, alpha=.5)
-a3.plot(pos.hour, pos.exp_soc_mwh, color="#5B2C83", lw=2.2, label="Expected SoC")
-a3.axhline(20, color="grey", ls="--", lw=.8); a3.axhline(180, color="grey", ls="--", lw=.8)
-a3.set_ylabel("State of charge (MWh)")
-h1, l1 = ax[0].get_legend_handles_labels(); h2, l2 = a3.get_legend_handles_labels()
-ax[0].legend(h1 + h2, l1 + l2, frameon=False, ncol=3, fontsize=7.5, loc="upper left")
-ax[0].set_title(f"(a) BESS dispatch and SoC (thin lines: 9 joint paths; bounds 20 and 180 MWh; throughput cost {K['exp_cost_bess_eur']:,.0f} EUR)")
+    a3.plot(
+        g.hour, g.soc_path_mwh,
+        color=SC[s], linewidth=0.6, alpha=0.4
+    )
+
+a3.plot(
+    pos.hour, pos.exp_soc_mwh,
+    color="#5B2C83", linewidth=1.6,
+    label="Expected SoC"
+)
+a3.axhline(20, color="grey", linestyle="--", linewidth=0.65)
+a3.axhline(180, color="grey", linestyle="--", linewidth=0.65)
+a3.set_ylabel("SoC (MWh)", fontsize=FS_LABEL, labelpad=2)
+a3.tick_params(axis="y", labelsize=FS_TICK, pad=1.5, length=2)
+
+h1, l1 = ax[0].get_legend_handles_labels()
+h2, l2 = a3.get_legend_handles_labels()
+
+ax[0].legend(
+    h1 + h2, l1 + l2,
+    frameon=False, ncol=2,
+    fontsize=FS_LEGEND,
+    loc="upper left",
+    handlelength=1.2,
+    handletextpad=0.35,
+    columnspacing=0.7,
+    labelspacing=0.25,
+    borderaxespad=0.25
+)
+
+ax[0].set_title(
+    f"(a) BESS dispatch and SoC "
+    f"(9 joint paths; bounds 20–180 MWh; "
+    f"throughput cost {K['exp_cost_bess_eur']:,.0f} EUR)",
+    fontsize=FS_TITLE, pad=3
+)
+
+# (b) Real-time microturbine dispatch
 env = hr.groupby("hour").p_mt_rt_mw.agg(["min", "max"])
-ax[1].fill_between(env.index, env["min"], env["max"], color="#4F9D69", alpha=.25, label="Scenario envelope")
-ax[1].plot(pos.hour, pos.exp_p_mt_mw, color="#2E7D4F", lw=2, label="Expected output")
-ax[1].axhline(10, color="#7B2D8E", ls="--", lw=1, label="Minimum 10 MW (online)"); ax[1].axhline(25, color="grey", ls=":", lw=1, label="Maximum 25 MW")
-ax[1].set_xlabel("Hour of day"); ax[1].set_ylabel("MT power (MW)"); ax[1].legend(frameon=False, ncol=4, fontsize=7.5, loc="lower right")
-ax[1].set_title("(b) Real-time microturbine dispatch")
-fig.tight_layout(); save(fig, "fig_real_bess_mt")
+
+ax[1].fill_between(
+    env.index, env["min"], env["max"],
+    color="#4F9D69", alpha=0.25,
+    label="Scenario envelope"
+)
+ax[1].plot(
+    pos.hour, pos.exp_p_mt_mw,
+    color="#2E7D4F", linewidth=1.5,
+    label="Expected output"
+)
+ax[1].axhline(
+    10, color="#7B2D8E", linestyle="--",
+    linewidth=0.8, label="Minimum 10 MW"
+)
+ax[1].axhline(
+    25, color="grey", linestyle=":",
+    linewidth=0.8, label="Maximum 25 MW"
+)
+
+ax[1].set_xlabel("Hour of day", fontsize=FS_LABEL, labelpad=2)
+ax[1].set_ylabel("MT power (MW)", fontsize=FS_LABEL, labelpad=2)
+ax[1].tick_params(axis="both", labelsize=FS_TICK, pad=1.5, length=2)
+
+ax[1].legend(
+    frameon=False, ncol=2,
+    fontsize=FS_LEGEND,
+    loc="upper center",
+    bbox_to_anchor=(0.5, -0.22),
+    handlelength=1.2,
+    handletextpad=0.35,
+    columnspacing=0.7,
+    labelspacing=0.2,
+    borderaxespad=0.1
+)
+
+ax[1].set_title(
+    "(b) Real-time microturbine dispatch",
+    fontsize=FS_TITLE, pad=3
+)
+
+# Shared x-axis and compact layout
+ax[1].set_xlim(0, 24)
+ax[1].set_xticks(range(0, 25, 6))
+
+fig.subplots_adjust(
+    left=0.19,
+    right=0.82,
+    top=0.96,
+    bottom=0.15,
+    hspace=0.30
+)
+
+save(fig, "fig_real_bess_mt")
+
 
 # ---------------------------------------------------------------- 5. Stage 2 recourse
 fig, ax = plt.subplots(2, 2, figsize=(11, 6.8), sharex=True)
