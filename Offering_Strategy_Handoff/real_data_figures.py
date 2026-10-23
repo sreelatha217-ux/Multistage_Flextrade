@@ -207,16 +207,17 @@ fig.tight_layout(); save(fig, "fig_real_reserve")
 
 # ---------------------------------------------------------------- 4. BESS and MT
 
+
 # ----------------------------------------------------------------
-# 4. BESS and MT — compact Elsevier single-column figure
+# 4. BESS and MT — wider Elsevier single-column figure
 # ----------------------------------------------------------------
 fig, ax = plt.subplots(
     2, 1,
-    figsize=(3.4, 5.2),
+    figsize=(3.5, 5.3),
     sharex=True,
     gridspec_kw={
-        "height_ratios": [1.35, 1.0],
-        "hspace": 0.30
+        "height_ratios": [1.4, 1.0],
+        "hspace": 0.10
     }
 )
 
@@ -240,45 +241,52 @@ ax[0].bar(
 ax[0].set_ylabel("BESS power (MW)", fontsize=FS_LABEL, labelpad=2)
 ax[0].tick_params(axis="both", labelsize=FS_TICK, pad=1.5, length=2)
 
+# Secondary axis for SoC
 a3 = ax[0].twinx()
-a3.spines["right"].set_visible(True)
 
 for (s, w_), g in hr.groupby(["scenario", "rt"]):
     a3.plot(
         g.hour, g.soc_path_mwh,
-        color=SC[s], linewidth=0.6, alpha=0.4
+        color=SC[s], linewidth=0.6, alpha=0.35,
+        zorder=1
     )
 
 a3.plot(
     pos.hour, pos.exp_soc_mwh,
-    color="#5B2C83", linewidth=1.6,
-    label="Expected SoC"
+    color="#5B2C83", linewidth=1.8,
+    label="Expected SoC", zorder=4
 )
+
 a3.axhline(20, color="grey", linestyle="--", linewidth=0.65)
 a3.axhline(180, color="grey", linestyle="--", linewidth=0.65)
 a3.set_ylabel("SoC (MWh)", fontsize=FS_LABEL, labelpad=2)
 a3.tick_params(axis="y", labelsize=FS_TICK, pad=1.5, length=2)
 
+# Combined legend placed below the two-line heading
 h1, l1 = ax[0].get_legend_handles_labels()
 h2, l2 = a3.get_legend_handles_labels()
 
 ax[0].legend(
     h1 + h2, l1 + l2,
-    frameon=False, ncol=2,
+    frameon=False,
+    ncol=2,
     fontsize=FS_LEGEND,
     loc="upper left",
+    bbox_to_anchor=(0.0, 0.99),
     handlelength=1.2,
     handletextpad=0.35,
-    columnspacing=0.7,
-    labelspacing=0.25,
-    borderaxespad=0.25
+    columnspacing=0.65,
+    labelspacing=0.2,
+    borderaxespad=0.15
 )
 
 ax[0].set_title(
-    f"(a) BESS dispatch and SoC "
+    f"(a) BESS dispatch and SoC\n"
     f"(9 joint paths; bounds 20–180 MWh; "
     f"throughput cost {K['exp_cost_bess_eur']:,.0f} EUR)",
-    fontsize=FS_TITLE, pad=3
+    fontsize=FS_TITLE,
+    pad=4,
+    linespacing=1.15
 )
 
 # (b) Real-time microturbine dispatch
@@ -289,11 +297,13 @@ ax[1].fill_between(
     color="#4F9D69", alpha=0.25,
     label="Scenario envelope"
 )
+
 ax[1].plot(
     pos.hour, pos.exp_p_mt_mw,
     color="#2E7D4F", linewidth=1.5,
     label="Expected output"
 )
+
 ax[1].axhline(
     10, color="#7B2D8E", linestyle="--",
     linewidth=0.8, label="Minimum 10 MW"
@@ -308,81 +318,200 @@ ax[1].set_ylabel("MT power (MW)", fontsize=FS_LABEL, labelpad=2)
 ax[1].tick_params(axis="both", labelsize=FS_TICK, pad=1.5, length=2)
 
 ax[1].legend(
-    frameon=False, ncol=2,
+    frameon=False,
+    ncol=2,
     fontsize=FS_LEGEND,
     loc="upper center",
     bbox_to_anchor=(0.5, -0.22),
     handlelength=1.2,
     handletextpad=0.35,
-    columnspacing=0.7,
+    columnspacing=0.65,
     labelspacing=0.2,
     borderaxespad=0.1
 )
 
 ax[1].set_title(
     "(b) Real-time microturbine dispatch",
-    fontsize=FS_TITLE, pad=3
+    fontsize=FS_TITLE,
+    pad=3
 )
 
-# Shared x-axis and compact layout
+# Shared x-axis
 ax[1].set_xlim(0, 24)
 ax[1].set_xticks(range(0, 25, 6))
 
+# Recover horizontal plotting space
 fig.subplots_adjust(
-    left=0.19,
-    right=0.82,
+    left=0.17,
+    right=0.85,
     top=0.96,
     bottom=0.15,
-    hspace=0.30
+    hspace=0.10
 )
 
 save(fig, "fig_real_bess_mt")
 
 
+
+# ----------------------------------------------------------------
+# Font sizes
+FS_TITLE = 8
+FS_LABEL = 7
+FS_TICK = 6
+FS_LEGEND = 5.5
+
 # ---------------------------------------------------------------- 5. Stage 2 recourse
 fig, ax = plt.subplots(2, 2, figsize=(11, 6.8), sharex=True)
+
 s2 = hr[hr.rt == 0]
+
 for s in range(3):
-    g = s2[s2.scenario == s].sort_values("hour"); lab = f"day type {s} (p={prob_s[s]:.2f})"
-    ax[0, 0].step(g.hour, g.p_id_buy_mw - g.p_id_sell_mw, where="mid", color=SC[s], label=lab)
+    g = s2[s2.scenario == s].sort_values("hour")
+    lab = f"day type {s} (p={prob_s[s]:.2f})"
+
+    ax[0, 0].step(
+        g.hour, g.p_id_buy_mw - g.p_id_sell_mw,
+        where="mid", color=SC[s], label=lab
+    )
     ax[0, 1].plot(g.hour, g.p_mt_mw, color=SC[s])
-    ax[1, 0].plot(g.hour, g.p_bess_dis_mw - g.p_bess_ch_mw, color=SC[s])
-    ax[1, 1].step(g.hour, g.r_total_mw, where="mid", color=SC[s])
-for a_, t_, y_ in zip(ax.ravel(), ["(a) Net Intraday import (+) / export (-)", "(b) Microturbine dispatch", "(c) BESS net discharge (+) / charge (-)",
-                                    "(d) Total up-reserve offer (identical in all day types: Stage-1 commitment)"],
-                      ["MW", "MW", "MW", "MW"]):
-    a_.set_title(t_); a_.set_ylabel(y_); a_.axhline(0, color="k", lw=.4)
+    ax[1, 0].plot(
+        g.hour, g.p_bess_dis_mw - g.p_bess_ch_mw,
+        color=SC[s]
+    )
+    ax[1, 1].step(
+        g.hour, g.r_total_mw, where="mid", color=SC[s]
+    )
+
+titles_s2 = [
+    "(a) Net intraday import (+) / export (-)",
+    "(b) Microturbine dispatch",
+    "(c) BESS net discharge (+) / charge (-)",
+    "(d) Total up-reserve offer\n(identical across day types: Stage-1 commitment)"
+]
+
+for a_, t_ in zip(ax.ravel(), titles_s2):
+    a_.set_title(t_, fontsize=FS_TITLE, pad=4, linespacing=1.1)
+    a_.set_ylabel("MW", fontsize=FS_LABEL)
+    a_.axhline(0, color="k", lw=0.4)
+    a_.tick_params(axis="both", labelsize=FS_TICK)
+
 for a_ in ax[1]:
-    a_.set_xlabel("Hour of day")
-ax[0, 0].legend(frameon=False, fontsize=7.5)
-fig.tight_layout(); save(fig, "fig_real_stage2")
+    a_.set_xlabel("Hour of day", fontsize=FS_LABEL)
+
+ax[0, 0].legend(frameon=False, fontsize=FS_LEGEND)
+
+fig.tight_layout()
+save(fig, "fig_real_stage2")
+
 
 # ---------------------------------------------------------------- 6. Stage 3 + profit distribution
 fig, ax = plt.subplots(2, 2, figsize=(11, 7.2))
+
 paths = [(s, w_) for s in range(3) for w_ in range(3)]
+
 for (s, w_), g in hr.groupby(["scenario", "rt"]):
     g = g.sort_values("hour")
     ls = ["-", "--", ":"][w_]
-    ax[0, 0].plot(g.hour, g.imb_deficit_mw - g.imb_surplus_mw, color=SC[s], ls=ls, lw=1)
-    ax[0, 1].plot(g.hour, g.rho * g.r_total_mw, color=SC[s], ls=ls, lw=1)
-ax[0, 0].axhline(0, color="k", lw=.4); ax[0, 0].set_title("(a) Real-time imbalance, deficit (+) / surplus (-)"); ax[0, 0].set_ylabel("MW"); ax[0, 0].set_xlabel("Hour of day")
-ax[0, 1].set_title("(b) Activated up-reserve (rho x offer)"); ax[0, 1].set_ylabel("MW"); ax[0, 1].set_xlabel("Hour of day")
+
+    ax[0, 0].plot(
+        g.hour, g.imb_deficit_mw - g.imb_surplus_mw,
+        color=SC[s], ls=ls, lw=1
+    )
+    ax[0, 1].plot(
+        g.hour, g.rho * g.r_total_mw,
+        color=SC[s], ls=ls, lw=1
+    )
+
+ax[0, 0].axhline(0, color="k", lw=0.4)
+ax[0, 0].set_title(
+    "(a) Real-time imbalance,\ndeficit (+) / surplus (-)",
+    fontsize=FS_TITLE, pad=4, linespacing=1.1
+)
+ax[0, 0].set_ylabel("MW", fontsize=FS_LABEL)
+ax[0, 0].set_xlabel("Hour of day", fontsize=FS_LABEL)
+
+ax[0, 1].set_title(
+    "(b) Activated up-reserve (rho × offer)",
+    fontsize=FS_TITLE, pad=4
+)
+ax[0, 1].set_ylabel("MW", fontsize=FS_LABEL)
+ax[0, 1].set_xlabel("Hour of day", fontsize=FS_LABEL)
+
 from matplotlib.lines import Line2D
-ax[0, 0].legend([Line2D([0], [0], color=c_) for c_ in SC] + [Line2D([0], [0], color="k", ls=l_) for l_ in ["-", "--", ":"]],
-                [f"day type {s}" for s in range(3)] + [f"RT branch {w_}" for w_ in range(3)], frameon=False, fontsize=7, ncol=2)
+
+ax[0, 0].legend(
+    [Line2D([0], [0], color=c_) for c_ in SC]
+    + [Line2D([0], [0], color="k", ls=l_) for l_ in ["-", "--", ":"]],
+    [f"day type {s}" for s in range(3)]
+    + [f"RT branch {w_}" for w_ in range(3)],
+    frameon=False,
+    fontsize=FS_LEGEND,
+    ncol=2
+)
+
 lab = [f"s{int(r.scenario)}-w{int(r.rt)}" for _, r in jt.iterrows()]
-ax[1, 0].bar(range(len(jt)), jt.profit_eur / 1e3, color=[SC[int(s)] for s in jt.scenario], width=.7)
-ep, cv = K["exp_profit_eur"] / 1e3, K["cvar_profit_eur"] / 1e3
-ax[1, 0].axhline(ep, color="#4F9D69", lw=1.6, label=f"Expected {ep:,.1f} k"); ax[1, 0].axhline(cv, color="#C0504D", lw=1.6, ls="--", label=f"CVaR95 {cv:,.1f} k")
-ax[1, 0].set_xticks(range(len(jt))); ax[1, 0].set_xticklabels(lab, rotation=45, fontsize=7); ax[1, 0].set_ylabel("Profit (kEUR; negative = cost)")
-ax[1, 0].legend(frameon=False, fontsize=7.5, loc="lower left"); ax[1, 0].set_title("(c) Profit on the 9 joint paths")
+
+ax[1, 0].bar(
+    range(len(jt)), jt.profit_eur / 1e3,
+    color=[SC[int(s)] for s in jt.scenario], width=0.7
+)
+
+ep = K["exp_profit_eur"] / 1e3
+cv = K["cvar_profit_eur"] / 1e3
+
+ax[1, 0].axhline(
+    ep, color="#4F9D69", lw=1.6,
+    label=f"Expected {ep:,.1f} k"
+)
+ax[1, 0].axhline(
+    cv, color="#C0504D", lw=1.6, ls="--",
+    label=f"CVaR95 {cv:,.1f} k"
+)
+
+ax[1, 0].set_xticks(range(len(jt)))
+ax[1, 0].set_xticklabels(lab, rotation=45, fontsize=FS_TICK)
+ax[1, 0].set_ylabel("Profit (kEUR; negative = cost)", fontsize=FS_LABEL)
+ax[1, 0].tick_params(axis="y", labelsize=FS_TICK)
+ax[1, 0].legend(
+    frameon=False, fontsize=FS_LEGEND, loc="lower left"
+)
+ax[1, 0].set_title(
+    "(c) Profit on the 9 joint paths",
+    fontsize=FS_TITLE, pad=4
+)
+
 cols = ["rev_da_eur", "rev_id_eur", "rev_sr_eur", "rev_act_eur"]
 sc = pd.read_csv(os.path.join(T, "scenarios.csv"))
-ax[1, 1].bar(sc.scenario, sc.prob, color=SC, width=.5)
+
+ax[1, 1].bar(sc.scenario, sc.prob, color=SC, width=0.5)
+
 for i, r in sc.iterrows():
-    ax[1, 1].text(i, r.prob + .01, f"p={r.prob:.2f}\nmean DA {hr[hr.scenario == i].price_da_buy_eur_mwh.mean():.0f} EUR/MWh\nmFRR {hr[hr.scenario == i].price_sr_up_eur_mw_h.mean():.1f}",
-                  ha="center", fontsize=7.5)
-ax[1, 1].set_ylim(0, sc.prob.max() * 1.55); ax[1, 1].set_xticks(sc.scenario); ax[1, 1].set_xticklabels([f"day type {i}" for i in sc.scenario])
-ax[1, 1].set_ylabel("Probability"); ax[1, 1].set_title("(d) Day types from the 90 previous real days")
-fig.tight_layout(); save(fig, "fig_real_stage3")
+    ax[1, 1].text(
+        i, r.prob + 0.01,
+        f"p={r.prob:.2f}\n"
+        f"mean DA {hr[hr.scenario == i].price_da_buy_eur_mwh.mean():.0f} EUR/MWh\n"
+        f"mFRR {hr[hr.scenario == i].price_sr_up_eur_mw_h.mean():.1f}",
+        ha="center", fontsize=FS_TICK
+    )
+
+ax[1, 1].set_ylim(0, sc.prob.max() * 1.55)
+ax[1, 1].set_xticks(sc.scenario)
+ax[1, 1].set_xticklabels(
+    [f"day type {i}" for i in sc.scenario],
+    fontsize=FS_TICK
+)
+ax[1, 1].set_ylabel("Probability", fontsize=FS_LABEL)
+ax[1, 1].set_title(
+    "(d) Day types from the 90 previous real days",
+    fontsize=FS_TITLE, pad=4
+)
+
+# Apply consistent tick-label sizes to all Stage 3 axes
+for a_ in ax.ravel():
+    a_.tick_params(axis="both", labelsize=FS_TICK)
+
+fig.tight_layout()
+save(fig, "fig_real_stage3")
+
+
 print("done")
