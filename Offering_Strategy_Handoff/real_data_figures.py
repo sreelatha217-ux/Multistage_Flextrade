@@ -221,7 +221,7 @@ fig, ax = plt.subplots(
     }
 )
 
-FS_TITLE = 7
+FS_TITLE = 6
 FS_LABEL = 7
 FS_TICK = 6
 FS_LEGEND = 5.5
@@ -355,7 +355,7 @@ save(fig, "fig_real_bess_mt")
 
 # ----------------------------------------------------------------
 # Font sizes
-FS_TITLE = 8
+FS_TITLE = 7
 FS_LABEL = 7
 FS_TICK = 6
 FS_LEGEND = 5.5
