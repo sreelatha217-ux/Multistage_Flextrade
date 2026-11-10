@@ -78,7 +78,7 @@ ax[1, 1].legend(frameon=False, fontsize=7.5)
 ax[1, 1].set_title(f"(d) Realized {oos.saving_da_only_eur.mean():,.0f} EUR vs expected {oos.ins_saving_da_only_eur.mean():,.0f} EUR (mean)")
 fig.tight_layout(); save(fig, "fig_real_dashboard")
 
-# ---------------------------------------------------------------- 2. Stage-1: Gantt, MT, DA curves
+# ---------------------------------------------------------------- 2. Stage-1: Gantt, GT, DA curves
 # ---------------------------------------------------------------- 2. Stage-1: single-column figure
 # Designed for direct insertion into a two-column paper.
 fig = plt.figure(figsize=(3.4, 5.8))
@@ -121,10 +121,10 @@ ax.set_title(
     fontsize=6, pad=5
 )
 
-# (b) Microturbine commitment
+# (b) Gas turbine commitment
 ax = fig.add_subplot(gs[1])
 ax.step(H, pos.mt_on, where="post",
-        color="#7B2D8E", label="MT online")
+        color="#7B2D8E", label="GT online")
 ax.plot(H, pos.exp_p_mt_mw / 25,
         color="#4F9D69", label="Expected output / 25 MW")
 
@@ -134,7 +134,7 @@ ax.set_xticks(range(0, 25, 6))
 ax.tick_params(axis="both", labelsize=6, pad=2)
 ax.set_xlabel("Hour of day", fontsize=6)
 ax.set_title(
-    f"(b) Microturbine commitment "
+    f"(b) Gas turbine (GT) commitment "
     f"({K['mt_on_hours']:.0f} h online, "
     f"{K['mt_starts']:.0f} start-up)",
     fontsize=6, pad=5
@@ -184,7 +184,7 @@ save(fig, "fig_real_stage1")
 # ---------------------------------------------------------------- 3. Reserve stack
 fig, ax = plt.subplots(1, 2, figsize=(11, 3.9), gridspec_kw=dict(width_ratios=[1.7, 1]))
 parts = [("exp_r_bess_dis_mw", "BESS discharge headroom", "#7B2D8E"), ("exp_r_bess_ch_mw", "BESS charge curtailment", "#2AB0C5"),
-         ("exp_r_dr_mw", "Demand response", "#F58518"), ("exp_r_mt_mw", "MT ramp headroom", "#4F9D69")]
+         ("exp_r_dr_mw", "Demand response", "#F58518"), ("exp_r_mt_mw", "GT ramp headroom", "#4F9D69")]
 b = np.zeros(24)
 for col, lab, cc in parts:
     ax[0].bar(H, pos[col], bottom=b, color=cc, label=lab, width=.8); b += pos[col].values
@@ -205,11 +205,11 @@ for i, v in enumerate(tot[::-1]):
 ax[1].set_xlabel("Mean over 24 h (MW)"); ax[1].set_xlim(0, max(tot) * 1.3); ax[1].set_title("(b) Asset contribution")
 fig.tight_layout(); save(fig, "fig_real_reserve")
 
-# ---------------------------------------------------------------- 4. BESS and MT
+# ---------------------------------------------------------------- 4. BESS and GT
 
 
 # ----------------------------------------------------------------
-# 4. BESS and MT — wider Elsevier single-column figure
+# 4. BESS and GT — wider Elsevier single-column figure
 # ----------------------------------------------------------------
 fig, ax = plt.subplots(
     2, 1,
@@ -289,7 +289,7 @@ ax[0].set_title(
     linespacing=1.15
 )
 
-# (b) Real-time microturbine dispatch
+# (b) Real-time gas turbine dispatch
 env = hr.groupby("hour").p_mt_rt_mw.agg(["min", "max"])
 
 ax[1].fill_between(
@@ -314,7 +314,7 @@ ax[1].axhline(
 )
 
 ax[1].set_xlabel("Hour of day", fontsize=FS_LABEL, labelpad=2)
-ax[1].set_ylabel("MT power (MW)", fontsize=FS_LABEL, labelpad=2)
+ax[1].set_ylabel("GT power (MW)", fontsize=FS_LABEL, labelpad=2)
 ax[1].tick_params(axis="both", labelsize=FS_TICK, pad=1.5, length=2)
 
 ax[1].legend(
@@ -331,7 +331,7 @@ ax[1].legend(
 )
 
 ax[1].set_title(
-    "(b) Real-time microturbine dispatch",
+    "(b) Real-time gas turbine (GT) dispatch",
     fontsize=FS_TITLE,
     pad=3
 )
@@ -384,7 +384,7 @@ for s in range(3):
 
 titles_s2 = [
     "(a) Net intraday import (+) / export (-)",
-    "(b) Microturbine dispatch",
+    "(b) Gas turbine (GT) dispatch",
     "(c) BESS net discharge (+) / charge (-)",
     "(d) Total up-reserve offer\n(identical across day types: Stage-1 commitment)"
 ]
