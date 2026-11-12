@@ -497,7 +497,7 @@ for i, r in sc.iterrows():
 ax[1, 1].set_ylim(0, sc.prob.max() * 1.55)
 ax[1, 1].set_xticks(sc.scenario)
 ax[1, 1].set_xticklabels(
-    [f"day type {i}" for i in sc.scenario],
+    [f"mFRR {hr[hr.scenario == i].price_sr_up_eur_mw_h.mean():.1f}" for i in sc.scenario],
     fontsize=FS_TICK
 )
 ax[1, 1].set_ylabel("Probability", fontsize=FS_LABEL)
