@@ -192,8 +192,8 @@ ax[0].set_xlabel("Hour of day"); ax[0].set_ylabel("Reserve offer (MW)")
 a2 = ax[0].twinx(); a2.spines["right"].set_visible(True)
 for s in range(3):
     p = oc[oc.scenario == s].sort_values("hour")
-    a2.plot(p.hour, p.price_sr_up_eur_mw_h, color=SC[s], lw=1.2, label=f"mFRR price, day type {s}")
-a2.set_ylabel("mFRR up-capacity price (EUR/MW/h)")
+    a2.plot(p.hour, p.price_sr_up_eur_mw_h, color=SC[s], lw=1.2, label=f"Reserve price, day type {s}")
+a2.set_ylabel("Reserve up-capacity price (EUR/MW/h)")
 h1, l1 = ax[0].get_legend_handles_labels(); h2, l2 = a2.get_legend_handles_labels()
 ax[0].legend(h1 + h2, l1 + l2, frameon=False, fontsize=7, ncol=2, loc="upper left")
 ax[0].set_ylim(0, b.max() * 1.55)
@@ -322,7 +322,7 @@ ax[1].legend(
     ncol=2,
     fontsize=FS_LEGEND,
     loc="upper center",
-    bbox_to_anchor=(0.5, -0.22),
+    bbox_to_anchor=(0.5, -0.32),
     handlelength=1.2,
     handletextpad=0.35,
     columnspacing=0.65,
@@ -345,7 +345,7 @@ fig.subplots_adjust(
     left=0.17,
     right=0.85,
     top=0.96,
-    bottom=0.15,
+    bottom=0.21,
     hspace=0.10
 )
 
@@ -473,11 +473,12 @@ ax[1, 0].set_xticklabels(lab, rotation=45, fontsize=FS_TICK)
 ax[1, 0].set_ylabel("Profit (kEUR; negative = cost)", fontsize=FS_LABEL)
 ax[1, 0].tick_params(axis="y", labelsize=FS_TICK)
 ax[1, 0].legend(
-    frameon=False, fontsize=FS_LEGEND, loc="lower left"
+    frameon=False, fontsize=FS_LEGEND, loc="lower right",
+    bbox_to_anchor=(1, 1.02), ncol=2, borderaxespad=0
 )
 ax[1, 0].set_title(
     "(c) Profit on the 9 joint paths",
-    fontsize=FS_TITLE, pad=4
+    fontsize=FS_TITLE, pad=4, loc="left"
 )
 
 cols = ["rev_da_eur", "rev_id_eur", "rev_sr_eur", "rev_act_eur"]
@@ -490,14 +491,14 @@ for i, r in sc.iterrows():
         i, r.prob + 0.01,
         f"p={r.prob:.2f}\n"
         f"mean DA {hr[hr.scenario == i].price_da_buy_eur_mwh.mean():.0f} EUR/MWh\n"
-        f"mFRR {hr[hr.scenario == i].price_sr_up_eur_mw_h.mean():.1f}",
+        f"reserve {hr[hr.scenario == i].price_sr_up_eur_mw_h.mean():.1f}",
         ha="center", fontsize=FS_TICK
     )
 
 ax[1, 1].set_ylim(0, sc.prob.max() * 1.55)
 ax[1, 1].set_xticks(sc.scenario)
 ax[1, 1].set_xticklabels(
-    [f"mFRR {hr[hr.scenario == i].price_sr_up_eur_mw_h.mean():.1f}" for i in sc.scenario],
+    [f"reserve {hr[hr.scenario == i].price_sr_up_eur_mw_h.mean():.1f}" for i in sc.scenario],
     fontsize=FS_TICK
 )
 ax[1, 1].set_ylabel("Probability", fontsize=FS_LABEL)
