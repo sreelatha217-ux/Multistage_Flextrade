@@ -156,7 +156,7 @@ season_lines(axA); colour_ticks(axA, [SEASON[m.month] for m in months])
 # (b) mFRR
 axB = fig.add_subplot(gs[0, 1])
 heat(axB, hm_mf.values, "viridis", LogNorm(vmin=max(1, np.nanmin(hm_mf.values)), vmax=np.nanmax(hm_mf.values)),
-     lab, "(b) mFRR up-capacity price, mean by month and hour (log scale)", "EUR/MW/h", "{:.0f}")
+     lab, "(b) Spinning reserve up-capacity price, mean by month and hour (log scale)", "EUR/MW/h", "{:.0f}")
 season_lines(axB); colour_ticks(axB, [SEASON[m.month] for m in months])
 # (c) reserve offer
 axC = fig.add_subplot(gs[1, 0])
@@ -185,8 +185,8 @@ axD.set_ylabel("Expected saving vs Day-Ahead only (kEUR)")
 axD.set_ylim(0, (lad.total_saving.max() / 1e3) * 1.28)
 axD.grid(axis="y", color="#e5e5e5", zorder=0); axD.spines[["top", "right"]].set_visible(False)
 ax2 = axD.twinx()
-ax2.plot(x, lad.mean_sr_price, "-o", color="#2F2F2F", lw=1.6, ms=4.5, label="90-day mean mFRR price", zorder=4)
-ax2.set_ylabel("Tree mean mFRR price (EUR/MW/h)"); ax2.spines[["top"]].set_visible(False)
+ax2.plot(x, lad.mean_sr_price, "-o", color="#2F2F2F", lw=1.6, ms=4.5, label="90-day mean reserve price", zorder=4)
+ax2.set_ylabel("Tree mean reserve price (EUR/MW/h)"); ax2.spines[["top"]].set_visible(False)
 ax2.set_ylim(0, lad.mean_sr_price.max() * 1.18)
 ytop = axD.get_ylim()[1]; y2 = ax2.get_ylim()[1]
 for i, r in lad.iterrows():
